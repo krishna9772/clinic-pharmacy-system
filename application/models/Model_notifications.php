@@ -1,0 +1,53 @@
+<?php
+
+class Notification extends MY_Model{
+
+	public function __construct()
+	{
+		parent::__construct();
+	}
+	
+	public function getExpiryProduct()
+	{
+
+		$date = date('Y-m-d');    
+		$inc_date = date('Y-m-d', strtotime("+1 month", strtotime($date))); 
+		$sql = "SELECT  * FROM product WHERE DATE(expire_date) <= '$inc_date' and status = '1' and is_deleted ='0' ORDER BY expire_date ASC ";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+
+	}
+	public function getOfsProduct()
+	{
+
+		$quantity = "10";
+		$sql = "SELECT * FROM product where remain_quantity <= '$quantity' and status = '1' and is_deleted ='0' ORDER BY remain_quantity DESC";
+		$query = $this->db->query($sql);
+
+		return $query->result_array();
+
+	}
+
+	public function getTotalExpNoti()
+	{
+
+		$date = date('Y-m-d');    
+		$inc_date = date('Y-m-d', strtotime("+1 month", strtotime($date))); 
+
+		$sql = "SELECT  * FROM product WHERE DATE(expire_date) <= '$inc_date' and status = '1' and is_deleted ='0' ORDER BY expire_date ASC ";
+		$query = $this->db->query($sql);
+		$ex_quantity = $query->num_rows();
+		return $ex_quantity;
+
+	}
+	public function getTotalOfsNoti(){
+		$quantity = "10";
+		$sql1 = "SELECT * FROM product where remain_quantity <= '$quantity' and status = '1' and is_deleted ='0' ORDER BY remain_quantity DESC";
+		$query1 = $this->db->query($sql1); 
+
+		$ofs_quantity = $query1->num_rows();
+		
+		return $ofs_quantity;
+
+	}
+}
