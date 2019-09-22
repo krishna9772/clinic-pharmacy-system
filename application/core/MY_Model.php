@@ -148,7 +148,7 @@ class MY_Model extends CI_Model {
     foreach ($query->result() as $row) {
       $model = new $class;
       $model->populate($row);
-      $ret_val[$row->{$this::DB_TABLE_PK}] = $model;
+      $ret_val[$row->{$this::DB_TABLE_PK}] = $model;  
     }
     return $ret_val;
   }

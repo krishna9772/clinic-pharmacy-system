@@ -3,7 +3,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class Complaints extends Admin_Controller
+class Historys extends Admin_Controller
 {
 
 	public function __construct()
@@ -15,7 +15,7 @@ class Complaints extends Admin_Controller
 
 		$this->data['page_title'] = 'Patients';
 
-		$this->load->model('model_complaints');
+		$this->load->model('model_historys');
 		$this->load->model('model_notifications');
 		$this->data['expiryproduct'] = $this->model_notifications->getExpiryProduct();
 		$this->data['ofsproduct'] = $this->model_notifications->getOfsProduct();
@@ -31,25 +31,25 @@ class Complaints extends Admin_Controller
 		 {
 
 	     $this->form_validation->set_rules('patient_id', 'Patient Id', 'trim|required');
-		$this->form_validation->set_rules('complaint', 'Complaint', 'trim|required');
+		$this->form_validation->set_rules('history', 'Complaint', 'trim|required');
 
 		 if($this->form_validation->run() == TRUE ){	
 
-		 $this->model_complaints->patient_id = $this->input->post('patient_id');
-		 $this->model_complaints->complaint  = $this->input->post('complaint');
-		 $this->model_complaints->save();
-		 $this->model_complaints->load($this->model_complaints->id);
-	     $this->data['complaint'] = $this->model_complaints;
-		 $this->load->view('patients/complaint',$this->data);
+		 $this->model_historys->patient_id = $this->input->post('patient_id');
+		 $this->model_historys->history  = $this->input->post('history');
+		 $this->model_historys->save();
+		 $this->model_historys->load($this->model_historys->id);
+		 $this->data['history'] = $this->model_historys;
+		 $this->load->view('patients/history',$this->data);
 		 }else{
 
-		 	echo "<script>alert('Complaint cannot be empty')</script>";
+		 	echo "<script>alert('Field cannot be empty')</script>";
 		 }
 
 	}
 }
 
-    public function delete($id)
+public function delete($id)
     {
 
     	if(!in_array('createPatient', $this->permission)){
@@ -58,19 +58,19 @@ class Complaints extends Admin_Controller
 		}
 
 		$this->form_validation->set_rules(array(
-        array( 'field' => 'complaint_id', 'label' => 'ID', 'rules' => 'required|trim|is_numeric|has_no_schar', ),
+        array( 'field' => 'history_id', 'label' => 'ID', 'rules' => 'required|trim|is_numeric|has_no_schar', ),
         array( 'field' => 'patient_id', 'label' => 'Patient ID', 'rules' => 'required|trim|is_numeric|has_no_schar', ),
         
       ));
 
 
-		if($this->input->post('complaint_id') == $id){
+		if($this->input->post('history_id') == $id){
 
-			$this->model_complaints->load($this->input->post('complaint_id'));
+			$this->model_historys->load($this->input->post('history_id'));
 
-			if($this->model_complaints->patient_id == $this->input->post('patient_id')){
+			if($this->model_historys->patient_id == $this->input->post('patient_id')){
 
-				$this->model_complaints->deleteComplaint($id);
+				$this->model_historys->deleteHistory($id);
 				unset($_POST);
                 echo 'ok';
 			}else{
@@ -82,6 +82,5 @@ class Complaints extends Admin_Controller
 		}
 
     }
-    
 
 }

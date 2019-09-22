@@ -137,6 +137,26 @@ public function getProductData($id=0){
 		$this->db->update('ra_pharmacy',$data);
 
 	}
+
+	public function searchmed($name)
+	{
+
+		$this->db->select('*');
+		$this->db->from('ra_pharmacy');
+		$this->db->like('medicine_name',$name);
+		$this->db->where('status','1');
+		$this->db->where('remain_quantity >	','0');
+		$query = $this->db->get();
+		return $query->result();
+
+	}
+
+	public function countTotalMedicines()
+	{
+		$sql = "SELECT * FROM ra_pharmacy";
+		$query = $this->db->query($sql);
+		return $query->num_rows();
+	}
 	
 }
 

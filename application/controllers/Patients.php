@@ -5,7 +5,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Patients extends Admin_Controller
 {
 
-
 	public function __construct()
 	{
 
@@ -16,7 +15,21 @@ class Patients extends Admin_Controller
 		$this->data['page_title'] = 'Patients';
 
 		$this->load->model('model_patients');
-		$this->load->model('model_complaints');					
+		$this->load->model('model_complaints');
+		$this->load->model('model_historys');
+		$this->load->model('model_investigations');
+		$this->load->model('model_medpatients');
+		$this->load->model('model_examinations');
+		$this->load->model('model_pharmacy');
+		$this->load->model('model_diagnosis');
+		$this->load->model('model_diagpatients');
+		$this->load->model('model_notifications');
+		$this->data['patient_count'] = $this->model_patients->count();
+		$this->data['expiryproduct'] = $this->model_notifications->getExpiryProduct();
+		$this->data['ofsproduct'] = $this->model_notifications->getOfsProduct();
+		$this->data['totalexpnoti'] = $this->model_notifications->getTotalExpNoti();
+		$this->data['totalofspnoti'] = $this->model_notifications->getTotalOfsNoti();
+					
 		
 	}
 
@@ -38,6 +51,8 @@ class Patients extends Admin_Controller
         
 		$data = $this->model_patients->getPatientData();
 
+		$i=1;
+
 		foreach ($data as $key=>$value){
 
 		    $buttons = '';
@@ -47,25 +62,30 @@ class Patients extends Admin_Controller
             }
 
 			if(in_array('deletePatient', $this->permission)) {
-				$buttons .= ' <button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
+				$buttons .= ' <button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button> ';
 			}
 
 			if(in_array('createPatient', $this->permission)) {
 
-				$buttons .='<a href="'.base_url('patients/panel/'.$value['id']).'" class="btn btn-default"><i class="fa fa-file"></i></a>';
+				$buttons .='<a href="'.base_url('patients/panel/'.$value['id']).'" class="btn btn-default"><span class="badge">'.$this->model_patients->visiting_count($value['id']).'</span></a>';
 			}
 
+			
+
 			$gender = ($value['gender'] == 1) ? '<span class="label label-success">Male</span>' : '<span class="label label-warning">Female</span>';
+			$year = ($value['year'] != 0) ? $value['year']." yr      ":'';
+			$month = ($value['month'] != 0) ? $value['month']." mon   ":'';
+			$day  = ($value['day'] != 0) ? $value['day']." d     ":'';
 
 			$result['data'][$key] = array(
-				$value['id'],
+				$i,
 				$value['name'],
-				$value['age'],
+				$year.$month.$day,
 				$gender,
 				$value['address'],
 				$buttons
 			);
-
+          $i++;
 		}
 
 		echo json_encode($result);
@@ -83,7 +103,6 @@ class Patients extends Admin_Controller
 
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
 		$this->form_validation->set_rules('gender', 'Gender', 'trim|required');
-		$this->form_validation->set_rules('age', 'Age', 'trim|required');
 		$this->form_validation->set_rules('address', 'Address', 'trim|required');
 
 		if ($this->form_validation->run() == TRUE) {
@@ -91,7 +110,9 @@ class Patients extends Admin_Controller
              $data = array(
                
                'name' => $this->input->post('name'),
-               'age'  => $this->input->post('age'),
+               'year'  => $this->input->post('year'),
+               'month' => $this->input->post('month'),
+               'day'   => $this->input->post('day'),
                'gender' => $this->input->post('gender'),
                'address' => $this->input->post('address'),
               
@@ -132,8 +153,14 @@ class Patients extends Admin_Controller
 			redirect('dashboard','refresh');
 		}
 
-        $this->data['complaint']    = $this->model_complaints->get_by_fkey('patient_id',$patient_id,'desc',0);
-        $this->data['patient_data'] = $this->model_patients->getPatientData($patient_id);
+        $this->data['complaint']    = $this->model_complaints->getComplaintData($patient_id);
+        $this->data['examination']  = $this->model_examinations->getExaminationData($patient_id);
+        $this->data['history']      = $this->model_historys->getHistoryData($patient_id);
+   $this->data['investigation']  = $this->model_investigations->getInvestigationData($patient_id);
+   $this->data['diagnosis_data'] = $this->model_diagnosis->get();
+      $this->data['diagnosis_patient'] = $this->model_diagpatients->getDiagnosisData($patient_id);
+      $this->data['patient_data'] = $this->model_patients->getPatientData($patient_id);
+      $this->data['med_patient']        = $this->model_medpatients->get_by_fkey('patient_id',$patient_id,'asc',0);
 
         $this->render_template('patients/panel',$this->data);
 
@@ -154,7 +181,6 @@ class Patients extends Admin_Controller
 
 		$this->form_validation->set_rules('name', 'Name', 'trim|required');
 		$this->form_validation->set_rules('gender', 'Gender', 'trim|required');
-		$this->form_validation->set_rules('age', 'Age', 'trim|required');
 		$this->form_validation->set_rules('address', 'Address', 'trim|required');
 
 
@@ -162,8 +188,10 @@ class Patients extends Admin_Controller
             $data = array(
               
               'name' => $this->input->post('name'),
-              'age'  => $this->input->post('age'),
-              'gender' => $this->input->post('gender'),
+               'year'  => $this->input->post('year'),
+               'month' => $this->input->post('month'),
+               'day'   => $this->input->post('day'),   
+               'gender' => $this->input->post('gender'),
               'address' => $this->input->post('address'),
              
             );

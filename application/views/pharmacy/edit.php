@@ -38,15 +38,28 @@
           </div>
         </div>
         <div class="form-group">
-          <div class="col-md-6">
+          <div class="col-md-2">
           <label>Quantity</label>
-            <input type="number" name='quantity' id='quantity' value="<?php echo set_value('quantity' , $product->quantity);?>" class='form-control'  title='quantity' required/>
+            <input type="number" name='quantity' id='quantity' value="<?php echo set_value('quantity' , $product->quantity);?>" class='form-control'  title='quantity' readonly/>
+          </div>
+          <div class="col-md-2">
+          <label>   </label>
+          <input type="number" id="addedqty" class="form-control">
+          
+        </div>
+          <div class="col-md-2">
+            <label>   </label><br>
+            <span class="label label-success" id="load"><i class="fa fa-plus"></i></span>  
+              <span class="label label-warning" id="unload"><i class="fa fa-minus"></i></span>
+ 
+
           </div>
           <div class="col-md-6">
           <label>Type</label>
            <?php echo form_dropdown('sell_type',$unit,set_value('sell_type',$product->sell_type)," class='form-control' title='Unit' required");?>				
           </div>
         </div>
+
 
         <div class="form-group">
 			<div class="col-md-6">
@@ -60,12 +73,12 @@
 		</div>
         <div class="form-group">
           <div class="col-md-6">
-            <label>Registered  Date</label>
-            <input type="input" name='register_date' id='register_date' value="<?php echo set_value('register_date',$product->register_date);?>" class='form-control'  autocomplete="off" title='Registered Date' readonly/>
+            <label>Registered Date</label>
+            <input type="date" name='register_date' id='register_date' value="<?php echo set_value('register_date',$product->register_date);?>" class='form-control'  autocomplete="off" title='Registered Date' />
           </div>
           <div class="col-md-6">
           <label>Expire Date</label>
-            <input type="input" name='expire_date' id='expire_date' value="<?php echo set_value('expire_date',$product->expire_date);?>" class='form-control'  title='Expire Date' autocomplete="off" required/> 
+            <input type="date" name='expire_date' id='expire_date' value="<?php echo set_value('expire_date',$product->expire_date);?>" class='form-control'  title='Expire Date' autocomplete="off" required/> 
           </div>
         </div>
       </div>
@@ -141,19 +154,37 @@
 <script type="text/javascript">
 
   $(document).ready(function(){
+
+    $("#load").click(function(){
+       
+       var quantity = parseInt($("#quantity").val());
+       var addedqty = parseInt($("#addedqty").val());
+       var usedqty  = parseInt($("#used_quantity").val());
+       var loadedqty = quantity+addedqty;
+       $("#quantity").val(loadedqty);
+       $("#remain_quantity").val(loadedqty-usedqty);
+
+
+    });
+
+    $("#unload").click(function(){
+
+      var quantity = parseInt($("#quantity").val());
+      var addedqty = parseInt($("#addedqty").val());
+      var usedqty  = parseInt($("#used_quantity").val());
+       var loadedqty = quantity-addedqty;
+       $("#quantity").val(loadedqty);
+       $("#remain_quantity").val(loadedqty-usedqty);
+
+
+
+
+    })
     
-    $("#register_date").datepicker();
-    $("#expire_date").datepicker();
     $("#mainGroupNav").addClass('active');
     $("#addGroupNav").addClass('active');
 
-     $("#quantity").on('keyup',function(){
-        var quantity = $("#quantity").val();
-        $("#remain_quantity").val(quantity);
-
-      });
-
-
+     
     $(document).on('keyup','#actual_price,#selling_price',function(){
         var act_price = $("#actual_price").val();
         var sell_price = $("#selling_price").val();

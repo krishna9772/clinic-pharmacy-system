@@ -48,8 +48,8 @@
                   <td><?php echo ($user_data['gender'] == 1) ? 'Male' : 'Gender'; ?></td>
                 </tr>
                 <tr>
-                  <th>Phone</th>
-                  <td><?php echo $user_data['phone']; ?></td>
+                  <th>Consultant Fees</th>
+                  <td><?php echo $user_data['c_fees']; ?></td>
                 </tr>
                 <tr>
                   <th>Group</th>

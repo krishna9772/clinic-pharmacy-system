@@ -1,6 +1,6 @@
 <?php
 
-class Notification extends MY_Model{
+class Model_notifications extends MY_Model{
 
 	public function __construct()
 	{
@@ -11,8 +11,8 @@ class Notification extends MY_Model{
 	{
 
 		$date = date('Y-m-d');    
-		$inc_date = date('Y-m-d', strtotime("+1 month", strtotime($date))); 
-		$sql = "SELECT  * FROM product WHERE DATE(expire_date) <= '$inc_date' and status = '1' and is_deleted ='0' ORDER BY expire_date ASC ";
+		$inc_date = date('Y-m-d', strtotime("+2 month", strtotime($date))); 
+		$sql = "SELECT  * FROM ra_pharmacy WHERE DATE(expire_date) <= '$inc_date' and status = '1' and is_deleted ='0' ORDER BY expire_date ASC ";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 
@@ -21,7 +21,7 @@ class Notification extends MY_Model{
 	{
 
 		$quantity = "10";
-		$sql = "SELECT * FROM product where remain_quantity <= '$quantity' and status = '1' and is_deleted ='0' ORDER BY remain_quantity DESC";
+		$sql = "SELECT * FROM ra_pharmacy where remain_quantity <= '$quantity' and status = '1' and is_deleted ='0' ORDER BY remain_quantity DESC";
 		$query = $this->db->query($sql);
 
 		return $query->result_array();
@@ -32,9 +32,9 @@ class Notification extends MY_Model{
 	{
 
 		$date = date('Y-m-d');    
-		$inc_date = date('Y-m-d', strtotime("+1 month", strtotime($date))); 
+		$inc_date = date('Y-m-d', strtotime("+3 month", strtotime($date))); 
 
-		$sql = "SELECT  * FROM product WHERE DATE(expire_date) <= '$inc_date' and status = '1' and is_deleted ='0' ORDER BY expire_date ASC ";
+		$sql = "SELECT  * FROM ra_pharmacy WHERE DATE(expire_date) <= '$inc_date' and status = '1' and is_deleted ='0' ORDER BY expire_date ASC ";
 		$query = $this->db->query($sql);
 		$ex_quantity = $query->num_rows();
 		return $ex_quantity;
@@ -42,7 +42,7 @@ class Notification extends MY_Model{
 	}
 	public function getTotalOfsNoti(){
 		$quantity = "10";
-		$sql1 = "SELECT * FROM product where remain_quantity <= '$quantity' and status = '1' and is_deleted ='0' ORDER BY remain_quantity DESC";
+		$sql1 = "SELECT * FROM ra_pharmacy where remain_quantity <= '$quantity' and status = '1' and is_deleted ='0' ORDER BY remain_quantity DESC";
 		$query1 = $this->db->query($sql1); 
 
 		$ofs_quantity = $query1->num_rows();

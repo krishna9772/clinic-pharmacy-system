@@ -62,6 +62,16 @@ class Model_patients extends CI_Model
 		}
 	}
 
+	public function whoVisited()
+	{
+     
+        $date = mdate('%Y-%m-%d');
+		$sql = "SELECT name , patient_id, ra_complaint.is_deleted as deleted , ra_complaint.created_date as date_time FROM ra_complaint JOIN ra_patient on ra_complaint.patient_id =ra_patient.id where ra_complaint.created_date LIKE '%$date%' and ra_complaint.is_deleted = '0' ";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+
+	}
+
 	public function delete($id)
 	{
 
@@ -74,4 +84,21 @@ class Model_patients extends CI_Model
 		 	return($update == true) ? true : false;
 		 }
 	}
+
+	public function count()
+	{
+
+		$sql = "SELECT * FROM ra_patient where is_deleted = '0'";
+		$query = $this->db->query($sql);
+		return $query->num_rows();
+	}
+
+	public function countTodayPatients()
+	{   
+		$date = mdate('%Y-%m-%d');
+		$sql = "SELECT * FROM ra_complaint where created_date LIKE  '%$date%' and is_deleted = '0' ";
+		$query = $this->db->query($sql);
+		return $query->num_rows();
+	}
+	
 }

@@ -9,8 +9,13 @@ class Users extends Admin_Controller
 		$this->not_logged_in();
 		
 		$this->data['page_title'] = 'Users';
-		
-
+		$this->load->model('model_notifications');
+		$this->load->model('model_patients');
+		$this->data['patient_count'] = $this->model_patients->count();
+		$this->data['expiryproduct'] = $this->model_notifications->getExpiryProduct();
+		$this->data['ofsproduct'] = $this->model_notifications->getOfsProduct();
+		$this->data['totalexpnoti'] = $this->model_notifications->getTotalExpNoti();
+		$this->data['totalofspnoti'] = $this->model_notifications->getTotalOfsNoti();
 		$this->load->model('model_users');
 		$this->load->model('model_groups');
 	}
@@ -253,7 +258,7 @@ class Users extends Admin_Controller
 		        		'email' => $this->input->post('email'),
 		        		'firstname' => $this->input->post('fname'),
 		        		'lastname' => $this->input->post('lname'),
-		        		'phone' => $this->input->post('phone'),
+		        		'c_fees' => $this->input->post('c_fees'),
 		        		'gender' => $this->input->post('gender'),
 		        	);
 
@@ -281,7 +286,7 @@ class Users extends Admin_Controller
 			        		'email' => $this->input->post('email'),
 			        		'firstname' => $this->input->post('fname'),
 			        		'lastname' => $this->input->post('lname'),
-			        		'phone' => $this->input->post('phone'),
+			        		'c_fees' => $this->input->post('c_fees'),
 			        		'gender' => $this->input->post('gender'),
 			        	);
 

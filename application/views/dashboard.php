@@ -17,21 +17,21 @@
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
-      <?php if($is_admin == true): ?>
+      <?php if($is_admin == false):  ?>
 
         <div class="row">
           <div class="col-lg-3 col-xs-6">
             <!-- small box -->
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3><?php echo $total_products ?></h3>
+                <h3><?php echo $total_medicines;?></h3>
 
-                <p>Total Products</p>
+                <p>Total Medicines</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="<?php echo base_url('products/') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="<?php echo base_url('pharmacy/') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -39,46 +39,55 @@
             <!-- small box -->
             <div class="small-box bg-green">
               <div class="inner">
-                <h3><?php echo $total_paid_orders ?></h3>
+                <h3><?php echo $total_todaypatients?></h3>
 
-                <p>Total Paid Orders</p>
+                <p>Total Visits Today</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="<?php echo base_url('orders/') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="#" data-toggle = "modal" data-target="#showModal" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
+            <?php if(in_array('viewPatient', $user_permission)): ?>
+<!-- remove brand modal -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="showModal">
+          <div class="modal-dialog" role="document">
+           <div class="modal-content">
+            <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Patient List</h4>
+           </div>
+
+          <form role="form" action="" method="post" id="viewForm">
+           <div class="modal-body">
+            <p><?php 
+
+             foreach($patient as $pat){
+
+              echo  $pat['name']."  visited at  ".$pat['date_time']."<hr>";
+
+             }
+
+
+               ?>
+              
+            </p>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+       </form>
+
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<?php endif; ?>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-yellow">
-              <div class="inner">
-                <h3><?php echo $total_users; ?></h3>
-
-                <p>Total Users</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-android-people"></i>
-              </div>
-              <a href="<?php echo base_url('users/') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
+        
           <!-- ./col -->
-          <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-red">
-              <div class="inner">
-                <h3><?php echo $total_stores ?></h3>
-
-                <p>Total Stores</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-android-home"></i>
-              </div>
-              <a href="<?php echo base_url('stores/') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
+         
           <!-- ./col -->
         </div>
         <!-- /.row -->

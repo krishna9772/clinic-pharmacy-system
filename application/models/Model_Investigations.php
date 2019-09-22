@@ -1,9 +1,9 @@
 <?php
 
-class Model_complaints extends MY_Model 
+class Model_investigations extends MY_Model 
 {
 
-	const DB_TABLE = 'ra_complaint';
+	const DB_TABLE = 'ra_investigation';
 	const DB_TABLE_PK = 'id';
 
     /**
@@ -16,14 +16,13 @@ class Model_complaints extends MY_Model
      * 
      * Complaint
      */
-    public $complaint;
-    
+    public $investigation;
 
-    public function getComplaintData($patient_id)
+     public function getInvestigationData($patient_id)
     {
 
           $this->db->select('*');
-          $this->db->from('ra_complaint');
+          $this->db->from('ra_investigation');
           $this->db->where('patient_id', $patient_id);
           $this->db->where('is_deleted', '0');
           $this->db->order_by('id','desc');
@@ -31,8 +30,8 @@ class Model_complaints extends MY_Model
           return $query->result();
 
     }
- 
-    public function deleteComplaint($id)
+
+    public function deleteInvestigation($id)
     {
 
         $data = array(
@@ -40,7 +39,7 @@ class Model_complaints extends MY_Model
          'deleted_date' => date('Y-m-d H:i:s'));
 
         $this->db->where('id',$id);
-        $update = $this->db->update('ra_complaint',$data);
+        $update = $this->db->update('ra_investigation',$data);
         return($update == true) ? true : false;
 
 

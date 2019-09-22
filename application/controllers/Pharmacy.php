@@ -15,9 +15,16 @@ class Pharmacy extends Admin_Controller
 
 	    $this->not_logged_in();
 
-
 		$this->data['page_title'] = 'Pharmacy';
 	    $this->load->model('model_pharmacy');
+	    $this->load->model('model_medpatients');
+	    $this->load->model('model_notifications');
+	    $this->load->model('model_patients');
+	   	$this->data['patient_count'] = $this->model_patients->count();
+		$this->data['expiryproduct'] = $this->model_notifications->getExpiryProduct();
+		$this->data['ofsproduct'] = $this->model_notifications->getOfsProduct();
+		$this->data['totalexpnoti'] = $this->model_notifications->getTotalExpNoti();
+		$this->data['totalofspnoti'] = $this->model_notifications->getTotalOfsNoti();
 
 
 	}
@@ -56,6 +63,15 @@ class Pharmacy extends Admin_Controller
 				$buttons .='<a href="'.base_url('pharmacy/check/'.$value['id']).'" class="btn btn-default" title="Check Availability"><i class="fa fa-file"></i></a>';
 			}
 
+			$qty_status = '';
+
+          if($value['remain_quantity'] <=10 && $value['remain_quantity'] !=0 ) {
+
+          $qty_status = '<span class="label label-warning">Low !</span>';
+              }else if($value['remain_quantity'] <= 0) {
+          $qty_status = '<span class="label label-danger">Out of stock !</span>';
+           }
+
 			$status = ($value['status'] == 1) ? '<span class="label label-success">Active</span>' : '<span class="label label-warning">Inactive</span>';
 
 		     $buttons .="&nbsp;&nbsp;&nbsp;".$status;
@@ -64,7 +80,7 @@ class Pharmacy extends Admin_Controller
 			$result['data'][$key] = array(
 
 				$value['medicine_name'],
-				$value['remain_quantity'],
+				$value['remain_quantity']."    ".$qty_status,
 				$value['expire_date'],
 				$value['selling_price'],
 				$buttons
@@ -220,6 +236,124 @@ class Pharmacy extends Admin_Controller
         echo json_encode($response);
 
 	}
+
+	public function search()
+	{
+
+		if(!in_array('createPharmacy', $this->permission)){
+
+			redirect('dashboard','refresh');
+          
+		}
+
+		if($this->input->post())
+     {
+        $q=$this->input->post('q');
+        $drugs=$this->model_pharmacy->searchmed($q);
+        $this->data['drugs']=$drugs;
+        $this->load->view('pharmacy/result',$this->data);
+        return TRUE;
+     }
+
+		$this->load->view('pharmacy/search',$this->data);
+	}
+
+	public function assign()
+	{
+
+		if(!in_array('createPatient', $this->permission)){
+
+			redirect('dashboard','refresh');
+		}
+
+	     $this->form_validation->set_rules(array(
+        array( 'field' => 'patient_id', 'label' => 'Patient ID', 'rules' => 'required|is_numeric', ),
+        array( 'field' => 'med_id', 'label' => 'Medicine ID', 'rules' => 'required|is_numeric', ),
+        array( 'field' => 'quantity', 'label' => 'Number of Item', 'rules' => 'required|is_numeric', ),
+        array( 'field' => 'total_cost', 'label' => 'Total Cost', 'rules' => 'required|is_numeric', ),
+      ));
+
+		if($this->form_validation->run() == TRUE) {
+
+			unset($_POST['submit']);
+			foreach ($this->input->post() as $key => $value) {
+
+				$this->model_medpatients->$key = $value;
+				$this->model_medpatients->patient_id = $this->input->post('patient_id');
+				$this->model_medpatients->med_id  = $this->input->post('med_id');
+				$this->model_medpatients->quantity = $this->input->post('quantity');
+				$this->model_medpatients->total_cost = $this->input->post('total_cost');
+				$this->model_medpatients->assign_date = now();
+				$save = $this->model_medpatients->save();
+				$this->model_pharmacy->load($this->model_medpatients->med_id);
+				$this->model_pharmacy->remain_quantity = $this->model_pharmacy->remain_quantity - $this->input->post('quantity');
+				$this->model_pharmacy->used_quantity = $this->model_pharmacy->used_quantity + $this->input->post('quantity');
+				$this->model_pharmacy->save();
+				$this->model_pharmacy->load($this->model_medpatients->med_id); 
+
+			echo '<tr id="dpi'.$this->model_medpatients->med_patient_id.'"><td class="id"></td>'.
+            '<td>'.$this->model_pharmacy->medicine_name.'</td>'.
+            '<td>'.$this->model_pharmacy->expire_date.'</td>'.
+            '<td>'.$this->model_pharmacy->selling_price.'</td>'.
+            '<td>'.$this->model_medpatients->quantity.'</td>'.
+            '<td>'.$this->model_medpatients->total_cost.'</td>'.
+            '<td>'.date('d/m/Y',$this->model_medpatients->assign_date).'</td>'.
+            '<td class="actions">'.anchor('#', 'Delete ',array('dpi'=>$this->model_medpatients->med_patient_id,'di'=>$this->model_medpatients->med_id,'qu'=>$this->model_medpatients->quantity,'pi'=>$this->model_medpatients->patient_id,'tc'=>$this->model_medpatients->total_cost,'action'=>'delete'));
+            echo'</td></tr>';
+          return;
+
+			}
+		 
+		 }else{
+
+		 echo "Yes sorry";
+		}
+
+		
+	}
+	public function deletedpi($med_patient_id)
+	{
+
+		if(!in_array('createPatient', $this->permission)){
+
+			redirect('dashboard','refresh');
+		}
+
+			$this->form_validation->set_rules(array(
+        array( 'field' => 'drug_patient_id', 'label' => 'ID', 'rules' => 'required|trim|is_numeric|has_no_schar', ),
+        array( 'field' => 'drug_id', 'label' => 'Drug ID', 'rules' => 'required|trim|is_numeric|has_no_schar', ),
+        array( 'field' => 'patient_id', 'label' => 'Patient ID', 'rules' => 'required|trim|is_numeric|has_no_schar', ),
+      ));
+
+	     if($this->input->post('drug_patient_id')  == $med_patient_id)
+      {
+
+      	  $this->model_medpatients->load($this->input->post('drug_patient_id'));
+      	  if($this->model_medpatients->med_id == $this->input->post('drug_id') &&
+           $this->model_medpatients->patient_id==$this->input->post('patient_id'))
+        {
+          $this->model_medpatients->delete();
+          $this->model_pharmacy->load($this->input->post('drug_id'));
+		  $this->model_pharmacy->remain_quantity = $this->model_pharmacy->remain_quantity + $this->input->post('quantity');
+		  $this->model_pharmacy->used_quantity = $this->model_pharmacy->used_quantity - $this->input->post('quantity');
+		  $this->model_pharmacy->save();
+
+          unset($_POST);
+          echo 'ok';
+        }else{
+          echo 'mismatch';
+          echo $this->model_medpatients->med_id.",";
+      	echo $this->model_medpatients->patient_id."<br>";
+      	echo $this->input->post('drug_id').",";
+      	echo $this->input->post('patient_id');
+          //$data['error']='<div class="alert alert-danger">Payment Data Mismatch<div>';
+        }
+      }else{
+
+      	echo "still error";  
+
+      }
+	}
 	
 	public function check()
 	{
@@ -238,6 +372,7 @@ class Pharmacy extends Admin_Controller
 					  'Tab'=>'Tab',
 					  'Box'=>'Box',
 					  'Tube'=>'Tube',
+					  'Inj'=>'Inj',
 					  'Unit'=>'Unit',
 					  'Sachet'=>'Sachet',);
 	}

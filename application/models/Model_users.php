@@ -57,7 +57,7 @@ class Model_users extends CI_Model
 	public function edit($data = array(), $id = null, $group_id = null)
 	{
 		$this->db->where('id', $id);
-		$update = $this->db->update('users', $data);
+		$update = $this->db->update('ra_user', $data);
 
 		if($group_id) {
 			// user group
@@ -73,7 +73,7 @@ class Model_users extends CI_Model
 	public function delete($id)
 	{
 		$this->db->where('id', $id);
-		$delete = $this->db->delete('users');
+		$delete = $this->db->delete('ra_user');
 		return ($delete == true) ? true : false;
 	}
 

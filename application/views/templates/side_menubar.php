@@ -60,7 +60,7 @@
        <?php if(in_array('createPatient', $user_permission) || in_array('updatePatient', $user_permission) || in_array('viewPatient', $user_permission) || in_array('deletePatient', $user_permission)): ?>
             <li id="storeNav">
               <a href="<?php echo base_url('patients/') ?>">
-                <i class="fa fa-wheelchair-alt"></i> <span>Patient</span>
+                <i class="fa fa-wheelchair-alt"></i> <span>Patient&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-success"><?php echo $patient_count;?></span></span>
               </a>
             </li>
           <?php endif; ?>

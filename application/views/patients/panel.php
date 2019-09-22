@@ -1,10 +1,19 @@
-<div class="content-wrapper">
+<style type="text/css">
+  
+  span a{
+
+    color:#fff;
+  }
+
+</style>
+ <div class="content-wrapper">
 	<!-- (Content Heder) -->
 	<section class="content-header">
 	<h1>
       Manage
       <small>Patients</small>
     </h1>
+    <a href="<?php echo base_url();?>patients/" class="btn btn-warning"><i class="fa fa-arrow-left"></i></a>
 
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -21,7 +30,7 @@
      <div class="panel-group" id="pInfo">
         <div class="panel panel-default">
           <div class="panel-heading">
-              <h5>Patient Infomation</h5>
+              <h2>Patient Infomation</h2>
           </div>
            <div id="pInfoBody" class="panel-collapse collapse in">
       <div class="panel-body">
@@ -32,9 +41,16 @@
           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $patient_data['name'];?></td>
          
         </tr>
+        <?php
+
+      $year = ($patient_data['year'] != 0) ? $patient_data['year']." yr      ":'';
+      $month = ($patient_data['month'] != 0) ? $patient_data['month']." mon   ":'';
+      $day  = ($patient_data['day'] != 0) ? $patient_data['day']." d     ":'';
+
+        ?>
         <tr>
           <th>Age</th>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $patient_data['age'];?></td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $year.$month.$day?></td>
          
         </tr>
       </table>
@@ -46,7 +62,7 @@
         <tr>
           <th>Gender</th>
           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo ($patient_data['gender'] ==1)?'Male':'Female';?></td>
-         
+          
         </tr>
         <tr>
           <th>Address</th>
@@ -56,25 +72,42 @@
       </table>
           
         </div>
-      </div>
-         </div>
-        </div>
+      </div>  
+    </div>
+  </div>  
       </div>
   <ul class="nav nav-tabs" id="panelTab">
-    <li class="active"><a href="#comments" data-toggle="tab">Complaints</a></li>
-    <li><a href="#drugs" data-toggle="tab">RX</a></li>
-    <li><a href="#xrays" data-toggle="tab">X-Rays</a></li>
-    <li><a href="#labs" data-toggle="tab">Laboratory Tests</a></li>
+      <li><a href="#complaint" data-toggle="tab">Complaint</a></li>
+     <li><a href="#exam" data-toggle="tab">Examination</a></li>
+    <li><a href="#history" data-toggle="tab">History</a></li>
+    <li><a href="#diagnosis" data-toggle="tab">Diagnosis</a></li>
+    <li><a href="#investigation" data-toggle="tab">Investigation</a></li>
+    <li><a href="#rx" data-toggle="tab">RX</a></li>
   </ul>
 
-     <div class="tab-content">
-     	
-     	<?php
+  <section class='content'>
 
-     	include_once __DIR__ . '/panel/complaint.php';
+     <div class="tab-content">
+
+
+
+     	<?php
+      
+      include_once __DIR__ . '/panel/investigation.php';
+      include_once __DIR__ . '/panel/diagnosis.php';
+      include_once __DIR__ . '/panel/history.php';
+      include_once __DIR__ . '/panel/complaint.php';
+      include_once __DIR__ . '/panel/rx.php';   
+      include_once __DIR__ . '/panel/exam.php';
 
      	?>
      </div>
-    </div>
+  </section>
+     <script>
+    $(function () {
+      $('#panelTab a:first').tab('show')
+    })
+  </script>
+   </div>
   </section>
 </div>

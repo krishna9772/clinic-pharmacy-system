@@ -52,11 +52,11 @@
         <div class="form-group">
           <div class="col-md-6">
             <label>Registered  Date</label>
-            <input type="input" name='register_date' id='register_date' value="<?php echo date("m/d/Y"); ?>" class='form-control'  autocomplete="off" title='Registered Date' required/>
+            <input type="date" name='register_date' id='register_date' value="<?php echo date('Y-m-d'); ?>" class='form-control'  autocomplete="off" title='Registered Date' required/>
           </div>
           <div class="col-md-6">
           <label>Expire Date</label>
-            <input type="input" name='expire_date' id='expire_date' value="<?php echo $this->input->post('expire_date');?>" class='form-control'  title='Expire Date' autocomplete="off" required/> 
+            <input type="date" name='expire_date' min="<?php echo date('Y-m-d'); ?>" id='expire_date' value="<?php echo $this->input->post('expire_date');?>" class='form-control'  title='Expire Date' autocomplete="off" required/> 
           </div>
         </div>
       </div>
@@ -116,9 +116,15 @@
 <script type="text/javascript">
 
   $(document).ready(function(){
+
+
+    $.dobPicker({
+          daySelector: '#dobday', /* Required */
+          monthSelector: '#dobmonth', /* Required */
+          yearSelector: '#dobyear', /* Required */
+
+    });
     
-    $("#register_date").datepicker();
-    $("#expire_date").datepicker();
     $("#mainGroupNav").addClass('active');
     $("#addGroupNav").addClass('active');
 
@@ -151,4 +157,42 @@
           $(this).text('-'+text);
 
   });
+
+  var doCap = false;
+
+$('#medicine_name').keydown(function(e) {
+    var input = $(this);
+    var val = input.val();
+    
+    if(doCap){
+        var lastVal = val.substr(val.length - 1);
+        
+        if(lastVal !== " "){
+            input.val(val.substring(0, val.length - 1) + lastVal.toUpperCase());
+            doCap = false;
+        }
+    }
+});
+
+$('#medicine_name').keypress(function(e){
+    var input = $(this);
+    var key = e.keyCode;
+    var val = input.val();
+    
+    // Capitalize first character ever typed.
+    if(val.length === 1){
+        input.val(val.substr(0, 1).toUpperCase() + val.slice(1));
+    }
+    
+    if(key === 32){
+        
+        // Prevent double spaces.
+        if(val.substr(val.length - 1, 1) === " "){
+            return false;
+        }
+        
+        doCap = true;
+    }
+});
+
 </script>

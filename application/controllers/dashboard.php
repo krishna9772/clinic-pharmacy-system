@@ -11,6 +11,14 @@ class Dashboard extends Admin_Controller
 		$this->data['page_title'] = 'Dashboard';
 		
 		$this->load->model('model_users');
+		$this->load->model('model_notifications');
+		$this->load->model('model_patients');
+		$this->load->model('model_pharmacy');
+		$this->data['patient_count'] = $this->model_patients->count();
+		$this->data['expiryproduct'] = $this->model_notifications->getExpiryProduct();
+		$this->data['ofsproduct'] = $this->model_notifications->getOfsProduct();
+		$this->data['totalexpnoti'] = $this->model_notifications->getTotalExpNoti();
+		$this->data['totalofspnoti'] = $this->model_notifications->getTotalOfsNoti();
 	}
 
 	/* 
@@ -21,6 +29,9 @@ class Dashboard extends Admin_Controller
 	public function index()
 	{
 		$this->data['total_users'] = $this->model_users->countTotalUsers();
+		$this->data['total_medicines'] = $this->model_pharmacy->countTotalMedicines();
+		$this->data['total_todaypatients'] = $this->model_patients->countTodayPatients();
+		$this->data['patient'] = $this->model_patients->whoVisited();
 
 		$user_id = $this->session->userdata('id');
 		$is_admin = ($user_id == 1) ? true :false;

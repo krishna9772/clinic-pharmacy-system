@@ -1,4 +1,36 @@
+<style type="text/css">
 
+  .autocomplete-items {
+  position: relative;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 6px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #e9e9e9; 
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: DodgerBlue !important; 
+  color: #ffffff; 
+}
+  
+</style>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -39,7 +71,16 @@
       <div class="panel-body">
         <div class='col col-xs-6'>
           <label>Name: </label><input type="text" name="name" class="form-control" id="name" value="<?php echo $patient_data['name'];?>"> <br/>
-          <label>Age: </label><input type="text" name="age" class="form-control" id="age" value="<?php echo $patient_data['age'];?>">  <br/>
+            <label>Age: </label><br>
+          <select id="dobyear"><option selected><?php echo $patient_data['year']?></option></select>
+          <select id="dobmonth"><option selected><?php echo $patient_data['month']?></option></select>
+          <select id="dobday"><option selected><?php echo $patient_data['day']?></option></select><br><br>
+       <span id="year"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <span id="month"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <span id="day"></span>
+       <input type="hidden" name="year" class="form-control" id="tx_year" value="<?php echo $patient_data['year']?>" autocomplete="off">
+       <input type="hidden" name="month" class="form-control" id="tx_month" value="<?php echo $patient_data['month']?>" autocomplete="off">
+       <input type="hidden" name="day" class="form-control" id="tx_day" value="<?php echo $patient_data['day']?>" autocomplete="off">
         </div>
         <div class="col col-xs-6">
           <label>Gender:</label><br>
@@ -55,7 +96,10 @@
                       } ?>>
                       Female
                     </label><br><br>
-          <label>Address:</label><textarea name="address" class="form-control" id="address"><?php echo $patient_data['address'];?></textarea><br>
+          <label>Address:</label>
+         <div class="autocomplete" style="width:300px;">
+          <input type="text" name="address" class='form-control input-lg' value="<?php echo $patient_data['address']?>" id="address" >
+        </div><br>
           <div class="pull-right">
           <a href="<?php echo base_url('patients/index')?>" class="btn btn-warning">Back</a>
           <input type="submit" value="save" id="save" class="btn btn-primary">
@@ -77,3 +121,113 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<script type="text/javascript" src="<?php echo base_url('assets/bower_components/jquery-ui/autocomplete.js')?>"></script>
+
+<script type="text/javascript">
+
+  $(document).ready(function(){
+
+    $("#year").text($("#tx_year").val()+" yr");
+    $("#month").text($("#tx_month").val()+" mon");
+    $("#day").text($("#tx_day").val()+" d");
+      
+    $.dobPicker({
+          daySelector: '#dobday', /* Required */
+          monthSelector: '#dobmonth', /* Required */
+          yearSelector: '#dobyear', /* Required */
+
+    });
+
+     $("#dobyear").change(function(){
+
+     $("#year").text($("#dobyear").val()+" yr");
+
+     $("#tx_year").val($("#dobyear").val());
+
+
+    });
+
+    $('#dobmonth').change(function(){
+
+     $("#month").text($("#dobmonth").val()+" mon");
+     $("#tx_month").val($("#dobmonth").val());
+
+    });
+
+    $('#dobday').change(function(){
+
+     $("#day").text($("#dobday").val()+" d");
+     $("#tx_day").val($("#dobday").val());
+
+    });
+
+
+  
+  
+var doCap = false;
+
+$('#name').keydown(function(e) {
+    var input = $(this);
+    var val = input.val();
+    
+    if(doCap){
+        var lastVal = val.substr(val.length - 1);
+        
+        if(lastVal !== " "){
+            input.val(val.substring(0, val.length - 1) + lastVal.toUpperCase());
+            doCap = false;
+        }
+    }
+});
+
+$('#name').keypress(function(e){
+    var input = $(this);
+    var key = e.keyCode;
+    var val = input.val();
+    
+    // Capitalize first character ever typed.
+    if(val.length === 1){
+        input.val(val.substr(0, 1).toUpperCase() + val.slice(1));
+    }
+    
+    if(key === 32){
+        
+        // Prevent double spaces.
+        if(val.substr(val.length - 1, 1) === " "){
+            return false;
+        }
+        
+        doCap = true;
+    }
+});
+
+var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    autocomplete(document.getElementById("address"), availableTags);
+
+});
+
+
+</script>

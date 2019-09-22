@@ -64,8 +64,8 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="phone">Phone</label>
-                  <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" value="<?php echo $user_data['phone'] ?>" autocomplete="off">
+                  <label for="phone">Consultant fees</label>
+                  <input type="text" class="form-control" id="phone" name="c_fees" placeholder="Phone" value="<?php echo $user_data['c_fees'] ?>" autocomplete="off">
                 </div>
 
                 <div class="form-group">
