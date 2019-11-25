@@ -121,11 +121,36 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<script type="text/javascript" src="<?php echo base_url('assets/bower_components/jquery-ui/autocomplete.js')?>"></script>
 
 <script type="text/javascript">
 
   $(document).ready(function(){
+
+     $("#address").typeahead({
+        source: function (address,result){
+          
+          $.ajax({
+
+          url: '<?php echo base_url();?>patients/searchAddress',
+          data: {add:address.add},
+          dataType: "json",
+
+          success : function(data){
+
+            var resp = $.map(data,function(obj){
+
+                return obj.address;
+            })
+
+            result(resp);
+
+            }
+
+           });
+        }, 
+
+        minLength: 1
+    });
 
     $("#year").text($("#tx_year").val()+" yr");
     $("#month").text($("#tx_month").val()+" mon");
@@ -200,32 +225,6 @@ $('#name').keypress(function(e){
         doCap = true;
     }
 });
-
-var availableTags = [
-      "ActionScript",
-      "AppleScript",
-      "Asp",
-      "BASIC",
-      "C",
-      "C++",
-      "Clojure",
-      "COBOL",
-      "ColdFusion",
-      "Erlang",
-      "Fortran",
-      "Groovy",
-      "Haskell",
-      "Java",
-      "JavaScript",
-      "Lisp",
-      "Perl",
-      "PHP",
-      "Python",
-      "Ruby",
-      "Scala",
-      "Scheme"
-    ];
-    autocomplete(document.getElementById("address"), availableTags);
 
 });
 

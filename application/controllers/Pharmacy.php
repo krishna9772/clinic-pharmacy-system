@@ -60,7 +60,7 @@ class Pharmacy extends Admin_Controller
 
 			if(in_array('createPharmacy', $this->permission)) {
 
-				$buttons .='<a href="'.base_url('pharmacy/check/'.$value['id']).'" class="btn btn-default" title="Check Availability"><i class="fa fa-file"></i></a>';
+				$buttons .=' <a href="'.base_url('pharmacy/check/'.$value['id']).'" class="btn btn-default" title="Check Availability"><i class="fa fa-file"></i></a>';
 			}
 
 			$qty_status = '';

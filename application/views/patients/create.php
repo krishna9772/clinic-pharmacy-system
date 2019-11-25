@@ -83,7 +83,7 @@
           <label class="radio-inline"><input type="radio" name='gender' value="1" title='Male' <?php echo isset($_POST['gender'])?($this->input->post('gender')?'checked':''):'';?> />Male</label>
               <label class="radio-inline"><input type="radio" name='gender' value="0" title='Female' <?php echo isset($_POST['gender'])?($this->input->post('gender')?'':'checked'):'';?> />Female</label><br><br>
           <label>Address:</label>
-          <div class="autocomplete" style="width:300px;">
+          <div class="" style="width:300px;">
           <input type="text" name="address" class='form-control input-lg' id="address" >
         </div><br>
         <div class="pull-right">
@@ -107,10 +107,35 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<script type="text/javascript" src="<?php echo base_url('assets/bower_components/jquery-ui/autocomplete.js')?>"></script>
 <script type="text/javascript">
 
   $(document).ready(function(){
+
+     $("#address").typeahead({
+        source: function (address,result){
+          
+          $.ajax({
+
+          url: '<?php echo base_url();?>patients/searchAddress',
+          data: {add:address.add},
+          dataType: "json",
+
+          success : function(data){
+
+            var resp = $.map(data,function(obj){
+
+                return obj.address;
+            })
+
+            result(resp);
+
+            }
+
+           });
+        }, 
+
+        minLength: 1
+    });
   
       $.dobPicker({
           daySelector: '#dobday', /* Required */
@@ -181,34 +206,7 @@ $('#name').keypress(function(e){
     }
 });
 
-    var availableTags = [
-      "Kandaw",
-      "Myoma",
-      "A shae ywar",
-      "Aung Thayar",
-      "Oung Gine",
-      "Shandaw",
-      "Shewgu",
-      "Zayy gyi",
-      "Zayy houng",
-      "Lae OO",
-      "Taphanbin",
-      "Minn Tadar",
-      "Sibin Thayar",
-      "Phoung Daw Oo",
-      "Aung Nann",
-      "Bo Gonn",
-      "Sait Tangoon",
-      "Pate Swe",
-      "Kist Kot",
-      "Taung Nikwae",
-      "Sa Khanthar",
-      "Shwe BonThar",
-      "Aung ChanThar",
-      "Konn Thar",
-    ];
-    autocomplete(document.getElementById("address"), availableTags);
-
+   
 });
 
 

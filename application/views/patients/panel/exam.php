@@ -5,6 +5,11 @@
 
 			font:17px solid ;
 		}
+    .bp_input{
+
+        width: 65px;
+        height: 35px;
+    }
 	</style>
 
 	<script>
@@ -53,10 +58,9 @@
 			echo form_hidden('patient_id',$patient_data['id']);
 	     ?>
 	     	<div class="col-xs-2">
-	     		<label>BP:</label>
-	     		<?php echo form_input('s_bp','','class="form-control" id="s_bp" placeholder="Systolic Bp"');?>
-              <center>/</center>
-	     		<?php echo form_input('d_bp','','class="form-control" id="d_bp" placeholder="Diastolic Bp"');?>
+	     		<label>BP:</label><br>
+	     		<?php echo form_input('s_bp','','class="bp_input" id="s_bp" placeholder="Sys.Bp"');?>/
+	     		<?php echo form_input('d_bp','','class="bp_input" id="d_bp" placeholder="Dia. Bp"');?><br><br>
 	     		 <label>BMI:</label>
 	     	   <?php echo form_input('bmi','','class="form-control" id="bmi" placeholder="BMI"')?><input type="button" name="" class="btn btn-small" id="calbmi" value="Calculate">
 	     	</div>
@@ -68,10 +72,14 @@
 	     	   <label>TEMP (&#8457;):</label>
 	     	   <?php echo form_input('temp','98','class="form-control" id="temp" placeholder="Temperature"')?><br>
 	        </div>
-	        <div class="col-xs-2">
-	     	   <label>SPO<sub>2</sub></label>
+	        <div class="col-xs-1">
+	     	   <label>SPO<sub>2</sub>:</label>
 	     	   <?php echo form_input('spo2','','class="form-control" id="spo2" placeholder=""')?>
 	        </div>	
+          <div class="col-xs-1">
+            <label>RBS:</label>
+            <?php echo form_input('rbs','','class="form-control" id="rbs" placeholder=""')?>
+          </div>
 	         <div class="col-xs-2">
 	     	   <label>WEIGHT (lbs):</label>
 	     	   <?php echo form_input('weight','','class="form-control" id="weight" placeholder="lbs"')?><br>
@@ -96,7 +104,8 @@
   foreach($examination as $exam) {
 
       $pr = ($exam->pr != 0) ? $exam->pr."  <sub><small>bpm</small></sub>" : '';
-      $spo2 = ($exam->spo2 != 0) ? $exam->spo2." <small>%<small>":'';
+      $spo2 = ($exam->spo2 != 0) ? $exam->spo2." <small>%</small>":'';
+         $rbs  = ($exam->rbs != 0) ? $exam->rbs." <small>mg/dl</small>":'';
       $weight = ($exam->weight != 0) ? $exam->weight." <sub><small>lbs</small></sub>    |  <span id='kg".$i."'></span>":'';
       $height = ($exam->height != '') ? $exam->height." <sub><small>ft</small></sub>     |  <span id='cm".$i."'></span>":'';
       $bmi = ($exam->bmi != 0) ? $exam->bmi : '';
@@ -110,6 +119,7 @@
       echo "<th>PR</th>";
       echo "<th>Temp</th>";
       echo "<th>SPO<sub>2</sub></th>";
+      echo "<th>RBS</th>";
       echo "<th>Body.Wt</th>";
       echo "<th>Body.Ht</th>";
       echo "<th>BMI</th>";
@@ -123,6 +133,8 @@
       echo "<td>".$pr."</td>";
       echo "<td>".$exam->temp." &#8457;";
       echo "<td>".$spo2."</td>";
+      echo "<td>".$rbs."</td>";
+      echo "<td>".$exam->rbs."</td>";
    echo "<td>".$weight."</td>";
     echo "<td>".$height."</td>";
       echo "<td>".$bmi."</td>";
@@ -167,9 +179,15 @@ $(document).ready(function() {
    }
 
 
-    $("#wconvert").click(function() {
+    $("#wconvert").click(function(e) {
         
    	 $("#weight").val(parseFloat($("#weight").val() / 0.45).toFixed(0));
+
+     e.preventDefault();
+
+     $("#wconvert").attr("disabled",true);
+
+     return true;
          
     });
 
@@ -180,12 +198,19 @@ $(document).ready(function() {
     //  $("#temp").val(parseFloat((temp-32) * 5/9).toFixed(0));
     // })
 
-    $("#hconvert").click(function(){
+    $("#hconvert").click(function(e){
+
       var n = $("#height").val();
       var realFeet = ((n*0.393700) / 12);
       var feet = Math.floor(realFeet);
       var inches = Math.round((realFeet - feet) * 12);
      $("#height").val(feet+'.'+inches);
+
+     e.preventDefault();
+
+     $("#hconvert").attr("disabled",true);
+
+     return true;
 
   });
 

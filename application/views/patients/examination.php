@@ -2,7 +2,8 @@
 //if(@$complaints){
   //foreach ($complaints as $complaint) {
       $pr = ($examination->pr != 0) ? $examination->pr."  <sub><small>bpm</small></sub>" : '';
-      $spo2 = ($examination->spo2 != 0) ? $examination->spo2." <small>%<small>":'';
+      $spo2 = ($examination->spo2 != 0) ? $examination->spo2." <small>%</small>":'';
+      $rbs  = ($examination->rbs != 0) ? $examination->rbs." <small>mg/dl</small>":'';
       $weight = ($examination->weight != 0) ? $examination->weight." <sub><small>lbs</small></sub>    |  <span id='kg'></span>":'';
       $height = ($examination->height != '') ? $examination->height." <sub><small>ft</small></sub>     |  <span id='cm'></span>":'';
       $bmi = ($examination->bmi != 0) ? $examination->bmi : '';
@@ -16,6 +17,7 @@
       echo "<th>PR</th>";
       echo "<th>Temp</th>";
       echo "<th>SPO<sub>2</sub></th>";
+      echo "<th>RBS</th>";
       echo "<th>Body.Wt</th>";
       echo "<th>Body.Ht</th>";
       echo "<th>BMI</th>";
@@ -29,6 +31,7 @@
       echo "<td>".$pr."</td>";
       echo "<td>".$examination->temp." &#8457;";
       echo "<td>".$spo2."</td>";
+      echo "<td>".$rbs."</td>";
    echo "<td>".$weight."</td>";
     echo "<td>".$height."</td>";
       echo "<td>".$bmi."</td>";

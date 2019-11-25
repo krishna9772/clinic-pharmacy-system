@@ -9,8 +9,11 @@
   </section>
 
   <section class="content">
-    
+  <div class="container">
+
     <div class="row">
+      <h5><?php echo anchor('pharmacy/index','<i class="fa fa-arrow-left"> Back</i>',array('id'=>'addDrug','class'=>'btn btn-warning'));
+  ?></h5>
 
   <div class="col col-md-8 well well-sm">
       <?php if($this->session->flashdata('success')): ?>
@@ -24,13 +27,12 @@
             <?php echo $this->session->flashdata('error'); ?>
           </div>
         <?php endif; ?>
-    <?php echo form_open('pharmacy/create',array("id"=>"addDrugForm", "role"=>"form",)); ?> 
-    <fieldset>
+    <?php echo form_open('pharmacy/create',array("id"=>"addDrugForm", "role"=>"form",)); ?>       
+     <fieldset>
       <legend>- Product Info </legend>
       <div>
         <?php echo ( !empty($error) ? $error : '' ); ?>
        
-
         <div class="form-group">
           <div class="col-md-12">
           <label>Medicine Name</label>
@@ -110,6 +112,7 @@
       <?php echo form_close()?>      
       </div>
   </div>
+ </div>
   </section>
 </div>
 

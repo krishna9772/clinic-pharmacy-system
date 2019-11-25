@@ -24,6 +24,7 @@ class Patients extends Admin_Controller
 		$this->load->model('model_diagnosis');
 		$this->load->model('model_diagpatients');
 		$this->load->model('model_notifications');
+		$this->load->model('model_users');
 		$this->data['patient_count'] = $this->model_patients->count();
 		$this->data['expiryproduct'] = $this->model_notifications->getExpiryProduct();
 		$this->data['ofsproduct'] = $this->model_notifications->getOfsProduct();
@@ -64,10 +65,10 @@ class Patients extends Admin_Controller
 			if(in_array('deletePatient', $this->permission)) {
 				$buttons .= ' <button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button> ';
 			}
-
+ 
 			if(in_array('createPatient', $this->permission)) {
 
-				$buttons .='<a href="'.base_url('patients/panel/'.$value['id']).'" class="btn btn-default"><span class="badge">'.$this->model_patients->visiting_count($value['id']).'</span></a>';
+				$buttons .='<a href="'.base_url('patients/panel/'.$value['id']).'" class="btn btn-default" onclick="initPage();"><span class="badge">'.$this->model_patients->visiting_count($value['id']).'</span></a>';
 			}
 
 			
@@ -160,7 +161,10 @@ class Patients extends Admin_Controller
    $this->data['diagnosis_data'] = $this->model_diagnosis->get();
       $this->data['diagnosis_patient'] = $this->model_diagpatients->getDiagnosisData($patient_id);
       $this->data['patient_data'] = $this->model_patients->getPatientData($patient_id);
-      $this->data['med_patient']        = $this->model_medpatients->get_by_fkey('patient_id',$patient_id,'asc',0);
+      $this->data['med_patient']        = $this->model_medpatients->get_by_fkey('patient_id',$patient_id,'desc',0);
+		$this->data['invoice']        = $this->model_medpatients->get_by_fkey('patient_id',$patient_id,'desc',0);
+		$user_id = $this->session->userdata('id');
+		$this->data['user_data'] = $this->model_users->getUserData($user_id);
 
         $this->render_template('patients/panel',$this->data);
 
@@ -243,5 +247,39 @@ class Patients extends Admin_Controller
 
         echo json_encode($response);
 	}
+
+	public function  getInvoices()
+	{
+
+		$patient_id = $this->input->post('id'); 
+		$this->panel($patient_id);
+		$result   = $this->model_medpatients->get_by_fkey('patient_id',$patient_id,'desc',0);
+		echo  json_encode($result);
+		
+	}
+
+	public function searchAddress(){
+ 
+        $address = $this->input->get('add');
+ 
+        $this->db->like('address', $address);
+ 
+        $data = $this->db->get("ra_patient")->result();
+ 
+        echo json_encode($data);
+    }
+
+
+    public function searchPatient(){
+
+         $name = $this->input->get('name');
+
+         $this->db->like('name',$name);
+
+         $data = $this->db->get("ra_patient")->result();
+
+         echo json_encode($data);
+         
+    }
 
 }

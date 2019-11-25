@@ -19,7 +19,7 @@ class Model_complaints extends MY_Model
     public $complaint;
     
 
-    public function getComplaintData($patient_id)
+    public function getComplaintData($patient_id='')
     {
 
           $this->db->select('*');
@@ -43,6 +43,21 @@ class Model_complaints extends MY_Model
         $update = $this->db->update('ra_complaint',$data);
         return($update == true) ? true : false;
 
+
+    }
+
+    public function getComplaintHint()
+    {
+
+     $query = $this->db->get('ra_complaint');
+    $array = array();
+
+    foreach($query->result() as $row)
+    {
+        $array[] = htmlspecialchars(strip_tags($row->complaint)); 
+    }
+
+    return $array;  
 
     }
 }

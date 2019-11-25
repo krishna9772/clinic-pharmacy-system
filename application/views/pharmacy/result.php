@@ -17,7 +17,8 @@ if($drugs)
       '<td>'.html_escape($_drug->id).'</td>'.
       '<td>'.html_escape($_drug->medicine_name).'</td>'.
       '<td>'.html_escape($_drug->expire_date).'</td>'.
-      '<td id="remain_quantity">'.html_escape($_drug->remain_quantity).'</td>'.
+      '<td>'.html_escape($_drug->remain_quantity).'</td>'.
+      '<input type="hidden" id="remain_quantity" value="'.html_escape($_drug->remain_quantity).'">'.
       '<td>'.html_escape($_drug->selling_price).'</td>'.
       '<td><input type="number" name="no_of_item" value="1"/></td>'.
       '<td class="hidden-print">'.$actions.'</td>'.
@@ -31,13 +32,18 @@ if($drugs)
       $('#drugResult a').on('click',function(e){
         e.preventDefault();
         var tr = $(this).parent().parent();
+        var noItem = parseInt($("input[name='no_of_item']").val());
+        var reQty  = parseInt($("#remain_quantity").val());
         $('#drug_id').val(tr.find('td:first').text());
         $('#no_of_item').val(tr.find('input[name="no_of_item"]').val());
         $('#total_cost').val(tr.find('td:nth(4)').text()*tr.find('input[name="no_of_item"]').val());
 
-        if($("input[name='no_of_item']").val() > $("#remain_quantity").text()){
+        if(noItem > reQty){
 
-          alert("Sorry");
+          alert($("input[name='no_of_item']").val());
+          alert($("#remain_quantity").val());
+
+          alert("Not Available in Stock");
         }else{
         
         $.post($('#addDrugForm').attr('action'),$('#addDrugForm').serialize(),function(data){

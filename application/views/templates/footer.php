@@ -1,7 +1,7 @@
  <div id="tmpDiv"></div>
 
   <footer class="main-footer">
-    <a id="back-to-top" href="#" class="btn btn-info btn-lg back-to-top" role="button"><i class="fa fa-chevron-up"></i></a>
+    <a id="back-to-top" href="#" class="btn btn-danger btn-lg back-to-top" role="button"><i class="fa fa-chevron-up"></i></a>
     <div class="pull-right hidden-xs">
       <b>Version</b> 0.1.0
     </div>

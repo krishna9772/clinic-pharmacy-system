@@ -43,6 +43,12 @@
      */
  	public $spo2;
 
+     /**
+     * 
+     * rbs
+     */
+    public $rbs;
+
  	/**
      * 
      * weight

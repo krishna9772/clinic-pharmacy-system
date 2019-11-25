@@ -100,21 +100,38 @@
   }
   .bg-warning{
 
-        background: #fffa01;
-        border-radius: 3px;
-        padding :3px;
-    }
+    background: #fffa01;
+    border-radius: 3px;
+    padding :3px;
+  }
 
   a.notihr{
 
-      text-decoration: none;
-      color: #000;
-      font: 15px solid;
-    }
-    a.notihr:hover{
-      background: black;
-    } 
+    text-decoration: none;
+    color: #000;
+    font: 15px solid;
+  }
+  a.notihr:hover{
+    background: black;
+  } 
 
+  #search{
+
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+  }
+  .navbar-left button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+  }
 </style>
 
 <header class="main-header">
@@ -126,134 +143,138 @@
     <span class="logo-lg"><b>Home</b></span>
   </a>
   <!-- Header Navbar: style can be found in header.less -->
-  <nav class="navbar navbar-static-top">
+  <nav class="navbar navbar-static-top" id="nav_bar">
     <!-- Sidebar toggle button-->
     <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
       <span class="sr-only">Toggle navigation</span>
     </a>
-   
-    <div id="noti_Container" class="navbar-right" style="padding-right: 5px;" >
-      <div id="ofs_noti_Counter"></div>
-      <!--SHOW NOTIFICATIONS COUNT.-->
-      <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
-      <div id="ofs_noti_Button"><span class="glyphicon glyphicon-exclamation-sign"></span></div>
-      <!--THE NOTIFICAIONS DROPDOWN BOX.-->
-      <div id="ofs_notifications">
-        <h3>Out of Stock Notifications</h3>
-        <div style="height:300px;padding: 5px;margin: auto;overflow-x:auto; overflow-y: auto;">
+    <div class="navbar-left">
+     <input type="text" placeholder="Search.." name="search" id="search">
+     <button type="submit"><i class="fa fa-search"></i></button>
+   </div>
+   <div id="noti_Container" class="navbar-right" style="padding-right: 5px;" >
 
-          <?php foreach($ofsproduct as $row): ?>
+    <div id="ofs_noti_Counter"></div>
+    <!--SHOW NOTIFICATIONS COUNT.-->
+    <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
+    <div id="ofs_noti_Button"><span class="glyphicon glyphicon-exclamation-sign"></span></div>
+    <!--THE NOTIFICAIONS DROPDOWN BOX.-->
+    <div id="ofs_notifications">
+      <h3>Out of Stock Notifications</h3>
+      <div style="height:300px;padding: 5px;margin: auto;overflow-x:auto; overflow-y: auto;">
+
+        <?php foreach($ofsproduct as $row): ?>
 
           <?php if($row['remain_quantity'] <= 0) { ?>
-          
-         
-          <a class="notihr"  href="<?php echo base_url()?>pharmacy/update/<?php echo $row['id']?>"> 
-          <p><span class="bg-warning"><?php echo $row['medicine_name']?></span> is out of stock <span class="bg-danger"><?php echo $row['remain_quantity'];?></span> </p>
-          </a>
-          <hr>
+            
+           
+            <a class="notihr"  href="<?php echo base_url()?>pharmacy/update/<?php echo $row['id']?>"> 
+              <p><span class="bg-warning"><?php echo $row['medicine_name']?></span> is out of stock <span class="bg-danger"><?php echo $row['remain_quantity'];?></span> </p>
+            </a>
+            <hr>
           <?php }else{?>
-         
-          <a class="notihr"  href="<?php echo base_url()?>pharmacy/update/<?php echo $row['id']?>" > 
-          <p><span class="bg-warning"><?php echo $row['medicine_name']?></span> remains only <span class="bg-warning"><?php echo $row['remain_quantity'];?></span> items in stock</p>
-          </a>
-          <hr>
+           
+            <a class="notihr"  href="<?php echo base_url()?>pharmacy/update/<?php echo $row['id']?>" > 
+              <p><span class="bg-warning"><?php echo $row['medicine_name']?></span> remains only <span class="bg-warning"><?php echo $row['remain_quantity'];?></span> items in stock</p>
+            </a>
+            <hr>
           <?php } ?>
 
 
-          <?php endforeach; ?>
-        </div>
-        <div class="seeAll"><a href="#"></a></div>
+        <?php endforeach; ?>
       </div>
+      <div class="seeAll"><a href="#"></a></div>
     </div>
-    <div id="noti_Container" class="navbar-right" style="padding-left: 5px;">
-      <div id="noti_Counter"></div>
-      <!--SHOW NOTIFICATIONS COUNT.-->
-      <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
-      <div id="noti_Button"><span class="glyphicon glyphicon-bell"></span></div>
-      <!--THE NOTIFICAIONS DROPDOWN BOX.-->
-      <div id="notifications">
-        <h3>Expiry Notifications </h3>
-        <div style="height:300px;padding: 5px;margin: auto;overflow-x:auto; overflow-y: auto;">
-          <?php 
-          $date = date('Y-m-d');
-          foreach($expiryproduct as $row):
+  </div>
+  <div id="noti_Container" class="navbar-right" style="padding-left: 5px;">
+    <div id="noti_Counter"></div>
+    <!--SHOW NOTIFICATIONS COUNT.-->
+    <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
+    <div id="noti_Button"><span class="glyphicon glyphicon-bell"></span></div>
+    <!--THE NOTIFICAIONS DROPDOWN BOX.-->
+    <div id="notifications">
+      <h3>Expiry Notifications </h3>
+      <div style="height:300px;padding: 5px;margin: auto;overflow-x:auto; overflow-y: auto;">
+        <?php 
+        $date = date('Y-m-d');
+        foreach($expiryproduct as $row):
           ?>
           <?php
 
           if($date >= $row['expire_date']){?>
            <a class="notihr"  href="<?php echo base_url()?>pharmacy/update/<?php echo $row['id'] ?>">
-          <p class="ex-alert"> <span class="bg-warning"><?php echo $row['medicine_name']?></span> has expired on <span class="bg-danger"><?php echo $row['expire_date'];?></span></p>
+            <p class="ex-alert"> <span class="bg-warning"><?php echo $row['medicine_name']?></span> has expired on <span class="bg-danger"><?php echo $row['expire_date'];?></span></p>
           </a>
           <hr>
-          <?php }else{ ?>
-           <a class="notihr"  href="<?php echo base_url()?>pharmacy/update/<?php echo $row['id']?>"> 
+        <?php }else{ ?>
+         <a class="notihr"  href="<?php echo base_url()?>pharmacy/update/<?php echo $row['id']?>"> 
           <p> <span class="bg-warning"><?php echo $row['medicine_name']?></span> is going to expire on   <span class="bg-warning"><?php echo $row['expire_date'];?></span><br>
-             <?php
-               
-               function dateDiffInDays($date1, $date2)  
-         { 
+           <?php
+           
+           function dateDiffInDays($date1, $date2)  
+           { 
              // Calulating the difference in timestamps 
              $diff = strtotime($date2) - strtotime($date1); 
-      
+             
               // 1 day = 24 hours 
              // 24 * 60 * 60 = 86400 seconds 
-           return abs(round($diff / 86400)); 
-         } 
-  
+             return abs(round($diff / 86400)); 
+           } 
+           
 // Start date 
            $date1 = date('Y/m/d');
-  
+           
 // End date 
-          $date2 = date($row['expire_date']); 
-  
+           $date2 = date($row['expire_date']); 
+           
 // Function call to find date difference 
-         $dateDiff = dateDiffInDays($date1, $date2); 
-  
+           $dateDiff = dateDiffInDays($date1, $date2); 
+           
 // Display the result 
-         printf("("
+           printf("("
             . $dateDiff . " Day(s) )"); 
 
-             ?>
+            ?>
 
             
-      
+            
           </p>
-          </a>
-          <hr>
-          <?php } ?>
-          <?php endforeach; ?>
-        </div>
-        <div class="seeAll"><a href="#"></a></div>
-      </div>
+        </a>
+        <hr>
+      <?php } ?>
+    <?php endforeach; ?>
+  </div>
+  <div class="seeAll"><a href="#"></a></div>
+</div>
 
-    </div>
-  </nav>
+</div>
+</nav>
 </header>
 <!-- Left side column. contains the logo and sidebar -->
 <script>
   $('#noti_Counter')
-    .css({
-      opacity: 0
-    })
-    .text('<?php 
-          
-        if($totalexpnoti !=0){
+  .css({
+    opacity: 0
+  })
+  .text('<?php 
+    
+    if($totalexpnoti !=0){
 
-          echo $totalexpnoti;
-        }else{
+      echo $totalexpnoti;
+    }else{
 
-        echo '0';
+      echo '0';
 
-         }
+    }
 
         ?>') // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
-    .css({
-      top: '-10px'
-    })
-    .animate({
-      top: '-2px',
-      opacity: 1
-    }, 500);
+  .css({
+    top: '-10px'
+  })
+  .animate({
+    top: '-2px',
+    opacity: 1
+  }, 500);
   $('#noti_Button').click(function() {
     $('#ofs_notifications').hide();
     // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
@@ -270,7 +291,7 @@
 
     return false;
   });
- 
+  
 
   // HIDE NOTIFICATIONS WHEN CLICKED ANYWHERE ON THE PAGE.
   $(document).click(function() {
@@ -282,28 +303,28 @@
 </script>
 <script>
   $('#ofs_noti_Counter')
-    .css({
-      opacity: 0
-    })
-    .text('<?php 
+  .css({
+    opacity: 0
+  })
+  .text('<?php 
 
-        if($totalofspnoti !=0){
+    if($totalofspnoti !=0){
 
-          echo $totalofspnoti;
-        }else{     
+      echo $totalofspnoti;
+    }else{     
 
-           echo '0';
+     echo '0';
 
-        }
+   }
    
         ?>') // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
-    .css({
-      top: '-10px'
-    })
-    .animate({
-      top: '-2px',
-      opacity: 1
-    }, 500);
+  .css({
+    top: '-10px'
+  })
+  .animate({
+    top: '-2px',
+    opacity: 1
+  }, 500);
 
   $('#ofs_noti_Button').click(function() {
     $('#notifications').hide();
@@ -318,11 +339,50 @@
 
     return false;
   });
- 
+  
   // HIDE NOTIFICATIONS WHEN CLICKED ANYWHERE ON THE PAGE.
   $(document).click(function() {
     $('#ofs_notifications').hide();
 
   });
   $('#ofs_notifications').click(function() {});
+
+  $(window).scroll(function () { 
+
+    if ($(window).scrollTop() > 150) {
+      $('#nav_bar').addClass('navbar-fixed-top');
+    }
+
+    if ($(window).scrollTop() < 53) {
+      $('#nav_bar').removeClass('navbar-fixed-top');
+    }
+  });
+
+
+  $("#search").typeahead({
+    source: function (name,result){
+      
+      $.ajax({
+
+        url: '<?php echo base_url();?>patients/searchPatient',
+        data: {add:name.add},
+        dataType: "json",
+
+        success : function(data){ 
+
+          var resp = $.map(data,function(obj){
+
+            return obj.name+' (  '+obj.year+'  ) ';
+          })
+
+          result(resp);
+
+        }
+
+      });
+    }, 
+
+    minLength: 1
+  });
+
 </script>

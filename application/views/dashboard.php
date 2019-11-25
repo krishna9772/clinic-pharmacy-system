@@ -64,7 +64,9 @@
 
              foreach($patient as $pat){
 
-              echo  $pat['name']."  visited at  ".$pat['date_time']."<hr>";
+              $time = strtotime($pat['date_time']);
+
+              echo  $pat['name']."  visited at  ".date('h : i : s a',$time)."<hr>";
 
              }
 

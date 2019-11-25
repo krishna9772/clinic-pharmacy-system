@@ -119,6 +119,10 @@ $(document).ready(function() {
 
 });
 
+function initPage(){
+    sessionStorage.setItem("init", "init");
+  }
+
 // remove functions 
 function removeFunc(id)
 {

@@ -55,7 +55,7 @@ class Model_patients extends CI_Model
 
 		if($id) {
            
-           $sql = "SELECT * FROM ra_complaint where patient_id = ?";
+           $sql = "SELECT * FROM ra_complaint where patient_id = ? and is_deleted = '0' ";
            $query = $this->db->query($sql,array($id));
            return $query->num_rows();
 
@@ -100,5 +100,25 @@ class Model_patients extends CI_Model
 		$query = $this->db->query($sql);
 		return $query->num_rows();
 	}
+
+	 public function searchPatient($query)
+    {
+  $this->db->like('name', $query);
+  $query = $this->db->get('ra_patient');
+  if($query->num_rows() > 0)
+  {
+   foreach($query->result_array() as $row)
+   {
+    $output[] = array(
+     'name'  => $row["name"],
+     'address'  => $row["address"]
+    );
+   }
+   echo json_encode($output);
+  }
+    }
+
+	 
+
 	
 }

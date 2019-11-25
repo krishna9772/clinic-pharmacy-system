@@ -9,9 +9,11 @@
   </section>
 
   <section class="content">
-    
-    <div class="row">
-
+    <div class="container">
+      
+     <div class="row">
+<h5><?php echo anchor('pharmacy/index','<i class="fa fa-arrow-left"> Back</i>',array('id'=>'addDrug','class'=>'btn btn-warning'));
+  ?></h5>
   <div class="col col-md-8 well well-sm">
       <?php if($this->session->flashdata('success')): ?>
           <div class="alert alert-success alert-dismissible" role="alert">
@@ -24,7 +26,7 @@
             <?php echo $this->session->flashdata('error'); ?>
           </div>
         <?php endif; ?>
-    <?php echo form_open('pharmacy/update/'.$product->id,array("id"=>"addDrugForm", "role"=>"form",)); ?> 
+    <?php echo form_open('pharmacy/update/'.$product->id,array("id"=>"addDrugForm", "role"=>"form",)); ?>
     <fieldset>
       <legend>- Product Info </legend>
       <div>
@@ -56,21 +58,21 @@
           </div>
           <div class="col-md-6">
           <label>Type</label>
-           <?php echo form_dropdown('sell_type',$unit,set_value('sell_type',$product->sell_type)," class='form-control' title='Unit' required");?>				
+           <?php echo form_dropdown('sell_type',$unit,set_value('sell_type',$product->sell_type)," class='form-control' title='Unit' required");?>        
           </div>
         </div>
 
 
         <div class="form-group">
-			<div class="col-md-6">
-				<label>Used Quantity</label>
-				<input type="number" name='used_quantity' id='used_quantity' value="<?php echo set_value('used_quantity' , $product->used_quantity);?>" class='form-control' placeholder='Used Quantity' title='' required readonly/>
-			</div>
-			<div class="col-md-6">
-				<label>Remain Quantity</label>
-				<input type="number" name='remain_quantity' id='remain_quantity' value="<?php echo set_value('remain_quantity', $product->remain_quantity);?>" class='form-control' placeholder='Remain Quantity' title='' required readonly/>
-			</div>
-		</div>
+      <div class="col-md-6">
+        <label>Used Quantity</label>
+        <input type="number" name='used_quantity' id='used_quantity' value="<?php echo set_value('used_quantity' , $product->used_quantity);?>" class='form-control' placeholder='Used Quantity' title='' required readonly/>
+      </div>
+      <div class="col-md-6">
+        <label>Remain Quantity</label>
+        <input type="number" name='remain_quantity' id='remain_quantity' value="<?php echo set_value('remain_quantity', $product->remain_quantity);?>" class='form-control' placeholder='Remain Quantity' title='' required readonly/>
+      </div>
+    </div>
         <div class="form-group">
           <div class="col-md-6">
             <label>Registered Date</label>
@@ -105,33 +107,33 @@
           </div>
           <div class="col-sm-6">
            <label>Status</label>
-						<select type="text" class="form-control" id="status" name="status" required>
+            <select type="text" class="form-control" id="status" name="status" required>
 
-							<?php
+              <?php
 
-										   if($product->status == 1)
-										   {
-											   echo '
+                       if($product->status == 1)
+                       {
+                         echo '
                         <option value="1" selected>Active</option>
                         <option value="0">Inactive</option>';
-										   }else{
+                       }else{
 
-											   echo '
+                         echo '
                         <option value="1">Active</option>
                         <option value="0" selected>Inactive</option>';
-										   }
-							?>
+                       }
+              ?>
 
-						</select>
+            </select>
           </div>
        </div>
       </fieldset>
       <div class=clearfix></div>
 
       <fieldset>
-        <legend>+ Description </legend>
+        <legend>- Description </legend>
 
-        <div style="display: none;">
+        <div>
           <div class="form-group">
             <div class="col-md-12"><textarea name="description" id="description" class="form-control" placeholder="Description" rows="6"><?php echo $this->input->post('description');?><?php echo set_value('description', $product->description);?></textarea>
               <input type="hidden" name="is_deleted" value="0">
@@ -148,6 +150,7 @@
       <?php echo form_close()?>      
       </div>
   </div>
+ </div>
   </section>
 </div>
 
