@@ -275,11 +275,29 @@ class Patients extends Admin_Controller
          $name = $this->input->get('name');
 
          $this->db->like('name',$name);
+         $this->db->where('is_deleted','0');
 
          $data = $this->db->get("ra_patient")->result();
 
          echo json_encode($data);
          
     }
+
+    public function searchResult()
+	{
+      
+        $url= str_replace(array('(',')'),'',urldecode($this->uri->segment(3)));
+
+        $value = explode('-',$url);
+
+        $name = $value[0];
+
+        $age = $value[1];
+
+        $id = $this->model_patients->getPatientId($name,$age);
+
+        redirect('patients/panel/'.$id);
+
+	}
 
 }

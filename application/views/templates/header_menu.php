@@ -358,6 +358,8 @@
     }
   });
 
+  var bondObjs = {};
+  var bondNames = [];
 
   $("#search").typeahead({
     source: function (name,result){
@@ -372,17 +374,46 @@
 
           var resp = $.map(data,function(obj){
 
-            return obj.name+' (  '+obj.year+'  ) ';
+            return obj.name+'  -  '+obj.year;
           })
 
           result(resp);
+      }
 
-        }
+    });
 
-      });
-    }, 
+    },
 
     minLength: 1
+
+  }).on('keypress',function(e){
+
+    if(e.which == 13) {
+       
+       var val = $('#search').val();
+
+       var q   = val.toLowerCase();
+
+       window.location.href = "<?php echo base_url()?>patients/searchResult/"+q;
+
+    }
+
+
   });
+
+   // $('.typeahead').typeahead({
+   //        hint: true,
+   //        highlight: true,
+   //        minLength: 1
+   //      },
+   //      {
+   //        name: 'states',
+   //        source: states
+   //      }).on('keypress', function(e) {
+   //              if (e.which == 13) {
+   //                 var q = $('input.typeahead.tt-input').val();
+   //                 window.location.href = "/search?q="+q;
+   //              }
+   //      });
 
 </script>

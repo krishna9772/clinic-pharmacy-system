@@ -24,6 +24,19 @@ class Model_patients extends CI_Model
 
 	}
 
+	public function getPatientId($name,$age)
+	{
+		
+          $this->db->select('*');
+          $this->db->from('ra_patient');
+          $this->db->where('name', $name);
+          $this->db->where('year', $age);
+          $this->db->where('is_deleted', '0');
+          $query = $this->db->get();
+          return $query->row()->id;
+
+	}
+
 	public function create($data)
 	{
        

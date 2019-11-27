@@ -20,7 +20,10 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 
-		$("[id=comment]").wysihtml5();
+		$("[id=comment]").summernote({
+
+       height : 150
+    });
 
 
   $(window).scroll(function () {

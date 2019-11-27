@@ -105,28 +105,22 @@
   ?>
 </div>
 </section>
-<script>
-
-  $(document.ready(function(){
-    if(sessionStorage.getItem("init") == "init"){
-      $('#panelTab a:first').tab('show')
-      sessionStorage.setItem("init", "Notinit");
-    }
-    else{
-      $('#panelTab a:last').tab('show')
-    }
-  });
-  
-
-  $(function () {
-    $('#panelTab a:first').tab('show')
-  })
-
-  function invoiceload(id){
-   window.location.reload();
- }
-
-</script>
+	  <script>
+		  $(function () {
+			  if(sessionStorage.getItem("init") == "init"){
+				  $('#panelTab a:first').tab('show')
+				  sessionStorage.setItem("init", "Notinit");
+			  }
+			  else{
+				  $('#panelTab a:last').tab('show')
+			  }
+		  });
+	  </script>
+	  <script>
+		  function invoiceload(id){
+			  window.location.reload();
+		  }
+	  </script>	
 </div>
 </section>
 </div>

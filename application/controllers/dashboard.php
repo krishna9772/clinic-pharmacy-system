@@ -39,4 +39,5 @@ class Dashboard extends Admin_Controller
 		$this->data['is_admin'] = $is_admin;
 		$this->render_template('dashboard', $this->data);
 	}
+
 }

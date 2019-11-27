@@ -1,4 +1,4 @@
-<style type="text/css">
+ <style type="text/css">
 
 a {
   cursor: pointer;
@@ -217,13 +217,22 @@ $("#editor").summernote('insertUnorderedList');
 
 $(".fa fa-minus").click(function(){
 
-  alert("hell");
 })
 
 $(".fa-plus").click(function(){
 
-      $("#collapseicon").addClass('fa-minus').removeClass('fa-plus');
+  $("#collapseicon").addClass('fa-minus').removeClass('fa-plus');
    
+});
+
+$(document).ready(function(){
+
+if($("#commentGroup").is(':empty')){
+  
+   $('#collapse').trigger('click');
+
+}
+
 });
 
 </script>
