@@ -41,7 +41,7 @@
 
         <div class="box">
           <div class="box-header">
-            <h3 class="box-title">Manage Patients</h3>
+            <h3 class="box-title">Patient List</h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">
