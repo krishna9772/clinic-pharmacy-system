@@ -106,6 +106,13 @@ a.palette-item:hover {
   background: #FFF;
   margin-bottom: 2px;
 }
+
+a[aria-expanded=true] .fa-plus {
+   display: none;
+}
+a[aria-expanded=false] .fa-minus {
+   display: none;
+}
 </style>
 <div class="tab-pane" id="complaint" style="padding-top: 10px;">
 
@@ -146,12 +153,15 @@ a.palette-item:hover {
       }
     });
   </script>
-  
- <div class="">
-  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" id="collapse">
-    <i class="fa fa-plus" id="collapseicon"></i>
-  </a>
- </div><br>
+
+  <div>
+  <a data-toggle="collapse" href="#collapseExample" 
+      aria-expanded="false" aria-controls="collapseExample" id="collapse">
+       
+        <i class="fa fa-plus btn btn-primary"></i>
+        <i class="fa fa-minus btn btn-primary"></i>
+    </a>
+  </div><br>
 
 	<?php if($patient_data['id'] == TRUE){
 
@@ -160,7 +170,7 @@ a.palette-item:hover {
        
       echo form_open('complaints/create/'.$patient_data['id'],array('id'=>'commentBox'));
 	    echo form_hidden('patient_id',$patient_data['id']);
-      echo form_textarea('complaint','','class="form-control" id="editor" contenteditable  placeholder="Write your complaint about this patient..." required')."<br>";
+      echo form_textarea('complaint','','class="form-control" id="editor" placeholder="Write your complaint about this patient..." required')."<br>";
       echo form_submit('Save','Save','class="btn btn-primary ml-3" id="savecomplaint"');
       echo form_close();
       echo "<p></p>"; 
@@ -201,7 +211,7 @@ a.palette-item:hover {
 
 $("#editor").summernote({
   height: 150,
-  placeholder: 'type starting with : and any alphabet',
+  placeholder: '',
   hint: { 
     words: ['fever', 'chills' ,'cough', 'toc' ,'doy', 'sneezing', 'nausea','vomitting','times','1','2','3','4','5','6','7','loss of appetite','allergic to'],
     match: /\b(\w{1,})$/,
@@ -219,11 +229,20 @@ $(".fa fa-minus").click(function(){
 
 })
 
-$(".fa-plus").click(function(){
+// $(".fa-plus").click(function(){
 
-  $("#collapseicon").addClass('fa-minus').removeClass('fa-plus');
+//   $("#collapseicon").addClass('fa-user-o').removeClass('fa-plus');
    
+// });
+
+$('#collapseExample').on('.in',function() {
+
+
+  alert("Hello world");
+
+
 });
+
 
 $(document).ready(function(){
 
@@ -232,6 +251,7 @@ if($("#commentGroup").is(':empty')){
    $('#collapse').trigger('click');
 
 }
+
 
 });
 
