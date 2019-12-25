@@ -231,8 +231,8 @@
            $dateDiff = dateDiffInDays($date1, $date2); 
            
 // Display the result 
-           printf("("
-            . $dateDiff . " Day(s) )"); 
+           printf(""
+            . $dateDiff . " Day(s)   left"); 
 
             ?>
 
@@ -413,23 +413,5 @@
 
        window.location.href = "<?php echo base_url()?>patients/searchResult/"+q;
   })
-
-
-
-
-   // $('.typeahead').typeahead({
-   //        hint: true,
-   //        highlight: true,
-   //        minLength: 1
-   //      },
-   //      {
-   //        name: 'states',
-   //        source: states
-   //      }).on('keypress', function(e) {
-   //              if (e.which == 13) {
-   //                 var q = $('input.typeahead.tt-input').val();
-   //                 window.location.href = "/search?q="+q;
-   //              }
-   //      });
 
 </script>

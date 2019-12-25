@@ -20,12 +20,6 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 
-		$("[id=comment]").summernote({
-
-       height : 150
-    });
-
-
   $(window).scroll(function () {
       if ($(this).scrollTop() > 50) {
         $('#back-to-top').fadeIn();

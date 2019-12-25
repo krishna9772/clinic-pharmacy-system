@@ -66,20 +66,17 @@
 
               $time = strtotime($pat['date_time']);
 
-              echo  $pat['name']."  visited at  ".date('h : i : s a',$time)."<hr>";
-
+              echo  "<mark style='background:#16a895'>".$pat['name']."</mark>  visited at  <mark color='yellow'>".date('h : i : s',$time)."</mark><hr>";
              }
-
 
                ?>
               
             </p>
             </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <a href="<?php echo base_url()?>patients/totalVisits/<?php echo mdate('%Y-%m-%d');?>" class="btn btn-default">See All</a>
           </div>
        </form>
-
 
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

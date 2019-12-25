@@ -48,7 +48,7 @@
        
        echo form_open('investigations/create/'.$patient_data['id'],array('id'=>'investigationBox'));
 	   echo form_hidden('patient_id',$patient_data['id']);
-      echo form_textarea('investigation','','class="form-control" id="comment"  placeholder="Write your investigation about this patient..." required')."<br>";
+      echo form_textarea('investigation','','class="form-control" id="comment"  placeholder="Write your investigation about this patient..." required autofocus')."<br>";
       echo form_submit('Save','Save','class="btn btn-primary ml-3" id="saveinvestigation"');
       echo form_close();
       echo "<p></p>"; 

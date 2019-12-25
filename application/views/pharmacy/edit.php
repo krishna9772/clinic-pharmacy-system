@@ -34,7 +34,7 @@
        
 
         <div class="form-group">
-          <div class="col-md-12">
+          <div class="col-md-6">
           <label>Medicine Name</label>
             <input type="text" name='medicine_name' id='medicine_name' value="<?php echo set_value('medicine_name',$product->medicine_name)?>" class='form-control'  title='' required/> 
           </div>
@@ -43,19 +43,13 @@
           <div class="col-md-2">
           <label>Quantity</label>
             <input type="number" name='quantity' id='quantity' value="<?php echo set_value('quantity' , $product->quantity);?>" class='form-control'  title='quantity' readonly/>
+            <input type="hidden"  id='hidquantity' value="<?php echo set_value('quantity' , $product->quantity);?>" class='form-control'  title='quantity' readonly/>
           </div>
           <div class="col-md-2">
-          <label>   </label>
-          <input type="number" id="addedqty" class="form-control">
+          <label>Load/Unload</label>
+          <input type="text" id="addedqty" class="form-control">
           
         </div>
-          <div class="col-md-2">
-            <label>   </label><br>
-            <span class="label label-success" id="load"><i class="fa fa-plus"></i></span>  
-              <span class="label label-warning" id="unload"><i class="fa fa-minus"></i></span>
- 
-
-          </div>
           <div class="col-md-6">
           <label>Type</label>
            <?php echo form_dropdown('sell_type',$unit,set_value('sell_type',$product->sell_type)," class='form-control' title='Unit' required");?>        
@@ -68,16 +62,16 @@
         <label>Used Quantity</label>
         <input type="number" name='used_quantity' id='used_quantity' value="<?php echo set_value('used_quantity' , $product->used_quantity);?>" class='form-control' placeholder='Used Quantity' title='' required readonly/>
       </div>
-      <div class="col-md-6">
-        <label>Remain Quantity</label>
-        <input type="number" name='remain_quantity' id='remain_quantity' value="<?php echo set_value('remain_quantity', $product->remain_quantity);?>" class='form-control' placeholder='Remain Quantity' title='' required readonly/>
-      </div>
     </div>
         <div class="form-group">
           <div class="col-md-6">
             <label>Registered Date</label>
             <input type="date" name='register_date' id='register_date' value="<?php echo set_value('register_date',$product->register_date);?>" class='form-control'  autocomplete="off" title='Registered Date' />
           </div>
+          <div class="col-md-6">
+        <label>Remain Quantity</label>
+        <input type="number" name='remain_quantity' id='remain_quantity' value="<?php echo set_value('remain_quantity', $product->remain_quantity);?>" class='form-control' placeholder='Remain Quantity' title='' required readonly/>
+      </div>
           <div class="col-md-6">
           <label>Expire Date</label>
             <input type="date" name='expire_date' id='expire_date' value="<?php echo set_value('expire_date',$product->expire_date);?>" class='form-control'  title='Expire Date' autocomplete="off" required/> 
@@ -158,31 +152,37 @@
 
   $(document).ready(function(){
 
-    $("#load").click(function(){
+    $("#addedqty").on('keyup',function(){
        
-       var quantity = parseInt($("#quantity").val());
-       var addedqty = parseInt($("#addedqty").val());
-       var usedqty  = parseInt($("#used_quantity").val());
-       var loadedqty = quantity+addedqty;
-       $("#quantity").val(loadedqty);
-       $("#remain_quantity").val(loadedqty-usedqty);
+      var quantity = parseInt($("#hidquantity").val());
+      var addedqty = parseInt($("#addedqty").val());
+      var usedqty  = parseInt($("#used_quantity").val());
+      var loadedqty = quantity+addedqty;
+      $("#quantity").val(parseInt(loadedqty)) ;
+      $("#remain_quantity").val(loadedqty-usedqty);
+
+      if($("#addedqty").val().length == 0){
+
+        $("#quantity").val($("#hidquantity").val());
+        $("#remain_quantity").val(quantity-usedqty);
+      }
 
 
     });
 
-    $("#unload").click(function(){
+    // $("#unload").click(function(){
 
-      var quantity = parseInt($("#quantity").val());
-      var addedqty = parseInt($("#addedqty").val());
-      var usedqty  = parseInt($("#used_quantity").val());
-       var loadedqty = quantity-addedqty;
-       $("#quantity").val(loadedqty);
-       $("#remain_quantity").val(loadedqty-usedqty);
-
-
+    //   var quantity = parseInt($("#quantity").val());
+    //   var addedqty = parseInt($("#addedqty").val());
+    //   var usedqty  = parseInt($("#used_quantity").val());
+    //    var loadedqty = quantity-addedqty;
+    //    $("#quantity").val(loadedqty);
+    //    $("#remain_quantity").val(loadedqty-usedqty);
 
 
-    })
+
+
+    // })
     
     $("#mainGroupNav").addClass('active');
     $("#addGroupNav").addClass('active');

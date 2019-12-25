@@ -97,7 +97,7 @@ ul.checkbox li label {
      <?php
 
         echo form_open('diagnosis/create/',array('id'=>'diagboxlist'));
-        echo '<input type="text" id="diag" name="name" onkeyup="myFunction()" placeholder="Search (or) add new type"><button id="newdiag"><i class="fa fa-plus"></i></button><br>';
+        echo '<input type="text" id="diag" name="name" onkeyup="myFunction()" placeholder="Search (or) add new type" autofocus><button id="newdiag"><i class="fa fa-plus"></i></button><br>';
         echo form_close();
 
         echo form_open('diagnosis/assign/'.$patient_data['id'],array('id'=>'diagbox'));

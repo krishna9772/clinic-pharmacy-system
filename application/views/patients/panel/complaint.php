@@ -114,21 +114,21 @@ a[aria-expanded=false] .fa-minus {
    display: none;
 }
 </style>
-<div class="tab-pane" id="complaint" style="padding-top: 10px;">
+<div class="" id="complaint" style="padding-top: 10px;">
 
    <script>
     $(document).ready(function(){
       //script of this section
-      $('#savecomplaint').click(function(){
+      // $('#savecomplaint').click(function(){
 
-          $.post($('#commentBox').attr('action'),$('#commentBox').serialize(),
-            function(data){
-              $('#commentGroup').prepend(data);
-              $('#comment').val('');
-            });
-          return false;
+      //     $.post($('#commentBox').attr('action'),$('#commentBox').serialize(),
+      //       function(data){
+      //         $('#commentGroup').prepend(data);
+      //         $('#comment').val('');
+      //       });
+      //     return false;
         
-      });
+      // });
 
       $("#commentGroup span > i >  a").on('click',complaintAction);
          
@@ -155,31 +155,29 @@ a[aria-expanded=false] .fa-minus {
   </script>
 
   <div>
-  <a data-toggle="collapse" href="#collapseExample" 
-      aria-expanded="false" aria-controls="collapseExample" id="collapse">
+  <a data-toggle="collapse" href="#collapseComplaint" 
+      aria-expanded="false" aria-controls="collapseExample" id="collapseCom">
        
-        <i class="fa fa-plus btn btn-primary"></i>
-        <i class="fa fa-minus btn btn-primary"></i>
+        <i class="fa fa-plus btn btn-primary"> <small class="label label-default">Complaints</small></i>
+        <i class="fa fa-minus btn btn-primary"> <small class="label label-default">Complaints</small></i>
     </a>
   </div><br>
 
 	<?php if($patient_data['id'] == TRUE){
-
-    echo "<div class='collapse' id='collapseExample'>";
-
-       
+  echo "<div class='collapse' id='collapseComplaint'>";
+  echo "<div class='row'>";
+   echo "<div class='col-md-6'>";
       echo form_open('complaints/create/'.$patient_data['id'],array('id'=>'commentBox'));
 	    echo form_hidden('patient_id',$patient_data['id']);
-      echo form_textarea('complaint','','class="form-control" id="editor" placeholder="Write your complaint about this patient..." required')."<br>";
-      echo form_submit('Save','Save','class="btn btn-primary ml-3" id="savecomplaint"');
+      echo form_textarea('complaint','','class="form-control" id="editor" placeholder="Write your complaint about this patient..." required autofocus')."<br>";
+      // echo form_submit('Save','Save','class="btn btn-primary ml-3" id="savecomplaint"');
       echo form_close();
       echo "<p></p>"; 
 
       echo "</div>";
 
-
   }
-
+ echo "<div class='col-md-6'>";
   echo "<div id='commentGroup'>";
   foreach($complaint as $com) {
 
@@ -188,71 +186,51 @@ a[aria-expanded=false] .fa-minus {
           <span class='badge badge-warning pull-right'><i class='fa fa-trash'>
            ".anchor('#', 'Del ',array('cid'=>$com->id,'pi'=>$com->patient_id,'action'=>'delete'))."</i></span>"
           .$com->complaint.'</div>';
-          echo "<div class='pull-right'>Create Date: ".$com->created_date."</div>";//<span class='close'>&times;</span>
+          echo "<div class='pull-right'>  ".$com->created_date."</div>";//<span class='close'>&times;</span>
         echo "</div>";
   }
+   echo "</div>";
+   echo "</div>";
+   echo "</div>";
    echo "</div>";
 		?>
 
 </div>
 
-
 <script type="text/javascript">
 
-// $.ajax({
-//   url: '<?php echo base_url()?>complaints/getComplaintHint',
-//   async: false 
-// }).then(function(data) {
-//   window.emojis = JSON.parse(data);
+     var response = $.ajax({
+            type: "get",
+            dataType: "json",
+            async: false,
+            url: '<?php echo base_url()?>complaints/getComplaintHint',
+            success:function (data) { 
 
-// });;
+                res = data;
+
+           }
+        }).responseJSON;
 
 
-
+    
 $("#editor").summernote({
   height: 150,
-  placeholder: '',
-  hint: { 
-    words: ['fever', 'chills' ,'cough', 'toc' ,'doy', 'sneezing', 'nausea','vomitting','times','1','2','3','4','5','6','7','loss of appetite','allergic to'],
+  hint: {
     match: /\b(\w{1,})$/,
-    search: function (keyword, callback) {
-      callback($.grep(this.words, function (item) {
-        return item.indexOf(keyword)  === 0;
+    mentions: response,
+    search:function (keyword, callback) {
+        callback($.grep(this.mentions, function (item) {
+        return item.indexOf(keyword) === 0;
+        console.log(this.mentions);
       }));
     },
   }
 });
 
-$("#editor").summernote('insertUnorderedList');
-
-$(".fa fa-minus").click(function(){
-
-})
-
-// $(".fa-plus").click(function(){
-
-//   $("#collapseicon").addClass('fa-user-o').removeClass('fa-plus');
-   
-// });
+$("#editor").summernote('insertOrderedList');
 
 $('#collapseExample').on('.in',function() {
-
-
   alert("Hello world");
-
-
-});
-
-
-$(document).ready(function(){
-
-if($("#commentGroup").is(':empty')){
-  
-   $('#collapse').trigger('click');
-
-}
-
-
 });
 
 </script>

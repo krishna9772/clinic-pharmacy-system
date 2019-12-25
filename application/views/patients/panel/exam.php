@@ -1,4 +1,4 @@
-<div class="tab-pane" id="exam" style="padding-top: 10px;">
+<div class="" id="exam" style="padding-top: 10px;">
 
 	<style type="text/css">
 		tbody td{
@@ -10,21 +10,28 @@
         width: 65px;
         height: 35px;
     }
+
+    #collapseExam input[type="text"] {
+
+      width: 65px;
+      height: 35px;
+    }
+
 	</style>
 
 	<script>
     $(document).ready(function(){
       //script of this section
-      $('input[id=save]').click(function(){
+      // $('input[id=save]').click(function(){
         
-          $.post($('#examBox').attr('action'),$('#examBox').serialize(),
-            function(data){
-              $('#examGroup').prepend(data);
-              $('#exam').val('');
-            });
-          return false; 
+      //     $.post($('#examBox').attr('action'),$('#examBox').serialize(),
+      //       function(data){
+      //         $('#examGroup').prepend(data);
+      //         $('#exam').val('');
+      //       });
+      //     return false; 
         
-      });
+      // });
 
       $("#examGroup span >i >a").on('click',examinationAction);
          
@@ -49,7 +56,15 @@
       }
     });
   </script>
-  <div class="">
+  <div>
+  <a data-toggle="collapse" href="#collapseExam" 
+      aria-expanded="false" aria-controls="collapseExample" id="collapse">
+       
+        <i class="fa fa-plus btn btn-primary"> <small class="label label-default">Examination</small></i>
+        <i class="fa fa-minus btn btn-primary"> <small class="label label-default">Examination</small></i>
+    </a>
+  </div><br>
+  <div class="collapse" id="collapseExam">
        <div class="row">
 
 		<?php if($patient_data['id'] == TRUE){
@@ -59,14 +74,12 @@
 	     ?>
 	     	<div class="col-xs-2">
 	     		<label>BP:</label><br>
-	     		<?php echo form_input('s_bp','','class="bp_input" id="s_bp" placeholder="Sys.Bp"');?>/
+	     		<?php echo form_input('s_bp','','class="bp_input" id="s_bp" placeholder="Sys.Bp" autofocus');?>/
 	     		<?php echo form_input('d_bp','','class="bp_input" id="d_bp" placeholder="Dia. Bp"');?><br><br>
-	     		 <label>BMI:</label>
-	     	   <?php echo form_input('bmi','','class="form-control" id="bmi" placeholder="BMI"')?><input type="button" name="" class="btn btn-small" id="calbmi" value="Calculate">
-	     	</div>
-	     	<div class="col-xs-2">
+	     		  	</div>
+	     	<div class="col-xs-1">
 	     	   <label>PR:</label>
-	     	   <?php echo form_input('pr','','class="form-control" id="pr" placeholder="Pulse Rate"')?>
+	     	   <?php echo form_input('pr','','class="form-control" id="pr" placeholder="PR"')?>
 	        </div>	
 	        <div class="col-xs-2">
 	     	   <label>TEMP (&#8457;):</label>
@@ -84,16 +97,21 @@
 	     	   <label>WEIGHT (lbs):</label>
 	     	   <?php echo form_input('weight','','class="form-control" id="weight" placeholder="lbs"')?><br>
 	     	  
-	     	   <input type="button" name="" class="btn btn-warning" id="wconvert" value="Convert">  <small>(from kg)</small>
+	     	   <input type="button" name="" class="btn btn-warning btn-sm" id="wconvert" value="Convert">  <small>(from kg)</small>
 	        </div>
 	         <div class="col-xs-2">
 	     	   <label>HEIGHT (ft):</label>
 	     	   <?php echo form_input('height','','class="form-control" id="height" placeholder="ft"')?><br>
-	   	   <input type="button" name="" class="btn btn-warning" id="hconvert" value="Convert">  <small>(from cm)</small>
+	   	   <input type="button" name="" class="btn btn-warning btn-sm" id="hconvert" value="Convert">  <small>(from cm)</small>
 	        </div>
+          <div class="col-xs-1">
+              <label>BMI:</label>
+           <?php echo form_input('bmi','','class="form-control" id="bmi" placeholder="BMI"')?><input type="button" name="" class="btn btn-default btn-sm" id="calbmi" value="Calculate">
+     
+          </div>
 	    </div><br>
-	    <input class="btn btn-primary" type="button" value="Save" id="save"><br><br>
-
+<!-- 	    <input class="btn btn-primary" type="button" value="Save" id="save"><br><br>
+ -->
       <?php } ?>
 
 
@@ -134,7 +152,7 @@
       echo "<td>".$exam->temp." &#8457;";
       echo "<td>".$spo2."</td>";
       echo "<td>".$rbs."</td>";
-      echo "<td>".$exam->rbs."</td>";
+      // echo "<td>".$exam->rbs."</td>";
    echo "<td>".$weight."</td>";
     echo "<td>".$height."</td>";
       echo "<td>".$bmi."</td>";

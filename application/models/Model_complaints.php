@@ -27,6 +27,7 @@ class Model_complaints extends MY_Model
           $this->db->where('patient_id', $patient_id);
           $this->db->where('is_deleted', '0');
           $this->db->order_by('id','desc');
+          $this->db->limit(2);
           $query = $this->db->get();
           return $query->result();
 
@@ -49,15 +50,30 @@ class Model_complaints extends MY_Model
     public function getComplaintHint()
     {
 
-     $query = $this->db->get('ra_complaint');
-    $array = array();
+     $this->db->select('*');
+     $this->db->from('ra_complaint');
+    // $this->db->where('LENGTH(complaint)<80',null,false);
+     $this->db->group_by('complaint');
+     $query = $this->db->get();
 
-    foreach($query->result() as $row)
-    {
-        $array[] = htmlspecialchars(strip_tags($row->complaint)); 
-    }
+     $array = array();
 
-    return $array;  
+     foreach ($query->result() as $row) 
+     {
 
+      $array = explode("</li>",$row->complaint);
+
+      // print_r($array);
+
+      foreach ($array as $key => $value) {
+
+          $array[$key] = strip_tags($value);    
+
+       }  
+
+       array_pop($array);
+       
+     }
+     return $array;  
     }
 }
