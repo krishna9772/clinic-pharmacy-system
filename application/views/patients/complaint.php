@@ -1,9 +1,9 @@
 <?php
-    echo "<div id='comment".$complaint->id."' class='well well-md'>";
+    echo "<div id='comment".$complaint->id."' class='new well well-md'>";
       echo "<div class='commentBody'>
            <span class='badge badge-warning pull-right'><i class='fa fa-trash'>
            ".anchor('#', 'Del ',array('cid'=>$complaint->id,'pi'=>$complaint->patient_id,'action'=>'delete'))."</i></span>".$complaint->complaint.'</div>';
-      echo "<div class='pull-right'>Create Date: ".$complaint->created_date."</div>";
+      echo "<div class='pull-right'>".$complaint->created_date."</div>";
     echo "</div>";
 
 ?>
@@ -34,6 +34,8 @@
         }
       }
   	})
+
+    
 
    
   </script>

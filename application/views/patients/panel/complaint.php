@@ -4,7 +4,7 @@ a {
   cursor: pointer;
 }
 
-#editor {
+/*#editor {
   box-shadow: 0 0 2px #CCC;
   min-height: 150px;
   overflow: auto;
@@ -13,7 +13,7 @@ a {
   resize: vertical;
   outline: none;
   background: #fff;
-}
+}*/
 
 .toolbar {
   text-align: center;
@@ -161,15 +161,25 @@ a[aria-expanded=false] .fa-minus {
         <i class="fa fa-plus btn btn-primary"> <small class="label label-default">Complaints</small></i>
         <i class="fa fa-minus btn btn-primary"> <small class="label label-default">Complaints</small></i>
     </a>
-  </div><br>
+  </div>
 
 	<?php if($patient_data['id'] == TRUE){
   echo "<div class='collapse' id='collapseComplaint'>";
   echo "<div class='row'>";
-   echo "<div class='col-md-6'>";
+   echo "<div class='col-sm-6'>";
       echo form_open('complaints/create/'.$patient_data['id'],array('id'=>'commentBox'));
 	    echo form_hidden('patient_id',$patient_data['id']);
-      echo form_textarea('complaint','','class="form-control" id="editor" placeholder="Write your complaint about this patient..." required autofocus')."<br>";
+      // echo form_textarea('complaint','','class="" id="editor"  placeholder="Write your complaint about this patient..." required autofocus')."<br>";
+      echo form_textarea(array(
+        'name' => 'complaint',
+        'id' => 'editor',
+        'class' => '',
+        'rows' => '3',
+        'data-min-rows' => '3',
+        'placeholder' => 'Write your complaint about this patient...',
+        'required' => 'required'
+    ));
+       // echo form_input('comment','','class="form-control" id="comment" placeholder="Write your complaint about this patient..." required')."<br>";
       // echo form_submit('Save','Save','class="btn btn-primary ml-3" id="savecomplaint"');
       echo form_close();
       echo "<p></p>"; 
@@ -177,7 +187,8 @@ a[aria-expanded=false] .fa-minus {
       echo "</div>";
 
   }
- echo "<div class='col-md-6'>";
+  
+ echo "<div class='col-sm-6'>"; 
   echo "<div id='commentGroup'>";
   foreach($complaint as $com) {
 
@@ -191,46 +202,68 @@ a[aria-expanded=false] .fa-minus {
   }
    echo "</div>";
    echo "</div>";
-   echo "</div>";
-   echo "</div>";
+    echo "</div>";
+    echo "</div>";
 		?>
 
 </div>
 
 <script type="text/javascript">
 
-     var response = $.ajax({
-            type: "get",
-            dataType: "json",
-            async: false,
-            url: '<?php echo base_url()?>complaints/getComplaintHint',
-            success:function (data) { 
 
-                res = data;
+     // var response = $.ajax({
+     //        type: "get",
+     //        dataType: "json",
+     //        async: false,
+     //        url: '<?php echo base_url()?>complaints/getComplaintHint',
+     //        success:function (data) { 
 
-           }
-        }).responseJSON;
+     //            res = data;
+
+     //       }
+     //    }).responseJSON;
 
 
     
-$("#editor").summernote({
-  height: 150,
-  hint: {
-    match: /\b(\w{1,})$/,
-    mentions: response,
-    search:function (keyword, callback) {
-        callback($.grep(this.mentions, function (item) {
-        return item.indexOf(keyword) === 0;
-        console.log(this.mentions);
-      }));
-    },
-  }
-});
+// $("#editor").summernote({
+//   height: 50,
+//   toolbar:false,
+//   hint: {
+//     match: /\b(\w{1,})$/,
+//     mentions: response,
+//     search:function (keyword, callback) {
+//         callback($.grep(this.mentions, function (item) {
+//         return item.indexOf(keyword) === 0;
+//         console.log(this.mentions);
+//       }));
+//     },
+//   }
+// });
 
-$("#editor").summernote('insertOrderedList');
+// $("#editor").summernote('insertUnorderedList');
 
-$('#collapseExample').on('.in',function() {
-  alert("Hello world");
-});
+// $('#collapseExample').on('.in',function() {
+//   alert("Hello world");
+// });
+
+// $(function() {
+//     //  changes mouse cursor when highlighting loawer right of box
+//     $('[id="editor"]').summernote({
+//         }).on('summernote.keyup', function(e) {
+//     var a = $(this).offset().top + $(this).outerHeight() - 16,  //  top border of bottom-right-corner-box area
+//       b = $(this).offset().left + $(this).outerWidth() - 16;  //  left border of bottom-right-corner-box area
+//     $(this).css({
+//       cursor: e.pageY > a && e.pageX > b ? 'nw-resize' : ''
+//     });
+//   })
+//     //  the following simple make the textbox "Auto-Expand" as it is typed in
+//     $('[id="editor"]').summernote({
+//         }).on('summernote.keyup', function(e) {
+//         //  the following will help the text expand as typing takes place
+//         while($(this).outerHeight() < this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth"))) {
+//             $(this).height($(this).height()+1);
+//         };
+//     });
+// });
 
 </script>

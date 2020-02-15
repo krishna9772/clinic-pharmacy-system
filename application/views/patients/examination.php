@@ -8,7 +8,7 @@
       $height = ($examination->height != '') ? $examination->height." <sub><small>ft</small></sub>     |  <span id='cm'></span>":'';
       $bmi = ($examination->bmi != 0) ? $examination->bmi : '';
 
-      echo "<div id='exam".$examination->id."' class='well well-md'>";
+      echo "<div id='exam".$examination->id."' class='new well well-md'>";
       echo "<div class='examBody'>";
       echo "<table class='table table-striped' id='exam_table'>";
       echo "<thead>";
@@ -40,7 +40,7 @@
       echo "</table>";
 
             echo "</div>";
-      echo "<div class='pull-right'>Create Date:".$examination->created_date."</div>";
+      echo "<div class='pull-right'>".$examination->created_date."</div>";
     echo "</div>";
    echo "<input type='hidden' value=".$examination->weight." id='lb'>"; 
    echo "<input type='hidden' value=".$examination->height." id='ft'>";

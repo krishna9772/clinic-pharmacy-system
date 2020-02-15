@@ -68,31 +68,14 @@
 
 				if($id) {
 		           
-		           $sql = "SELECT * FROM ra_complaint where patient_id = ? and is_deleted = '0' ";
+		           $sql = "SELECT * FROM ra_patient_visit where patient_id = ?";
 		           $query = $this->db->query($sql,array($id));
 		           return $query->num_rows();
 
-				}
+				}  
 			}
 
-			public function whoVisited($date=null)
-			{
-
-				if($date)
-				{
-
-				$sql = "SELECT name , patient_id, ra_complaint.is_deleted as deleted , ra_complaint.created_date as date_time FROM ra_complaint JOIN ra_patient on ra_complaint.patient_id =ra_patient.id where ra_complaint.created_date LIKE '%$date%' and ra_complaint.is_deleted = '0' ORDER BY ra_complaint.id desc ";
-				    $query = $this->db->query($sql);
-				return $query->result_array();
-
-				}
-		     
-		        $date = mdate('%Y-%m-%d');
-				$sql = "SELECT name , patient_id, ra_complaint.is_deleted as deleted , ra_complaint.created_date as date_time FROM ra_complaint JOIN ra_patient on ra_complaint.patient_id =ra_patient.id where ra_complaint.created_date LIKE '%$date%' and ra_complaint.is_deleted = '0' ORDER BY ra_complaint.id desc LIMIT 5";
-				$query = $this->db->query($sql);
-				return $query->result_array();
-
-			}
+			
 
 			public function delete($id)
 			{
@@ -115,12 +98,84 @@
 				return $query->num_rows();
 			}
 
-			public function countTodayPatients()
-			{   
-				$date = mdate('%Y-%m-%d');
-				$sql = "SELECT * FROM ra_complaint where created_date LIKE  '%$date%' and is_deleted = '0'";
-				$query = $this->db->query($sql);
-				return $query->num_rows();
+			public function addVisit($data)
+			{
+                
+                  if($data) {
+		        
+		          $insert = $this->db->insert('ra_patient_visit', $data);
+		          
+
+		         }
+
+		          return ($insert) ? $insert : false;
+
+
+
+			}  
+
+			public function totalComplaints($patient_id='')
+			{
+                  $this->db->select('*');
+			      $this->db->from('ra_complaint');
+			      $this->db->where('patient_id', $patient_id);
+			      $this->db->where('is_deleted', '0');
+			      $this->db->order_by('id','desc');
+			      $query = $this->db->get();
+			      return $query->result();
+               
+
+			}
+
+			public function totalHistorys($patient_id='')
+			{
+
+			  $this->db->select('*');
+		      $this->db->from('ra_history');
+		      $this->db->where('patient_id', $patient_id);
+		      $this->db->where('is_deleted', '0');
+		      $this->db->order_by('id','desc');
+		      $query = $this->db->get();
+		      return $query->result();
+
+			}
+
+			public function totalInvestigations($patient_id='')
+			{
+
+				  $this->db->select('*');
+			      $this->db->from('ra_investigation');
+			      $this->db->where('patient_id', $patient_id);
+			      $this->db->where('is_deleted', '0');
+			      $this->db->order_by('id','desc');
+			      $query = $this->db->get();
+			      return $query->result();
+
+			}
+
+			public function totalExaminations($patient_id='')
+			{
+
+				  $this->db->select('*');
+			      $this->db->from('ra_exa_patient');
+			      $this->db->where('patient_id', $patient_id);
+			      $this->db->where('is_deleted', '0');
+			      $this->db->order_by('id','desc');
+			      $query = $this->db->get();
+			      return $query->result();
+
+
+			}
+
+			public function totalDiagnosis($patient_id='')
+			{
+				  $this->db->select('*');
+		          $this->db->from('ra_diag_patient');
+		          $this->db->where('patient_id', $patient_id);
+		          $this->db->where('is_deleted', '0');
+		          $this->db->order_by('id','desc');
+		          $query = $this->db->get();
+		          return $query->result();
 			}
 
 			 public function searchPatient($query)

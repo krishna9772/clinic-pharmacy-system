@@ -1,5 +1,4 @@
-
-<div class="" id="history" style="padding-top: 10px;">
+<div class="tab-pane" id="history" style="padding-top: 10px;">
 
 	 <script>
     $(document).ready(function(){
@@ -28,37 +27,10 @@
     });
   </script>
 
-  <div>
-  <a data-toggle="collapse" href="#collapseHistory" 
-      aria-expanded="false" aria-controls="collapseExample" id="collapseHis">
-       
-        <i class="fa fa-plus btn btn-primary"> <small class="label label-default">History</small></i>
-        <i class="fa fa-minus btn btn-primary"> <small class="label label-default">History</small></i>
-    </a>
-  </div>
+  <div class="">
 
-	<?php if($patient_data['id'] == TRUE){
-   echo "<div class='collapse' id='collapseHistory'>";
-   echo "<div class='row'>";
-   echo "<div class='col-sm-6'>";
-       echo form_open('historys/create/'.$patient_data['id'],array('id'=>'historyBox'));
-	     echo form_hidden('patient_id',$patient_data['id']);
-       echo form_textarea(array(
-        'name' => 'history',
-        'id' => 'historyeditor',
-        'class' => 'autoExpand',
-        'rows' => '3',
-        'data-min-rows' => '3',
-        'placeholder' => 'Write your history about this patient...',
-        'required' => 'required'
-    ));
-       // echo form_submit('Save','Save','class="btn btn-primary ml-3" id="savehistory"');
-       echo form_close();
-       echo "<p></p>"; 
-    echo "</div>";
+   <?php
 
-  }
-  echo "<div class='col-sm-6'>";
   echo "<div id='historyGroup'>";
   foreach($history as $his) {
 
@@ -69,9 +41,10 @@
         echo "</div>";
   }
    echo "</div>";
-  echo "</div>";
-  echo "</div>";
-  echo "</div>";
 		?>
+		</div>
 
 </div>
+
+
+

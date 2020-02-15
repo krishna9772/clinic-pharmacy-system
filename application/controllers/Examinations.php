@@ -43,8 +43,11 @@ class Examinations extends Admin_Controller
         
 		  }else{
 
-		  	
+		  	echo 'Cannot add data';
 		  }
+		}else{
+
+			echo 'Cannot add data really';
 		}
 	}
 

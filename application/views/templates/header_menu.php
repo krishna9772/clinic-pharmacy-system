@@ -132,6 +132,36 @@
     border: none;
     cursor: pointer;
   }
+  .shortcut{
+
+    display: inline-grid;
+    margin: 4px;
+  }
+  
+  .shortcut a:hover{
+      
+      color: red;
+  }
+
+  @media only screen and (max-width: 768px) {
+  
+   .navbar-left button {
+    float: none;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+  }
+
+  #nav_bar{
+       display: flex;
+  }
+
+}
+
 </style>
 
 <header class="main-header">
@@ -145,13 +175,20 @@
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top" id="nav_bar">
     <!-- Sidebar toggle button-->
-    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+    <a href="#" class="sidebar-toggle" data-toggle="push-menu"  role="button">
       <span class="sr-only">Toggle navigation</span>
     </a>
-    <div class="navbar-left">
+   <div class="navbar-left">
      <input type="text" placeholder="Search.." name="search" id="search">
-     <button type="submit" id="searchbtn"><i class="fa fa-search"></i></button>
+      <button type="submit" id="searchbtn"><i class="fa fa-search"></i></button>
    </div>
+
+   <div class="shortcut">
+          <a href="<?php echo base_url()?>patients/create"><span class="badge badge-info">Add New Patient</span></a>
+          <a href="<?php echo base_url()?>pharmacy/create"><span class="badge badge-info">Add New Medicine</span></a>
+   </div>
+
+
    <div id="noti_Container" class="navbar-right" style="padding-right: 5px;" >
 
     <div id="ofs_noti_Counter"></div>
@@ -209,35 +246,7 @@
         <?php }else{ ?>
          <a class="notihr"  href="<?php echo base_url()?>pharmacy/update/<?php echo $row['id']?>"> 
           <p> <span class="bg-warning"><?php echo $row['medicine_name']?></span> is going to expire on   <span class="bg-warning"><?php echo $row['expire_date'];?></span><br>
-           <?php
-           
-           function dateDiffInDays($date1, $date2)  
-           { 
-             // Calulating the difference in timestamps 
-             $diff = strtotime($date2) - strtotime($date1); 
-             
-              // 1 day = 24 hours 
-             // 24 * 60 * 60 = 86400 seconds 
-             return abs(round($diff / 86400)); 
-           } 
-           
-// Start date 
-           $date1 = date('Y/m/d');
-           
-// End date 
-           $date2 = date($row['expire_date']); 
-           
-// Function call to find date difference 
-           $dateDiff = dateDiffInDays($date1, $date2); 
-           
-// Display the result 
-           printf(""
-            . $dateDiff . " Day(s)   left"); 
-
-            ?>
-
-            
-            
+          
           </p>
         </a>
         <hr>
@@ -413,5 +422,24 @@
 
        window.location.href = "<?php echo base_url()?>patients/searchResult/"+q;
   })
+
+  function changeCollapse(){
+    var width = $(document).width();
+    // alert("Hello World");
+    if (width > 900) {
+      $('body').removeClass('sidebar-collapse');
+  }else{
+     $('body').addClass('sidebar-collapse');
+  }
+
+}
+  $(window).resize(function(){
+    changeCollapse();
+  });
+  $(document).ready(function(){
+    changeCollapse();
+  });
+
+
 
 </script>

@@ -43,7 +43,7 @@ class Complaints extends Admin_Controller
 		 $this->load->view('patients/complaint',$this->data);
 		 }else{
 
-		 	echo "<script>alert('Complaint cannot be empty')</script>";
+		 	echo "'Complaint cannot be empty'";
 		 }
 
 	}

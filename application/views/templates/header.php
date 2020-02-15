@@ -89,8 +89,8 @@ $.widget.bridge('uibutton', $.ui.button);
 <!-- AdminLTE App -->  
 <script src="<?php echo base_url('assets/dist/js/adminlte.min.js') ?>"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?php echo base_url('assets/dist/js/pages/dashboard.js') ?>"></script>
-<!-- AdminLTE for demo purposes -->
+<!-- <script src="<?php echo base_url('assets/dist/js/pages/dashboard.js') ?>"></script>
+ --><!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('assets/dist/js/demo.js') ?>"></script>
 <script src="<?php echo base_url('assets/plugins/fileinput/fileinput.min.js') ?>"></script>
 
@@ -117,6 +117,6 @@ display: none;
 }
 </style>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
 <div class="wrapper">
 

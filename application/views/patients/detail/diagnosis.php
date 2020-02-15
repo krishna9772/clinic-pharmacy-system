@@ -34,7 +34,7 @@ ul.checkbox li label {
     border-radius: 5px;
 }
 </style>
-<div class="" id="diagnosis" style="padding-top: 10px;">
+<div class="tab-pane" id="diagnosis" style="padding-top: 10px;">
 
 	 <script>
     $(document).ready(function(){
@@ -54,17 +54,6 @@ ul.checkbox li label {
         
       });
 
-      // $("#savediag").click(function(){
-
-      // 	 $.post($('#diagbox').attr('action'),$('#diagbox').serialize(),
-      // 	 	function(data){
-
-      //       $('#diagnosisGroup').prepend(data);
-      //       $('#diagnosis').val('');
-      // 	 	});
-      //    return false;
-
-      // });
 
       $("#diagnosisGroup span > i >  a").on('click',diagnosisAction);
          
@@ -90,41 +79,10 @@ ul.checkbox li label {
 
     });
   </script>
-
-  <div>
-   <a data-toggle="collapse" href="#collapseDiagnosis" 
-      aria-expanded="false" aria-controls="collapseExample" id="collapseDia">
-       
-        <i class="fa fa-plus btn btn-primary"> <small class="label label-default">Diagnosis</small></i>
-        <i class="fa fa-minus btn btn-primary"> <small class="label label-default">Diagnosis</small></i>
-    </a>
-  </div><br>
-  <?php
-     echo '<div class="collapse" id="collapseDiagnosis">';
-      echo "<div class='row'>";
-      echo "<div class='col-sm-6'>";
-        echo form_open('diagnosis/create/',array('id'=>'diagboxlist'));
-        echo '<input type="text" id="diag" name="name" onkeyup="myFunction()" placeholder="Search (or) add new type" required><button id="newdiag"><i class="fa fa-plus"></i></button><br>';
-        echo form_close();
-       echo form_open('diagnosis/assign/'.$patient_data['id'],array('id'=>'diagbox'));
-	     echo form_hidden('patient_id',$patient_data['id']);
-
-    	echo "<ul class='checkbox' id='myUL'>";
-       
-      foreach($diagnosis_data as $diag){
-       
-      	echo '<li><input type="checkbox" id="'.$diag->name.'" name="diagnosis[]" value="'.$diag->name.'" />';
-        echo '<label for="'.$diag->name.'">'.$diag->name.'</label></li> ';
-      
-      }
-        echo "</ul>";
-        // echo form_submit('','Save','class="btn btn-info" id="savediag" ');
-        echo form_close();
-        echo "</div>";
-    ?>
+<!-- Default checked -->
 
 <?php 
-    echo "<div class='col-sm-6'>";
+
     echo "<div id='diagnosisGroup'>";
   foreach($diagnosis_patient as $diag_pat) {
 
@@ -135,12 +93,10 @@ ul.checkbox li label {
         echo "</div>";
   }
    echo "</div>";
-   echo "</div>";
-   echo "</div>";
-   echo "</div>";
 
 ?>
-  </div>
+
+</div>
 
 <script>
 function myFunction() {

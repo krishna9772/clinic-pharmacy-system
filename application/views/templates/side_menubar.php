@@ -1,7 +1,6 @@
-
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar" style="position: fixed;width: 230px;">
+    <section class="sidebar">
       
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
@@ -61,7 +60,7 @@
        <?php if(in_array('createPatient', $user_permission) || in_array('updatePatient', $user_permission) || in_array('viewPatient', $user_permission) || in_array('deletePatient', $user_permission)): ?>
             <li id="storeNav">
               <a href="<?php echo base_url('patients/') ?>">
-                <i class="fa fa-wheelchair-alt"></i> <span>Patient&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-success"><?php echo $patient_count;?></span></span>
+                <i class="fa fa-wheelchair-alt"></i> <span>Patient&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-success" id="patientqty"><?php echo $patient_count;?></span></span>
               </a>
             </li>
           <?php endif; ?>
@@ -81,6 +80,26 @@
                 <?php endif; ?>
                 <?php if(in_array('updatePharmacy', $user_permission) || in_array('viewPharmacy', $user_permission) || in_array('deletePharmacy', $user_permission)): ?>
          <li id="managePhaNav"><a href="<?php echo base_url('pharmacy/') ?>"><i class="fa fa-circle-o"></i> Manage Pharmacy</a></li>
+                <?php endif; ?>
+              </ul>
+            </li>
+          <?php endif; ?>
+
+           <?php if(in_array('createPatient', $user_permission) || in_array('updatePatient',$user_permission) || in_array('viewPatient', $user_permission) || in_array('deletePatient', $user_permission)): ?>
+              <li class="treeview" id="mainGroupNav">
+              <a href="#">
+        <i class="fa fa-file"></i>
+                <span>Reports</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <?php if(in_array('createPatient', $user_permission)): ?>
+                  <li id="addGroupNav"><a href="<?php echo base_url('reports/totalVisits') ?>"><i class="fa fa-circle-o"></i> Today (Weekly Report)</a></li>
+                <?php endif; ?>
+                <?php if(in_array('updatePatient', $user_permission) || in_array('viewPatient', $user_permission) || in_array('deletePatient', $user_permission)): ?>
+         <li id="managePhaNav"><a href="<?php echo base_url('reports/yearlyVisits') ?>"><i class="fa fa-circle-o"></i>Annual Report</a></li>
                 <?php endif; ?>
               </ul>
             </li>

@@ -32,7 +32,7 @@ class Model_notifications extends MY_Model{
 	{
 
 		$date = date('Y-m-d');    
-		$inc_date = date('Y-m-d', strtotime("+3 month", strtotime($date))); 
+		$inc_date = date('Y-m-d', strtotime("+2 month", strtotime($date))); 
 
 		$sql = "SELECT  * FROM ra_pharmacy WHERE DATE(expire_date) <= '$inc_date' and status = '1' and is_deleted ='0' ORDER BY expire_date ASC ";
 		$query = $this->db->query($sql);

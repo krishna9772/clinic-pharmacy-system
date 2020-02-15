@@ -12,8 +12,6 @@
     <div class="container">
       
      <div class="row">
-<h5><?php echo anchor('pharmacy/index','<i class="fa fa-arrow-left"> Back</i>',array('id'=>'addDrug','class'=>'btn btn-warning'));
-  ?></h5>
   <div class="col col-md-8 well well-sm">
       <?php if($this->session->flashdata('success')): ?>
           <div class="alert alert-success alert-dismissible" role="alert">

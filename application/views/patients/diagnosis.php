@@ -1,10 +1,10 @@
 <?php
 //if(@$complaints){
   //foreach ($complaints as $complaint) {
-    echo "<div id='diagnosis".$diagnosis->id."' class='well well-md'>";
+    echo "<div id='diagnosis".$diagnosis->id."' class='new well well-md'>";
       echo "<div class='diagBody'><span class='badge badge-warning pull-right'><i class='fa fa-trash'>
            ".anchor('#', 'Del ',array('did'=>$diagnosis->id,'pi'=>$diagnosis->patient_id,'action'=>'delete'))."</i></span>".$diagnosis->diagnosis.'</div>';
-      echo "<div class='pull-right'>Create Date: ".$diagnosis->created_date."</div>";
+      echo "<div class='pull-right'>".$diagnosis->created_date."</div>";
     echo "</div>";
   //}
 //}

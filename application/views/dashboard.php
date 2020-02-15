@@ -1,7 +1,5 @@
-
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<!-- Content Wrapper. Contains page content --> 
+   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -24,7 +22,7 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3><?php echo $total_medicines;?></h3>
+                <h2><?php echo $total_medicines;?></h2>
 
                 <p>Total Medicines</p>
               </div>
@@ -39,7 +37,7 @@
             <!-- small box -->
             <div class="small-box bg-green">
               <div class="inner">
-                <h3><?php echo $total_todaypatients?></h3>
+                <h2><?php echo $total_todaypatients?></h2>
 
                 <p>Total Visits Today</p>
               </div>
@@ -74,7 +72,7 @@
             </p>
             </div>
           <div class="modal-footer">
-            <a href="<?php echo base_url()?>patients/totalVisits/<?php echo mdate('%Y-%m-%d');?>" class="btn btn-default">See All</a>
+            <a href="<?php echo base_url()?>reports/totalVisits/<?php echo mdate('%Y-%m-%d');?>" class="btn btn-default">See All</a>
           </div>
        </form>
 

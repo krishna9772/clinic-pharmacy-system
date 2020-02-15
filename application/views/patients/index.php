@@ -126,10 +126,13 @@ function initPage(){
 // remove functions 
 function removeFunc(id)
 {
+
   if(id) {
     $("#removeForm").on('submit', function() {
 
       var form = $(this);
+
+      var qty = $("#patientqty").text();  
 
       // remove the text-danger
       $(".text-danger").remove();
@@ -151,6 +154,12 @@ function removeFunc(id)
 
             // hide the modal
             $("#removeModal").modal('hide');
+
+
+           var aftdelqty = Number(qty)-1;
+
+           $("#patientqty").text(aftdelqty);
+
 
           } else {
 

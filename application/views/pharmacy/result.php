@@ -39,10 +39,7 @@ if($drugs)
         $('#total_cost').val(tr.find('td:nth(4)').text()*tr.find('input[name="no_of_item"]').val());
 
         if(noItem > reQty){
-
-          alert($("input[name='no_of_item']").val());
-          alert($("#remain_quantity").val());
-
+          
           alert("Not Available in Stock");
         }else{
         

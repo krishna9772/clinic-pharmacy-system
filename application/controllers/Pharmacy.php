@@ -18,6 +18,7 @@ class Pharmacy extends Admin_Controller
 		$this->data['page_title'] = 'Pharmacy';
 	    $this->load->model('model_pharmacy');
 	    $this->load->model('model_medpatients');
+	    $this->load->model('model_prespatients');
 	    $this->load->model('model_notifications');
 	    $this->load->model('model_patients');
 	   	$this->data['patient_count'] = $this->model_patients->count();
@@ -245,17 +246,44 @@ class Pharmacy extends Admin_Controller
 			redirect('dashboard','refresh');
           
 		}
-
-		if($this->input->post())
-     {
-        $q=$this->input->post('q');
-        $drugs=$this->model_pharmacy->searchmed($q);
-        $this->data['drugs']=$drugs;
-        $this->load->view('pharmacy/result',$this->data);
-        return TRUE;
-     }
+         $this->data['patient_id']  = urldecode($this->uri->segment(3));
+		 $this->data['product_list'] = $this->model_pharmacy->getActiveMed();
 
 		$this->load->view('pharmacy/search',$this->data);
+	}
+
+	public function getTableMedRow()
+  {
+    $products = $this->model_pharmacy->getActiveMed();
+    echo json_encode($products);
+  }
+
+	public function getProductValueById()
+  {
+
+    $med_id = $this->input->post('product_id');
+
+    if($med_id) {
+      $medicine_data = $this->model_pharmacy->searchmed($med_id);
+      echo json_encode($medicine_data);
+
+
+    }
+
+}
+
+	public function prescription()
+	{
+
+		  if(!in_array('createPharmacy', $this->permission)){
+
+		  	    redirect('dashboard','refresh');
+
+		  }
+
+		 $this->data['patient_id']  = urldecode($this->uri->segment(3));
+
+		  $this->load->view('pharmacy/prescription',$this->data);
 	}
 
 	public function assign()
@@ -268,48 +296,68 @@ class Pharmacy extends Admin_Controller
 
 	     $this->form_validation->set_rules(array(
         array( 'field' => 'patient_id', 'label' => 'Patient ID', 'rules' => 'required|is_numeric', ),
-        array( 'field' => 'med_id', 'label' => 'Medicine ID', 'rules' => 'required|is_numeric', ),
-        array( 'field' => 'quantity', 'label' => 'Number of Item', 'rules' => 'required|is_numeric', ),
-        array( 'field' => 'total_cost', 'label' => 'Total Cost', 'rules' => 'required|is_numeric', ),
+        array( 'field' => 'product[]', 'label' => 'Medicine ID', 'rules' => 'required|is_numeric', ),
+        array( 'field' => 'quantity[]', 'label' => 'Number of Item', 'rules' => 'required|is_numeric', ),
+        array( 'field' => 'totalamt[]', 'label' => 'Total Cost', 'rules' => 'required|is_numeric', ),
       ));
 
 		if($this->form_validation->run() == TRUE) {
 
-			unset($_POST['submit']);
 			foreach ($this->input->post() as $key => $value) {
+				
+			$this->model_medpatients->create();
 
-				$this->model_medpatients->$key = $value;
-				$this->model_medpatients->patient_id = $this->input->post('patient_id');
-				$this->model_medpatients->med_id  = $this->input->post('med_id');
-				$this->model_medpatients->quantity = $this->input->post('quantity');
-				$this->model_medpatients->total_cost = $this->input->post('total_cost');
-				$this->model_medpatients->assign_date = now();
-				$save = $this->model_medpatients->save();
-				$this->model_pharmacy->load($this->model_medpatients->med_id);
-				$this->model_pharmacy->remain_quantity = $this->model_pharmacy->remain_quantity - $this->input->post('quantity');
-				$this->model_pharmacy->used_quantity = $this->model_pharmacy->used_quantity + $this->input->post('quantity');
-				$this->model_pharmacy->save();
-				$this->model_pharmacy->load($this->model_medpatients->med_id); 
+			$patient_id = $this->input->post('patient_id');
 
-			echo '<tr id="dpi'.$this->model_medpatients->med_patient_id.'"><td class="id"></td>'.
-            '<td>'.$this->model_pharmacy->medicine_name.'</td>'.
-            '<td>'.$this->model_pharmacy->expire_date.'</td>'.
-            '<td>'.$this->model_pharmacy->selling_price.'</td>'.
-            '<td>'.$this->model_medpatients->quantity.'</td>'.
-            '<td>'.$this->model_medpatients->total_cost.'</td>'.
-            '<td>'.date('d/m/Y',$this->model_medpatients->assign_date).'</td>'.
-            '<td class="actions">'.anchor('#', 'Delete ',array('dpi'=>$this->model_medpatients->med_patient_id,'di'=>$this->model_medpatients->med_id,'qu'=>$this->model_medpatients->quantity,'pi'=>$this->model_medpatients->patient_id,'tc'=>$this->model_medpatients->total_cost,'action'=>'delete'));
-            echo'</td></tr>';
-          return;
+			redirect('patients/panel/'.$patient_id);
 
-			}
+      }
 		 
 		 }else{
 
-		 echo "Yes sorry";
+		 // $this->form_validation->error();
+
+		 	echo "Sorry";
 		}
 
 		
+	}
+
+	public function assignPres()
+	{
+
+		if(!in_array('createPatient', $this->permission)){
+
+			redirect('dashboard','refresh');
+		}
+
+	     $this->form_validation->set_rules(array(
+        array( 'field' => 'patient_id', 'label' => 'Patient ID', 'rules' => 'required|is_numeric', ),
+        array( 'field' => 'product[]', 'label' => 'Medicine Name', 'rules' => 'required', ),
+        array( 'field' => 'quantity[]', 'label' => 'Number of Item', 'rules' => 'required|is_numeric',),
+      ));
+
+		if($this->form_validation->run() == TRUE) {
+
+			foreach ($this->input->post() as $key => $value) {
+				
+			$this->model_prespatients->createPrescription();
+
+			$patient_id = $this->input->post('patient_id');
+
+			redirect('patients/panel/'.$patient_id);
+
+        }
+		 
+		 }else{
+
+		 // $this->form_validation->error();
+
+		 	echo "Sorry";
+		}
+
+
+
 	}
 	public function deletedpi($med_patient_id)
 	{
@@ -354,6 +402,46 @@ class Pharmacy extends Admin_Controller
 
       }
 	}
+
+	public function deleteppi($pres_patient_id)
+	{
+
+		if(!in_array('createPatient', $this->permission)){
+
+			redirect('dashboard','refresh');
+		}
+
+			$this->form_validation->set_rules(array(
+        array( 'field' => 'pres_patient_id', 'label' => 'ID', 'rules' => 'required|trim|is_numeric|has_no_schar', ),
+        array( 'field' => 'pres_name', 'label' => 'Drug ID', 'rules' => 'required|trim|is_numeric|has_no_schar', ),
+        array( 'field' => 'patient_id', 'label' => 'Patient ID', 'rules' => 'required|trim|is_numeric|has_no_schar', ),
+      ));
+
+	     if($this->input->post('pres_patient_id')  == $pres_patient_id)
+      {
+
+      	  $this->model_prespatients->load($this->input->post('pres_patient_id'));
+      	  if($this->model_prespatients->pres_name == $this->input->post('pres_name') &&
+           $this->model_prespatients->patient_id==$this->input->post('patient_id'))
+        {
+          $this->model_prespatients->delete();
+          unset($_POST);
+          echo 'ok';
+        }else{
+          echo 'mismatch';
+          echo $this->model_prespatients->pres_name.",";
+      	echo $this->model_prespatients->patient_id."<br>";
+      	echo $this->input->post('pres_name').",";
+      	echo $this->input->post('patient_id');
+          //$data['error']='<div class="alert alert-danger">Payment Data Mismatch<div>';
+        }
+      }else{
+
+      	echo "still error";  
+
+      }
+	}
+	
 	
 	public function check()
 	{

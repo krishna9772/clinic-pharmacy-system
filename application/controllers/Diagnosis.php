@@ -72,7 +72,6 @@ class Diagnosis extends Admin_Controller
                 $this->model_diagpatients->load($this->model_diagpatients->id);
                 $this->data['diagnosis']  = $this->model_diagpatients;
                 $this->load->view('patients/diagnosis',$this->data);
-            
 
         }
 

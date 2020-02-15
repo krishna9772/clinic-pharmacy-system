@@ -1,24 +1,13 @@
-<div class="" id="rx" style="padding-top: 10px;">
+<div class="tab-pane" id="rx" style="padding-top: 10px;">
     <script>
     $(document).ready(function(){
       //script of assign drug click
-      $('#addDrug').click(function(){
-        $.ajax($('#addDrug').attr('href')).done(function(data){
-          $('#tmpDiv').html(data);
-        });
-        return false;
-      });
-
-      $('#addPres').click(function(){
-         $.ajax($('#addPres').attr('href')).done(function(data){
-             $('#tmpDiv').html(data);
-         });
-         return false;
-      });
       //script of payment click
       $('#drugGroup tr > td> a').on('click',drugItemsAction);
       $('#presGroup tr > td> a').on('click',presItemsAction);
-    });
+
+
+     });
   </script>
   <script>
     function drugItemsAction(e){
@@ -33,7 +22,7 @@
           $.post('<?php echo site_url("pharmacy/deletedpi")."/";?>'+dpi,'csrf_test_name='+csrfVal+'&drug_patient_id='+dpi+'&drug_id='+di+'&quantity='+qu+'&patient_id='+pi,function(response){
             var data = $.trim(response);
             if(data=='ok'){
-              $('#dpi'+dpi).fadeOut();
+              $('#dpidetail'+dpi).fadeOut();
               $('#dpipanel'+dpi).fadeOut();
             }else if(data=='mismatch'){
               alert('Delete data mismatch');
@@ -55,7 +44,7 @@
           $.post('<?php echo site_url("pharmacy/deleteppi")."/";?>'+ppi,'csrf_test_name='+csrfVal+'&pres_patient_id='+ppi+'&pres_name='+pn+'&quantity='+qu+'&patient_id='+pi,function(response){
             var data = $.trim(response);
             if(data=='ok'){
-              $('#ppi'+ppi).fadeOut();
+              $('#ppidetail'+ppi).fadeOut();
               $('#ppipanel'+ppi).fadeOut();
             }else if(data=='mismatch'){
               alert('Delete data mismatch');
@@ -66,28 +55,12 @@
         }
       }
   </script>
- <?php 
-    
-    if(in_array('createPatient', $user_permission)){
-
-     echo anchor('pharmacy/search/'.$patient_data['id'],'Assign',array('id'=>'addDrug','class'=>'btn btn-primary'))." ";
-     echo anchor('pharmacy/prescription/'.$patient_data['id'],'Prescription',array('id'=>'addPres','class'=>'btn btn-primary'))." "; 
-     echo "<div class='hidden'>".form_open('pharmacy/assign',array('id'=>'addDrugForm'));
-     echo form_input('patient_id',$patient_data['id'],'id="patient_id"');
-     echo form_input('med_id','','id="drug_id"'); 
-     echo form_input('quantity','','id="no_of_item"');
-     echo form_input('total_cost','','id="total_cost"');
-     echo form_close().'</div>';
-
-    }
-
- ?><br>
   <div id='drugError'></div>
 	<div id='drugGroup' class="responsive-table">
     <table class="table table-bordered table-striped">
     <thead>
       <tr>
-          <th>#</th>
+           <th>#</th>
           <th>Name</th>
           <th>Expiry date</th>
           <th>Price</th>
@@ -101,6 +74,7 @@
    
    <?php
     
+   
   if($med_patient){
     $i=0;
    foreach($med_patient as $pat){
@@ -110,7 +84,7 @@
     $status = ($pat->highlighted == 1) ? '<span class="fa fa-star"></span>' : '';
 
 
-     echo '<tr id="dpi'.$pat->med_patient_id.'"><td class="id">'.++$i.'</td>'.
+     echo '<tr id="dpidetail'.$pat->med_patient_id.'"><td class="id">'.++$i.'</td>'.
             '<td>'.$status.''.$this->model_pharmacy->medicine_name.'</td>'.
             '<td>'.$this->model_pharmacy->expire_date.'</td>'.
             '<td>'.$this->model_pharmacy->selling_price.'</td>'.
@@ -121,11 +95,11 @@
     echo '</tr>';  
    }
   }
+    
     ?>
    </tbody>
   </table>
  </div>
-
  <div id='presGroup' class="responsive-table">
     <table class="table table-bordered table-striped">
     <thead>
@@ -146,7 +120,7 @@
    
     $status = ($pat->highlighted == 1) ? '<span class="fa fa-star"></span>' : '';
 
-     echo '<tr id="ppi'.$pat->pres_patient_id.'"><td class="id">'.++$i.'</td>'.
+     echo '<tr id="ppidetail'.$pat->pres_patient_id.'"><td class="id">'.++$i.'</td>'.
             '<td>'.$status.''.$pat->pres_name.'</td>'.
             '<td><span class="label label-info">'.$pat->quantity.'</span></td>'.
             '<td>'.date('d/m/Y',$pat->assign_date).'</td>';

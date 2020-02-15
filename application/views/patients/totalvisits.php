@@ -25,8 +25,8 @@
            <li><a href="#todayvisit" data-toggle="tab">
                   Today <span class="badge badge-light"><?php echo $tvisitqty;?></span>
             </a></li>
-            <li><a href="#weeklyvisit" data-toggle="tab">
-                  Daily
+            <li id="mwc"><a href="#weeklyvisit" data-toggle="tab">
+                  Past Seven Days <span class="badge badge-light"><?php echo $dvisitqty;?></span>
             </a></li>
            </ul><br>
           
@@ -52,17 +52,17 @@
 
               <?php endforeach;?>
 
-             </tr> 
-
             </table>
 
            </div>
 
            <div class="tab-pane" id="weeklyvisit">
 
+             <div  class="col-sm-12 text-center">
+            <div id="line-chart"></div>
+
            </div>
           </div>
-
               <!-- small box -->
               <!-- remove brand modal -->
             </div>
@@ -90,7 +90,36 @@
             "bInfo" : false,
             "dom": 'ftipr'
 
-      }); 
+      });
 
+      $('ul.nav a').on('shown.bs.tab',function(){
+
+         morrisBar.redraw();
+         // YearlyReport.redraw();
+         $('svg').css({ width: '100%' }); 
+
+      });
+
+
+          var serries = JSON.parse(`<?php echo $chart_data; ?>`);
+          console.log(serries);
+          var data = serries,
+            config = {
+              data: data,
+              xkey: 'y',
+              ykeys: ['a'],
+              labels: ['Quantity'],
+              fillOpacity: 0.6,
+              hideHover: 'auto',
+              behaveLikeLine: true,
+              resize: true,
+              pointFillColors:['#ffffff'],
+              pointStrokeColors: ['black'],
+              lineColors:['gray','red']
+          };
+         
+         config.element = 'line-chart';
+        var morrisBar = Morris.Bar(config);
+         
       });
     </script>

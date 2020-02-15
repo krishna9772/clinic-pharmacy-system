@@ -101,7 +101,7 @@ class Model_pharmacy extends MY_Model{
 	public $deleted_date;
 	
 
-public function getProductData($id=0){
+public function getProductData($id=null){
 	if ($id == ''){
           $this->db->select('*');
           $this->db->from('ra_pharmacy');
@@ -129,6 +129,17 @@ public function getProductData($id=0){
 		$update = $this->db->update('ra_pharmacy',$data);
 		return($update == true) ? true : false;
 	}
+
+	public function update($data,$id)
+    {
+
+	    if($data && $id) {
+		            
+		    $this->db->where('id',$id);
+		    $update = $this->db->update('ra_pharmacy',$data);
+		    return ($update == true) ? true : false;
+	    }
+    }
 	
 	public function updateDate($id)
 	{
@@ -138,16 +149,29 @@ public function getProductData($id=0){
 
 	}
 
-	public function searchmed($name)
+	public function getActiveMed()
+	{
+		$this->db->select("*");
+        $this->db->from("ra_pharmacy");
+        $this->db->where("status","1");
+        $this->db->where("is_deleted","0");
+        
+        $query = $this->db->get();
+
+        $result = $query->result_array();
+
+        return $result;
+	}
+
+	public function searchmed($id)
 	{
 
 		$this->db->select('*');
 		$this->db->from('ra_pharmacy');
-		$this->db->like('medicine_name',$name);
+		$this->db->like('id',$id);
 		$this->db->where('status','1');
-		$this->db->where('remain_quantity >	','0');
 		$query = $this->db->get();
-		return $query->result();
+		return $query->row_array();
 
 	}
 

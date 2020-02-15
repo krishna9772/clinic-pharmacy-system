@@ -1,6 +1,6 @@
-	<?php
+<?php
 
-	defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 	class Patients extends Admin_Controller
 	{
@@ -19,6 +19,7 @@
 			$this->load->model('model_historys');
 			$this->load->model('model_investigations');
 			$this->load->model('model_medpatients');
+			$this->load->model('model_prespatients');
 			$this->load->model('model_examinations');
 			$this->load->model('model_pharmacy');
 			$this->load->model('model_diagnosis');
@@ -157,16 +158,49 @@
 	        $this->data['complaint']    = $this->model_complaints->getComplaintData($patient_id);
 	        $this->data['examination']  = $this->model_examinations->getExaminationData($patient_id);
 	        $this->data['history']      = $this->model_historys->getHistoryData($patient_id);
-	   $this->data['investigation']  = $this->model_investigations->getInvestigationData($patient_id);
-	   $this->data['diagnosis_data'] = $this->model_diagnosis->get();
-	      $this->data['diagnosis_patient'] = $this->model_diagpatients->getDiagnosisData($patient_id);
-	      $this->data['patient_data'] = $this->model_patients->getPatientData($patient_id);
-	      $this->data['med_patient']        = $this->model_medpatients->get_by_fkey('patient_id',$patient_id,'desc',0);
-			$this->data['invoice']        = $this->model_medpatients->get_by_fkey('patient_id',$patient_id,'desc',0);
+	        $this->data['investigation']  = $this->model_investigations->getInvestigationData($patient_id);
+	        $this->data['diagnosis_data'] = $this->model_diagnosis->get();
+	        $this->data['diagnosis_patient'] = $this->model_diagpatients->getDiagnosisData($patient_id);
+	        $this->data['patient_data'] = $this->model_patients->getPatientData($patient_id);
+	        $this->data['med_patient']= $this->model_medpatients->get_by_fkey('patient_id',$patient_id,'desc',0);
+	        $this->data['pres_patient']= $this->model_prespatients->get_by_fkey('patient_id',$patient_id,'desc',0);
+			$this->data['invoice']= $this->model_medpatients->get_by_fkey('patient_id',$patient_id,'desc',0);
 			$user_id = $this->session->userdata('id');
 			$this->data['user_data'] = $this->model_users->getUserData($user_id);
 
 	        $this->render_template('patients/panel',$this->data);
+
+		}
+
+		public function detail($patient_id=0)
+		{
+
+			if(!in_array('createPatient', $this->permission)){
+
+	           redirect('dashboard','refresh');
+
+			}
+
+			if(!$patient_id) {
+
+				redirect('dashboard','refresh');
+			}
+
+			$this->data['complaint']    = $this->model_patients->totalComplaints($patient_id);
+	        $this->data['examination']  = $this->model_patients->totalExaminations($patient_id);
+	        $this->data['history']      = $this->model_patients->totalHistorys($patient_id);
+	        $this->data['investigation']  = $this->model_patients->totalInvestigations($patient_id);
+	        $this->data['diagnosis_data'] = $this->model_diagnosis->get();
+	        $this->data['diagnosis_patient'] = $this->model_patients->totalDiagnosis($patient_id);
+	        $this->data['patient_data'] = $this->model_patients->getPatientData($patient_id);
+	        $this->data['med_patient']= $this->model_medpatients->get_by_fkey('patient_id',$patient_id,'desc',0);
+	        $this->data['pres_patient']= $this->model_prespatients->get_by_fkey('patient_id',$patient_id,'desc',0);
+			$this->data['invoice']= $this->model_medpatients->get_by_fkey('patient_id',$patient_id,'desc',0);
+			$user_id = $this->session->userdata('id');
+			$this->data['user_data'] = $this->model_users->getUserData($user_id);
+
+	        $this->render_template('patients/pdetail',$this->data);
+
 
 		}
 
@@ -217,6 +251,31 @@
 
 
 		}
+
+		public function count()
+		{
+
+			if(!in_array('createPatient', $this->permission)) {
+
+				redirect('dashboard','refresh');
+			}
+
+		    $this->form_validation->set_rules('patient_id', 'Patient', 'trim|required');
+
+			if ($this->form_validation->run() == TRUE) {
+
+	             $data = array(
+	               
+	               'patient_id' => $this->input->post('patient_id'),
+	               
+	             );
+
+	             $this->model_patients->addVisit($data);
+
+		}
+
+		    
+	}
 
 		public function delete()
 		{
@@ -303,14 +362,5 @@
 
 		}
 
-		public function totalVisits()
-		{
-           $date = $this->uri->segment(3);
-           $this->data['tvisits'] = $this->model_patients->whoVisited($date);
-           $this->data['tvisitqty'] = $this->model_patients->countTodayPatients();
-           $this->render_template('patients/totalvisits',$this->data);
 
-
-
-		}
 	}

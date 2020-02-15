@@ -43,7 +43,7 @@ class Investigations extends Admin_Controller
 		 $this->load->view('patients/investigation',$this->data);
 		 }else{
 
-		 	echo "<script>alert('Field cannot be empty')</script>";
+		 	echo "Field cannot be empty";
 		 }
 
 	}

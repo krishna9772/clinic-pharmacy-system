@@ -21,17 +21,6 @@
 
 	<script>
     $(document).ready(function(){
-      //script of this section
-      // $('input[id=save]').click(function(){
-        
-      //     $.post($('#examBox').attr('action'),$('#examBox').serialize(),
-      //       function(data){
-      //         $('#examGroup').prepend(data);
-      //         $('#exam').val('');
-      //       });
-      //     return false; 
-        
-      // });
 
       $("#examGroup span >i >a").on('click',examinationAction);
          
@@ -58,7 +47,7 @@
   </script>
   <div>
   <a data-toggle="collapse" href="#collapseExam" 
-      aria-expanded="false" aria-controls="collapseExample" id="collapse">
+      aria-expanded="false" aria-controls="collapseExample" id="collapseEx">
        
         <i class="fa fa-plus btn btn-primary"> <small class="label label-default">Examination</small></i>
         <i class="fa fa-minus btn btn-primary"> <small class="label label-default">Examination</small></i>
@@ -110,9 +99,7 @@
      
           </div>
 	    </div><br>
-<!-- 	    <input class="btn btn-primary" type="button" value="Save" id="save"><br><br>
- -->
-      <?php } ?>
+      <?php  echo form_close(); } ?>
 
 
 	    <?php 
@@ -153,8 +140,8 @@
       echo "<td>".$spo2."</td>";
       echo "<td>".$rbs."</td>";
       // echo "<td>".$exam->rbs."</td>";
-   echo "<td>".$weight."</td>";
-    echo "<td>".$height."</td>";
+      echo "<td>".$weight."</td>";
+      echo "<td>".$height."</td>";
       echo "<td>".$bmi."</td>";
       echo "<td>";
       echo "</tr>";
@@ -162,11 +149,11 @@
       echo "</table>";
 
             echo "</div>";
-      echo "<div class='pull-right'>Create Date:".$exam->created_date."</div>";
-    echo "</div>";
-   echo "<input type='hidden' value=".$exam->weight." id='lb".$i."'>"; 
-   echo "<input type='hidden' value=".$exam->height." id='ft".$i."'>";
-   $i++;
+      echo "<div class='pull-right'>".$exam->created_date."</div>";
+      echo "</div>";
+      echo "<input type='hidden' value=".$exam->weight." id='lb".$i."'>"; 
+      echo "<input type='hidden' value=".$exam->height." id='ft".$i."'>";
+      $i++;
   }
    echo "</div>";
   
@@ -259,4 +246,5 @@ $(document).ready(function() {
    }
 
 });
+
 </script>

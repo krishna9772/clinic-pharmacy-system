@@ -14,6 +14,7 @@ class Dashboard extends Admin_Controller
 		$this->load->model('model_notifications');
 		$this->load->model('model_patients');
 		$this->load->model('model_pharmacy');
+		$this->load->model('model_reports');
 		$this->data['patient_count'] = $this->model_patients->count();
 		$this->data['expiryproduct'] = $this->model_notifications->getExpiryProduct();
 		$this->data['ofsproduct'] = $this->model_notifications->getOfsProduct();
@@ -30,8 +31,8 @@ class Dashboard extends Admin_Controller
 	{
 		$this->data['total_users'] = $this->model_users->countTotalUsers();
 		$this->data['total_medicines'] = $this->model_pharmacy->countTotalMedicines();
-		$this->data['total_todaypatients'] = $this->model_patients->countTodayPatients();
-		$this->data['patient'] = $this->model_patients->whoVisited();
+		$this->data['total_todaypatients'] = $this->model_reports->countTodayPatients();
+		$this->data['patient'] = $this->model_reports->whoVisited();
 
 		$user_id = $this->session->userdata('id');
 		$is_admin = ($user_id == 1) ? true :false;

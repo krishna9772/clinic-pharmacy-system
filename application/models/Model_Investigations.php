@@ -26,6 +26,7 @@ class Model_investigations extends MY_Model
           $this->db->where('patient_id', $patient_id);
           $this->db->where('is_deleted', '0');
           $this->db->order_by('id','desc');
+          $this->db->limit(1);
           $query = $this->db->get();
           return $query->result();
 
