@@ -45,5 +45,22 @@ class Model_diagpatients extends MY_Model
 
     }
 
+    public function pie_chart_js()
+    {
+
+      $query = $this->db->query("SELECT COUNT(id) as count FROM ra_diag_patient GROUP BY diagnosis");
+      $record = $query->result();
+      $data = [];
+
+      foreach ($record as $row) {
+           $data['label'][] = $row->diagnosis;
+           $data['data'][] = (int) $row->count;
+
+      }
+
+      $data['chart_data'] = json_encode($data);
+  
+   }
+
 
 }
