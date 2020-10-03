@@ -137,81 +137,12 @@
                         } ?>></td>
                       </tr>
                       <tr>
-                        <td>Laboratory Investigation</td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createLab" <?php if($serialize_permission) {
-                          if(in_array('createLab', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateLab" <?php if($serialize_permission) {
-                          if(in_array('updateLab', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewLab" <?php if($serialize_permission) {
-                          if(in_array('viewLab', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteLab" <?php if($serialize_permission) {
-                          if(in_array('deleteLab', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                      </tr>
-                      <tr>
-                        <td>Radiological Investigation</td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createRadio" <?php if($serialize_permission) {
-                          if(in_array('createRadio', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateRadio" <?php if($serialize_permission) {
-                          if(in_array('updateRadio', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewRadio" <?php if($serialize_permission) {
-                          if(in_array('viewRadio', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteRadio" <?php if($serialize_permission) {
-                          if(in_array('deleteRadio', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                      </tr>
-                      <tr>
-                        <td>Products</td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createProduct" <?php if($serialize_permission) {
-                          if(in_array('createProduct', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateProduct" <?php if($serialize_permission) {
-                          if(in_array('updateProduct', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewProduct" <?php if($serialize_permission) {
-                          if(in_array('viewProduct', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteProduct" <?php if($serialize_permission) {
-                          if(in_array('deleteProduct', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                      </tr>
-                      <tr>
-                        <td>Orders</td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createOrder" <?php if($serialize_permission) {
-                          if(in_array('createOrder', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateOrder" <?php if($serialize_permission) {
-                          if(in_array('updateOrder', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewOrder" <?php if($serialize_permission) {
-                          if(in_array('viewOrder', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteOrder" <?php if($serialize_permission) {
-                          if(in_array('deleteOrder', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                      </tr>
-                      <tr>
                         <td>Reports</td>
                         <td> - </td>
                         <td> - </td>
                         <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewReports" <?php if($serialize_permission) {
                           if(in_array('viewReports', $serialize_permission)) { echo "checked"; } 
                         } ?>></td>
-                        <td> - </td>
-                      </tr>
-                      <tr>
-                        <td>Company</td>
-                        <td> - </td>
-                        <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateCompany" <?php if($serialize_permission) {
-                          if(in_array('updateCompany', $serialize_permission)) { echo "checked"; } 
-                        } ?>></td>
-                        <td> - </td>
                         <td> - </td>
                       </tr>
                       <tr>

@@ -13,23 +13,6 @@
     z-index: 1;
     width: 60px;
   }
-j
-  #detail{
-
-    position: absolute;
-    width: 100%;
-    height: 70px;
-    -webkit-transition: all 2s ease-in-out;
-    transition: all 2s ease-in-out;
-    border-radius: 3px 0 0 3px;
-    padding: 15px;
-    background-color: #41a6d9;
-    color: white;
-    text-align: center;
-    box-sizing: border-box;
-
-
-  }
 
   #historyeditor,#investigationeditor,#editor {
     display: block;
@@ -49,6 +32,18 @@ j
 
   }
 
+  a#detail {
+    padding: 9px 7px;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 0px;
+    display: inline-block;
+    background: #f75757;
+    border-radius: 0px;
+    color:#000;
+    font-style: oblique;
+  }
+
 </style>
 <div class="content-wrapper">
 	<!-- (Content Heder) -->
@@ -57,11 +52,11 @@ j
   </section> -->
 
 <!-- Main content -->
-<section class="content">
+<section class="content" style="padding-top: 1px;border-radius: 0px;">
   <!-- Small boxes (Stat box) --> 
   <div class="row">
    <div class="panel-group" id="pInfo">
-    <div class="panel panel-default">
+    <div class="panel panel-success">
       <div id="pInfoBody" class="panel-collapse collapse in">
         <div class="panel-body">
           <div class="col col-xs-5">
@@ -109,7 +104,7 @@ j
 
             foreach($pres_patient as $prespat){
                 
-              $status = ($prespat->highlighted == 1) ? '<span class="label label-info" id="ppipanel'.$prespat->pres_patient_id.'">'.$prespat->pres_name.'</span> ' : '';
+              $status = ($prespat->highlighted == 1) ? '<span class="label label-info" data-toggle="tooltip" title="Highlighted Medicine" id="ppipanel'.$prespat->pres_patient_id.'">'.$prespat->pres_name.'</span> ' : '';
 
               echo $status;
 
@@ -123,7 +118,7 @@ j
 
              $this->model_pharmacy->load($medpat->med_id);
                 
-              $status = ($medpat->highlighted == 1) ? '<span class="label label-info" id="dpipanel'.$medpat->med_patient_id.'">'.$this->model_pharmacy->medicine_name.'</span> ' : '';
+              $status = ($medpat->highlighted == 1) ? '<span class="label label-info" data-toggle="tooltip" title="Highlighted Medicine" id="dpipanel'.$medpat->med_patient_id.'">'.$this->model_pharmacy->medicine_name.'</span> ' : '';
 
               echo $status;
 
@@ -139,10 +134,9 @@ j
       </div>  
     </div>
   </div>  
-  <div class="col col-xs-1 pull-right" style="background: orange;border-radius: 3px;color: #000;">
-            
-            <a href="<?php echo base_url()?>patients/detail/<?php echo $patient_data['id']?>" class="" id="detail"><i class="fa fa-arrow-right">Details</i></a>
- </div>
+  <div class="col col-xs-1 pull-right">
+            <a href="<?php echo base_url()?>patients/detail/<?php echo $patient_data['id']?>" id="detail"><i class="fa fa-history">History</i></a>
+  </div>
 </div>
 
 <?php
@@ -153,19 +147,7 @@ j
        // echo form_submit('Save','Save','class="btn btn-primary ml-3" id="savehistory"');
        echo form_close();
 ?>
-<!-- <ul class="nav nav-tabs" id="panelTab">
- --><!--   <li><a href="#complaint" data-toggle="tab" id="one">Complaint</a></li>
- --><!--   <li><a href="#exam" data-toggle="tab" id="two">Examination</a></li>
- -->  <!-- <li><a href="#history" data-toggle="tab" id="three">History</a></li> -->
-<!--   <li><a href="#diagnosis" data-toggle="tab" id="four">Diagnosis</a></li>
- --><!--   <li><a href="#investigation" data-toggle="tab" id="five">Investigation</a></li>
- -->  <!-- <li><a href="#rx" data-toggle="tab"><img src="<?php echo base_url();?>/assets/images/rx_logo.png" width="20px" height="20px"></a></li>  -->
-  <!-- <li><a href="#invoice" data-toggle="tab"  onclick="invoiceload(<?php echo $patient_data['id'] ?>)">Invoice</a></li> -->
-<!-- </ul>
- -->
 <input class="btn btn-primary pull-right ml-5" type="button" value="Save" id="save">
-
-
 
 <section class='content'>
 
@@ -190,6 +172,31 @@ j
 
     $('#collapseCom,#collapseHis,#collapseInv,#collapseEx,#collapseDia').trigger('click');
 
+        // $("#addDrug").attr("href", "javascript:void(0);");
+        // $("#addPres").attr("href", "javascript:void(0);");
+
+        $("#addDrug").click(function() {
+
+           if(!countVisit.called){
+
+             alert("Save the data first or you will lose it");
+
+           }
+
+        })
+
+        $("#addPres").click(function() {
+
+           if(!countVisit.called){
+
+             alert("Save the data first or you will lose it");
+
+           }
+
+           
+        })
+
+
     });
 
    $(function () {
@@ -205,55 +212,16 @@ j
       .css({height: $this.prop('scrollHeight')});
   }
 });
-
-
-// initialize all expanding textareas
-// $(function() {
-//     $("textarea[class*=autoexpand]").TextAreaExpander();
-// });
-
-      // $(document).on('keyup','#s_bp', function() {
-      // if ($.trim($(this).val()).length == 0) {
-      //   $('#save').hide();
-      // } else {
-      //   $('#save').show();
-      // }
-      // });
-
-      // $('[id="editor"]').summernote({
-      //  }).on('summernote.keyup', function() {
-
-      //    // alert(($(this).val()).length);
-      //    if(($(this).val()).length == 22 || ($(this).val()).length == 0 ) {
-      //      $('#save').hide();
-      //    } else {
-
-      //        $('#save').show();
-
-      //    }
-        
-      // });
-
-     //   $(window).scroll(function() {//For button scrollling
-     //    $('#save').show();
-     //       var winScrollTop = $(window).scrollTop();
-     //       var winHeight = $(window).height();
-     //       var floaterHeight = $('#save').outerHeight(true);
-     //       var fromBottom = 20;
-     //       var top = winScrollTop + winHeight - floaterHeight - fromBottom;
-     //   $('#save').css({'top': top + 'px'});
-
-
-     // });
    
 
         $("#save").on('click',function(){
 
-        var checked =  $("input[name='diagnosis[]']").is(":checked");
+           var checked =  $("input[name='diagnosis[]']").is(":checked");
             
             if(($("#editor").val()).length == 22 || ($("#editor").val()).length == 0) {
-            
-              
+             
+             //coming soon
+               
             }else{
                 saveComplaint();
                 $("#editor").val('');
@@ -263,6 +231,8 @@ j
           
             if(($("#historyeditor").val()).length == 0){
 
+              //coming soon
+
             }else{
               saveHistory();
               $("#historyeditor").val('');
@@ -271,6 +241,8 @@ j
             }
 
             if(($("#investigationeditor").val()).length == 0){
+
+              //coming soon
                
 
             }else{
@@ -283,6 +255,7 @@ j
               
              if(($("#s_bp").val()).length == 0 || ($("#d_bp").val()).length == 0){
                   
+              //coming soon
 
              }else{
 
@@ -291,6 +264,8 @@ j
              }
              
              if(checked != false){
+
+              //coming soon
               
               saveDiagnosis();
               $("input[type=checkbox]").prop('checked',false);
@@ -300,6 +275,11 @@ j
              }
 
              countVisit();
+
+             alert("Data has been saved. Continue to medicine assigning");
+
+             // $("#addDrug").attr("href","<?php echo base_url('pharmacy/search/'.$patient_data['id']);?>");
+             // $("#addPres").attr("href","<?php echo base_url('pharmacy/prescription/'.$patient_data['id']);?>");
 
         })
 
@@ -363,9 +343,18 @@ j
 
         function countVisit()
         {
+          var value;
 
-            $.post($('#visitbox').attr('action'),$('#visitbox').serialize());
+            $.post($('#visitbox').attr('action'),$('#visitbox').serialize(),
+              function(data){
 
+                
+
+              });
+
+            countVisit.called = true;
+
+            
         }
 	  </script>	
 </div>

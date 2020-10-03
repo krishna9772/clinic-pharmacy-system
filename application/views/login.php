@@ -11,7 +11,7 @@
   
   <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/bootstrap/dist/css/bootstrap.min.css') ?>">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/font-awesome/css/font-awesome.min.css') ?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/font-awesome1/css/font-awesome.min.css') ?>">
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/Ionicons/css/ionicons.min.css') ?>">
   <!-- Theme style -->
@@ -47,20 +47,21 @@
 
     <form action="<?php echo base_url('auth/login') ?>" method="post">
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" name="email" id="email" placeholder="Email" autocomplete="off">
+        <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="r@gmail.com" autocomplete="off">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off">
+        <input type="password" class="form-control" name="password" id="password" value="12345678" placeholder="Password" autocomplete="off">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
         <div class="col-xs-8">
-          <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> Remember Me
+               Email  : r@gmail.com
             </label>
-          </div>
+            <label>
+                Pass  : 12345678
+            </label>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">

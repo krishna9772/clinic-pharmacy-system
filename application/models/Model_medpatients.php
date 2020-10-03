@@ -22,6 +22,11 @@ class Model_medpatients extends My_Model {
      * @var int
      */
     public $quantity;
+	/**
+     * type
+     * @var varchar
+     */
+	public $type;
 
     /**
      * Total Cost
@@ -47,6 +52,7 @@ class Model_medpatients extends My_Model {
                 'patient_id' => $this->input->post('patient_id'),
                 'med_id' => $this->input->post('product')[$x],
                 'quantity' => $this->input->post('quantity')[$x],
+				'type' => $this->input->post('type')[$x],
                 'total_cost' => $this->input->post('totalamt')[$x],
                 'highlighted' => $this->input->post('highlight')[$x],
                 'assign_date' => $date,
@@ -55,11 +61,34 @@ class Model_medpatients extends My_Model {
             $this->db->insert('ra_med_patient',$items); 
 
             $product_data = $this->fetchAllProduct($this->input->post('product')[$x]);
-            $remain_quantity = (int) $product_data['remain_quantity'] - (int) $this->input->post('quantity')[$x];
-            $used_quantity = (int) $product_data['used_quantity'] + (int) $this->input->post('quantity')[$x];
+			
+			$remain_quantity = 0;
+			$used_quantity = 0;
+			$remain_tab_quantity = 0;
+			$type = $this->input->post('type')[$x];
+			$quantity = $this->input->post('quantity')[$x];
+			if($type == "Tabs"){
+				$remain_tab_quantity = (int) $product_data['remain_tab_quantity'] - (int) $this->input->post('quantity')[$x];
+				if($this->input->post('quantity')[$x] < $product_data['tab_quantity']){
+					$used_quantity =  (int) $product_data['used_quantity'] + 1;
+					$remain_quantity = (int) $product_data['remain_quantity'] -1;
+				}
+				else{
+					$used_quantity =  (int) $product_data['used_quantity'] + (round((int) $this->input->post('quantity')[$x] / (int) $product_data['tab_quantity']));
+					$remain_quantity = (int) $product_data['remain_quantity'] - (round((int) $this->input->post('quantity')[$x] / (int) $product_data['tab_quantity']));
+				}
 
+			}
+			else{
+				$remain_quantity = (int) $product_data['remain_quantity'] - (int) $this->input->post('quantity')[$x];
+				$used_quantity = (int) $product_data['used_quantity'] + (int) $this->input->post('quantity')[$x];
+				$remain_tab_quantity = (int) $product_data['remain_tab_quantity'] - ((int) $this->input->post('quantity')[$x] * (int) $product_data['tab_quantity']);
+			}
+
+			
             $update_product = array('remain_quantity' => $remain_quantity,
-                                    'used_quantity' => $used_quantity); 
+                                    'used_quantity' => $used_quantity,
+									'remain_tab_quantity' => $remain_tab_quantity); 
 
             $this->model_pharmacy->update($update_product, $this->input->post('product')[$x]);
 

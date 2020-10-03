@@ -17,6 +17,12 @@ class Model_pharmacy extends MY_Model{
 	public $quantity;
 	
 	/**
+     * Tab Quantity
+     * @var int
+     */
+	public $tab_quantity;
+
+	/**
      * Used Quantity
      * @var int
      */
@@ -27,7 +33,12 @@ class Model_pharmacy extends MY_Model{
      * @var int
      */
 	public $remain_quantity;
-	
+	/**
+     * Remain Tab Quantity
+     * @var int
+     */
+	public $remain_tab_quantity;
+
 	/**
      * Register Date
      * @var date
@@ -63,7 +74,7 @@ class Model_pharmacy extends MY_Model{
      * @var int
      */
 	public $selling_price;
-	
+
 	/**
      * Profit Price
      * @var string

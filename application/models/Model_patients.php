@@ -1,4 +1,4 @@
-		<?php
+<?php
 
 		class Model_patients extends CI_Model
 		{
@@ -63,7 +63,7 @@
 				}
 			}
 
-			public function visiting_count($id)
+			public function visitingCount($id)
 			{
 
 				if($id) {

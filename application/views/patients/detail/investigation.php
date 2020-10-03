@@ -16,6 +16,8 @@
             $.post('<?php echo site_url("investigations/delete")."/";?>'+iid,'csrf_test_name='+csrfVal+'&investigation_id='+iid+'&patient_id='+pi,function(data){
             if(data=='ok'){
               $('#investigation'+iid).fadeOut();
+              var qty = Number($("#investigation_count").text())-1;
+              $("#investigation_count").text(qty);
             }else if(data=='mismatch'){
               alert('Delete data mismatch');
             }else if(data=='invalid'){

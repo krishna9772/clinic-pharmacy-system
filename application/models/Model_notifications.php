@@ -17,6 +17,7 @@ class Model_notifications extends MY_Model{
 		return $query->result_array();
 
 	}
+    //**** Products'out of stock notification ***//
 	public function getOfsProduct()
 	{
 
@@ -27,6 +28,8 @@ class Model_notifications extends MY_Model{
 		return $query->result_array();
 
 	}
+
+	//*** Count for all products expire notifications ***//
 
 	public function getTotalExpNoti()
 	{
@@ -40,6 +43,9 @@ class Model_notifications extends MY_Model{
 		return $ex_quantity;
 
 	}
+
+   //*** Count for all out of stock notifications ***//
+
 	public function getTotalOfsNoti(){
 		$quantity = "10";
 		$sql1 = "SELECT * FROM ra_pharmacy where remain_quantity <= '$quantity' and status = '1' and is_deleted ='0' ORDER BY remain_quantity DESC";

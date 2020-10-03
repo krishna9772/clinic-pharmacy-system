@@ -37,7 +37,7 @@ class Model_reports extends CI_MODEL
 			public function dailyVisits()
 			{
 
-            $sql = "SELECT  DAY(visited_date) as y, COUNT(id) as a FROM ra_patient_visit WHERE YEAR(visited_date) = '" . date('Y') . "' and visited_date BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW()
+            $sql = "SELECT  DATE_FORMAT(visited_date,'%m-%d') as y, COUNT(id) as a FROM ra_patient_visit WHERE YEAR(visited_date) = '" . date('Y') . "' and visited_date BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW()
 		    GROUP BY DAY(visited_date) ORDER BY visited_date DESC";
             $query = $this->db->query($sql);
 		    return $query->result_array();

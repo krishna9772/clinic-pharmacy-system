@@ -47,6 +47,19 @@ class Model_complaints extends MY_Model
 
     }
 
+    public function getComplaintCount($id)
+    {
+        if($id) {
+           $sql = "SELECT * FROM ra_complaint where patient_id = ? and is_deleted = ?";
+           $query = $this->db->query($sql,array($id,'0'));
+           return $query->num_rows();
+        }  
+    }
+
+
+
+    // *** This function is in draft mode **** //
+
     public function getComplaintHint()
     {
 

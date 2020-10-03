@@ -178,14 +178,21 @@
     <a href="#" class="sidebar-toggle" data-toggle="push-menu"  role="button">
       <span class="sr-only">Toggle navigation</span>
     </a>
+     <?php if(in_array('createPatient', $user_permission) && in_array('updatePatient', $user_permission) &&in_array('viewPatient', $user_permission) && in_array('deletePatient', $user_permission)): ?>
    <div class="navbar-left">
      <input type="text" placeholder="Search.." name="search" id="search">
       <button type="submit" id="searchbtn"><i class="fa fa-search"></i></button>
    </div>
+      <?php endif ;?>
 
    <div class="shortcut">
-          <a href="<?php echo base_url()?>patients/create"><span class="badge badge-info">Add New Patient</span></a>
-          <a href="<?php echo base_url()?>pharmacy/create"><span class="badge badge-info">Add New Medicine</span></a>
+       <?php if(in_array('createPatient', $user_permission)) :?>
+          <a href="<?php echo base_url()?>patients/create"><span class="badge badge-success">Add New Patient</span></a>
+        <?php endif ;?>
+        <?php if(in_array('createPharmacy', $user_permission)) :?>
+          <a href="<?php echo base_url()?>pharmacy/create"><span class="badge badge-success">Add New Medicine</span>
+          </a>
+        <?php endif ;?>
    </div>
 
 
@@ -197,8 +204,13 @@
     <div id="ofs_noti_Button"><span class="glyphicon glyphicon-exclamation-sign"></span></div>
     <!--THE NOTIFICAIONS DROPDOWN BOX.-->
     <div id="ofs_notifications">
-      <h3>Out of Stock Notifications</h3>
+      <h3>Out of Stock Notifications (<?php echo $totalofspnoti; ?>)</h3>
       <div style="height:300px;padding: 5px;margin: auto;overflow-x:auto; overflow-y: auto;">
+
+          <?php if($ofsproduct == null){
+
+          echo "<p>No notifications yet..</p>";
+        } ?> 
 
         <?php foreach($ofsproduct as $row): ?>
 
@@ -230,8 +242,15 @@
     <div id="noti_Button"><span class="glyphicon glyphicon-bell"></span></div>
     <!--THE NOTIFICAIONS DROPDOWN BOX.-->
     <div id="notifications">
-      <h3>Expiry Notifications </h3>
+      <h3>Expiry Notifications (<?php echo $totalexpnoti; ?>) </h3>
       <div style="height:300px;padding: 5px;margin: auto;overflow-x:auto; overflow-y: auto;">
+
+
+        <?php if($expiryproduct == null){
+
+          echo "<p>No notifications yet..</p>";
+        } ?> 
+
         <?php 
         $date = date('Y-m-d');
         foreach($expiryproduct as $row):

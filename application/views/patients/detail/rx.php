@@ -57,6 +57,7 @@
   </script>
   <div id='drugError'></div>
 	<div id='drugGroup' class="responsive-table">
+    <?php if($med_patient){ ?>
     <table class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -73,15 +74,13 @@
     <tbody>
    
    <?php
-    
-   
-  if($med_patient){
+  
     $i=0;
    foreach($med_patient as $pat){
    
      $this->model_pharmacy->load($pat->med_id);
 
-    $status = ($pat->highlighted == 1) ? '<span class="fa fa-star"></span>' : '';
+    $status = ($pat->highlighted == 1) ? '<span class="fa fa-star" style="color:orange;"></span>' : '';
 
 
      echo '<tr id="dpidetail'.$pat->med_patient_id.'"><td class="id">'.++$i.'</td>'.
@@ -101,6 +100,7 @@
   </table>
  </div>
  <div id='presGroup' class="responsive-table">
+  <?php if($pres_patient){ ?>
     <table class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -112,13 +112,12 @@
       </tr>
     </thead>
     <tbody>
-       <?php
-    
-  if($pres_patient){
+  <?php
+  
     $i=0;
    foreach($pres_patient as $pat){
    
-    $status = ($pat->highlighted == 1) ? '<span class="fa fa-star"></span>' : '';
+    $status = ($pat->highlighted == 1) ? '<span class="fa fa-star" style="color:orange;"></span>' : '';
 
      echo '<tr id="ppidetail'.$pat->pres_patient_id.'"><td class="id">'.++$i.'</td>'.
             '<td>'.$status.''.$pat->pres_name.'</td>'.
@@ -131,5 +130,13 @@
     ?>
     </tbody>
   </table>
+
+  <?php if(!$med_patient && !$pres_patient){ ?>
+    <br>
+    <div class="badge badge-warning">
+      <h4> No medicines have been assigned yet ....</h4>
+    </div>
+
+  <?php }?>
 </div>
 </div>

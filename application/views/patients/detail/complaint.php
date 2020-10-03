@@ -143,6 +143,11 @@ a[aria-expanded=false] .fa-minus {
             $.post('<?php echo site_url("complaints/delete")."/";?>'+cid,'csrf_test_name='+csrfVal+'&complaint_id='+cid+'&patient_id='+pi,function(data){
             if(data=='ok'){
               $('#comment'+cid).fadeOut();
+              
+              var qty = Number($("#complaint_count").text())-1;
+
+              $("#complaint_count").text(qty);
+
             }else if(data=='mismatch'){
               alert('Delete data mismatch');
             }else if(data=='invalid'){

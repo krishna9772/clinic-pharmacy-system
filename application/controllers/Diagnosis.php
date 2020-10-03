@@ -45,7 +45,7 @@ class Diagnosis extends Admin_Controller
                 return;
         	}else{
 
-        		echo 'Sorry not working';
+        		echo '<script type="text/javascript">alert("Field cannot be empty")</script>';
         	}
         }else{
 

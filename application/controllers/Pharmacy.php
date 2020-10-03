@@ -382,8 +382,24 @@ class Pharmacy extends Admin_Controller
         {
           $this->model_medpatients->delete();
           $this->model_pharmacy->load($this->input->post('drug_id'));
-		  $this->model_pharmacy->remain_quantity = $this->model_pharmacy->remain_quantity + $this->input->post('quantity');
-		  $this->model_pharmacy->used_quantity = $this->model_pharmacy->used_quantity - $this->input->post('quantity');
+			  if( $this->input->post('type') == "Tabs"){
+				  $this->model_pharmacy->remain_tab_quantity  = (int) $this->model_pharmacy->remain_tab_quantity  +(int)$this->input->post('quantity');
+				  
+				  if($this->input->post('quantity') < $this->model_pharmacy->tab_quantity){
+					  $this->model_pharmacy->remain_quantity  = $this->model_pharmacy->remain_quantity +1;
+					  $this->model_pharmacy->used_quantity 	  =  $this->model_pharmacy->used_quantity -1;
+				  }
+				  else{
+					  $this->model_pharmacy->remain_quantity =  (int)  $this->model_pharmacy->remain_quantity + (round((int) $this->input->post('quantity')/ (int)  $this->model_pharmacy->tab_quantity));
+					  $this->model_pharmacy->used_quantity = (int)  $this->model_pharmacy->used_quantity - (round((int) $this->input->post('quantity') / (int)  $this->model_pharmacy->tab_quantity));
+				  }
+			  }
+			  else{
+				  $this->model_pharmacy->remain_quantity = $this->model_pharmacy->remain_quantity + $this->input->post('quantity');
+				  $this->model_pharmacy->used_quantity = $this->model_pharmacy->used_quantity - $this->input->post('quantity');
+				  $this->model_pharmacy->remain_tab_quantity = $this->model_pharmacy->remain_tab_quantity + (int)($this->input->post('quantity') * $this->model_pharmacy->tab_quantity);
+			  }
+
 		  $this->model_pharmacy->save();
 
           unset($_POST);
@@ -457,7 +473,6 @@ class Pharmacy extends Admin_Controller
 	{
 		return array( 'Bot'=>'Bot',
 					  'Stp'=>'Stp',
-					  'Tab'=>'Tab',
 					  'Box'=>'Box',
 					  'Tube'=>'Tube',
 					  'Inj'=>'Inj',

@@ -108,7 +108,7 @@
               data: data,
               xkey: 'y',
               ykeys: ['a'],
-              labels: ['Quantity'],
+              labels: ['Visitors'],
               fillOpacity: 0.6,
               hideHover: 'auto',
               behaveLikeLine: true,

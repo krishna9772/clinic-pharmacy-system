@@ -9,7 +9,7 @@
         <small>Setting</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?php echo base_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Setting</li>
       </ol>
     </section>
@@ -41,7 +41,18 @@
             <form role="form" action="<?php base_url('users/setting') ?>" method="post">
               <div class="box-body">
 
-                <?php echo validation_errors(); ?>
+
+ 
+                <?php
+                   
+                 if(validation_errors() != null){
+
+                 echo '<div class="alert alert-error alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.validation_errors().'</div>' ;
+
+                  }
+
+                ?>
 
                 <div class="form-group">
                   <label for="username">Username</label>
@@ -64,8 +75,8 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="phone">Consultant fees</label>
-                  <input type="text" class="form-control" id="phone" name="c_fees" placeholder="Phone" value="<?php echo $user_data['c_fees'] ?>" autocomplete="off">
+                  <label for="phone">Phone Number</label>
+                  <input type="text" class="form-control" id="phone" name="c_fees" placeholder="Phone" value="<?php echo $user_data['phone'] ?>" autocomplete="off">
                 </div>
 
                 <div class="form-group">

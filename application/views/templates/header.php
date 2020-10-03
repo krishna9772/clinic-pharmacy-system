@@ -47,9 +47,12 @@ folder instead of downloading all of them to reduce the load. -->
 <!-- Google Font -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/dist/summernote.css')?>">
-
+<script src="<?php echo base_url('assets/bower_components/raphael/raphael.min.js') ?>"></script>
 <!-- jQuery 3 --> 
 <script src="<?php echo base_url('assets/bower_components/jquery/dist/jquery.min.js') ?>"></script>
+<!-- Morris.js charts -->
+<script src="<?php echo base_url('assets/bower_components/morris.js/morris.min.js') ?>"></script>
+
 <!-- jQuery UI 1.11.4 -->
 <script src="<?php echo base_url('assets/bower_components/jquery-ui/jquery-ui.min.js') ?>"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -63,9 +66,6 @@ $.widget.bridge('uibutton', $.ui.button);
 
 <script type="text/javascript" src="<?php echo base_url('assets/dist/typeahead.bundle.js')?>"></script>
 
-<!-- Morris.js charts -->
-<script src="<?php echo base_url('assets/bower_components/raphael/raphael.min.js') ?>"></script>
-<script src="<?php echo base_url('assets/bower_components/morris.js/morris.min.js') ?>"></script>
 <!-- Sparkline -->
 <script src="<?php echo base_url('assets/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js') ?>"></script>
 <!-- jvectormap -->
@@ -93,13 +93,12 @@ $.widget.bridge('uibutton', $.ui.button);
  --><!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('assets/dist/js/demo.js') ?>"></script>
 <script src="<?php echo base_url('assets/plugins/fileinput/fileinput.min.js') ?>"></script>
-
-<!-- ChartJS -->
-<script src="<?php echo base_url('assets/bower_components/Chart.js/Chart.js') ?>"></script>
-
 <!-- icheck -->
 <script src="<?php echo base_url('assets/plugins/iCheck/icheck.min.js') ?>"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+<!-- Chart Js -->
+<script src="<?php echo base_url('assets/bower_components/chart.js/Chart.js')?>"></script>
+<script src="<?php echo base_url('assets/bower_components/chart.js/dist/utils.js')?>"></script>
+
 <!-- DataTables -->
 <script src="<?php echo base_url('assets/bower_components/datatables.net/js/jquery.dataTables.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') ?>"></script>
@@ -108,12 +107,23 @@ $.widget.bridge('uibutton', $.ui.button);
 </script>
 <script src="<?php echo base_url('assets/dist/summernote.js')?>"></script>
 <script src="<?php echo base_url('assets/dist/bootstrap3-typeahead.min.js')?>"></script> 
+
 <style type="text/css">
+
 .back-to-top {
-position: fixed;
-bottom: 25px;
-right: 25px;
-display: none;
+	position: fixed;
+	bottom: 25px;
+	right: 25px;
+	display: none;
+}
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url("<?php echo base_url()?>/assets/images/loader.gif") center no-repeat #fff;
 }
 </style>
 </head>

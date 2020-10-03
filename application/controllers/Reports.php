@@ -25,7 +25,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		$this->data['totalexpnoti'] = $this->model_notifications->getTotalExpNoti();
 		$this->data['totalofspnoti'] = $this->model_notifications->getTotalOfsNoti();
 
-
   	}
 
 
@@ -77,7 +76,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 		
 		$this->data['selected_year'] = $today_year;
-		$this->data['company_currency'] = "Kyat";
+		// $this->data['company_currency'] = "Kyat";
 		$this->data['results'] = $final_parking_data;
 
 		$this->render_template('patients/monthlyvisit.php',$this->data);

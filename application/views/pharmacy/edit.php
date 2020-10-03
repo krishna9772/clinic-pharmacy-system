@@ -3,8 +3,9 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Pharmacy</li>
+      <li><a href="<?php echo base_url('/');?>"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active"><a href="<?php echo base_url('/pharmacy');?>">Pharmacy</a></li>
+      <li class="active">Edit</li>
     </ol>
   </section>
 
@@ -63,13 +64,28 @@
     </div>
         <div class="form-group">
           <div class="col-md-6">
+            <label>Tabs per Type Quantity</label>
+            <input type="number" name='tab_quantity' id='tab_quantity' value="<?php echo set_value('tab_quantity',$product->tab_quantity);?>" class='form-control'  autocomplete="off" title='' readonly/>
+          </div>
+          <div class="col-md-3">
+        <label>Remain Quantity</label>
+        <input type="number" name='remain_quantity' id='remain_quantity' value="<?php echo set_value('remain_quantity', $product->remain_quantity);?>" class='form-control' placeholder='Remain Quantity' title='' required readonly/>
+        <label><?php echo set_value('sell_type', $product->sell_type);?></label>
+      </div>
+      <?php if($product->tab_quantity!= 0){ ?>
+    <div class="col-md-3">
+      <label>&nbsp;</label>
+      <input type="number" id='remain_tabs' value="<?php echo set_value('remain_tabs', $product->remain_tab_quantity%$product->tab_quantity);?>" class='form-control' placeholder='Remain Quantity' title='' required readonly/>
+      <input type="hidden" name= 'remain_tab_quantity' id= 'remain_tab_quantity'  value="<?php echo set_value('remain_tab_quantity', $product->remain_tab_quantity);?>" >
+      <input type="hidden"  id= 'r_tab_quantity'  value="<?php echo set_value('r_tab_quantity', $product->remain_tab_quantity);?>" >
+      <input type="hidden" name= 'tab_quantity' id= 'tab_quantity'  value="<?php echo set_value('tab_quantity', $product->tab_quantity);?>" >
+      <label>Tabs</label>
+    </div>
+         <?php } ?>
+                      <div class="col-md-6">
             <label>Registered Date</label>
             <input type="date" name='register_date' id='register_date' value="<?php echo set_value('register_date',$product->register_date);?>" class='form-control'  autocomplete="off" title='Registered Date' />
           </div>
-          <div class="col-md-6">
-        <label>Remain Quantity</label>
-        <input type="number" name='remain_quantity' id='remain_quantity' value="<?php echo set_value('remain_quantity', $product->remain_quantity);?>" class='form-control' placeholder='Remain Quantity' title='' required readonly/>
-      </div>
           <div class="col-md-6">
           <label>Expire Date</label>
             <input type="date" name='expire_date' id='expire_date' value="<?php echo set_value('expire_date',$product->expire_date);?>" class='form-control'  title='Expire Date' autocomplete="off" required/> 
@@ -118,6 +134,10 @@
 
             </select>
           </div>
+            <div class="col-md-12">
+            <label>Price per tab</label>
+            <input type="number" name="tab_price" id="tab_price" value="<?php echo set_value('tab_price',  $product->tab_price);?>" class="form-control" readonly>
+          </div>
        </div>
       </fieldset>
       <div class=clearfix></div>
@@ -158,11 +178,15 @@
       var loadedqty = quantity+addedqty;
       $("#quantity").val(parseInt(loadedqty)) ;
       $("#remain_quantity").val(loadedqty-usedqty);
+    var remain_tab_qty = parseInt($("#r_tab_quantity").val());
+    var tab_qty = parseInt($("#tab_quantity").val());
+    var loaded_r_qty = remain_tab_qty +(addedqty*tab_qty);
+    $("#remain_tab_quantity").val(loaded_r_qty);
 
       if($("#addedqty").val().length == 0){
-
         $("#quantity").val($("#hidquantity").val());
         $("#remain_quantity").val(quantity-usedqty);
+      $("#remain_tab_quantity").val(r_tab_quantity);
       }
 
 
@@ -182,17 +206,21 @@
 
     // })
     
-    $("#mainGroupNav").addClass('active');
-    $("#addGroupNav").addClass('active');
+    $("#mainMedNav").addClass('active');
+    $("#addMedNav").addClass('active');
 
      
     $(document).on('keyup','#actual_price,#selling_price',function(){
         var act_price = $("#actual_price").val();
         var sell_price = $("#selling_price").val();
+    var tab_per_qty =  $("#tab_quantity").val()
         var pro_price = parseInt(sell_price-act_price);
         var percentage = Math.round((parseInt(pro_price)/parseInt(act_price))*100);
         var output = pro_price.toString().concat("(")+percentage.toString().concat("%)");
         $("#profit_price").val(output);
+    if(sell_price > 0 && tab_per_qty > 0){
+      $("#tab_price").val(sell_price/tab_per_qty);
+    }
       });
 
   })

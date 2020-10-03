@@ -3,12 +3,8 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>
-      Manage
-      <small>Pharmacy</small>
-    </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a href="<?php echo base_url('/');?>"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Pharmacy</li>
     </ol>
   </section>
@@ -34,7 +30,7 @@
         <?php endif; ?>
 
         <?php if(in_array('createPharmacy', $user_permission)): ?>
-          <a href="<?php echo base_url('pharmacy/create') ?>" class="btn btn-primary">Add Products</a>
+          <a href="<?php echo base_url('pharmacy/create') ?>" class="btn btn-primary"><span class="fa fa-plus-square"></span> New Medicine</a>
           <br /> <br />
         <?php endif; ?>
 
@@ -112,8 +108,8 @@ $(document).ready(function() {
   });
 
 
-  $("#mainGroupNav").addClass('active');
-  $("#managePhaNav").addClass('active');
+  $("#mainMedNav").addClass('active');
+  $("#addMedNav").addClass('active');
 
 });
 

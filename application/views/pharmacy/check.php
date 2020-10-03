@@ -28,7 +28,14 @@
 							</tr>
 							<tr>
 								<td>Remain Quantity</td>
-								<td><?php echo $pro['remain_quantity']?></td>
+								<td><?php echo $pro['remain_quantity']." <span class='label label-warning'>".$pro['sell_type']."</span> ";
+									if($pro['tab_quantity'] != 0){
+									$r_tab_qty = $pro['remain_tab_quantity']%$pro['tab_quantity'];
+									if( $r_tab_qty != 0){
+										echo $r_tab_qty."<span class='label label-success'>Tabs</span>";
+									}
+									}
+									?></td>
 
 							</tr>
 							<tr>

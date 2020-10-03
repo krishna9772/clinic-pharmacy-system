@@ -68,6 +68,8 @@ ul.checkbox li label {
             $.post('<?php echo site_url("diagnosis/delete")."/";?>'+did,'csrf_test_name='+csrfVal+'&diagnosis_id='+did+'&patient_id='+pi,function(data){
             if(data=='ok'){
               $('#diagnosis'+did).fadeOut();
+              var qty = Number($("#diagnosis_count").text())-1;
+              $("#diagnosis_count").text(qty);
             }else if(data=='mismatch'){
               alert('Delete data mismatch');
             }else if(data=='invalid'){

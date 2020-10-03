@@ -4,12 +4,8 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>
-      Manage
-      <small>Patients</small>
-    </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a href="<?php echo base_url('/');?>"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Patients</li>
     </ol>
   </section>
@@ -35,7 +31,7 @@
         <?php endif; ?>
 
         <?php if(in_array('createPatient', $user_permission)): ?>
-          <a href="<?php echo base_url('patients/create') ?>" class="btn btn-primary">Add Patient</a>
+          <a href="<?php echo base_url('patients/create') ?>" class="btn btn-primary"><span class="fa fa-plus-square"></span> New Patient</a>
           <br /> <br />
         <?php endif; ?>
 
@@ -82,12 +78,12 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Remove Patient</h4>
+        <h4 class="modal-title">Delete</h4>
       </div>
 
       <form role="form" action="<?php echo base_url('patients/delete') ?>" method="post" id="removeForm">
         <div class="modal-body">
-          <p>Do you really want to remove?</p>
+          <p>Do you really want to delete? Patient's data will also be deleted</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

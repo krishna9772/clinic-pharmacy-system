@@ -1,5 +1,5 @@
 ######################
-Super Admin Credential
+Super Admin Crednetial
 ######################
 email: rita@gmail.com
 password: 12345678

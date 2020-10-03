@@ -66,7 +66,7 @@
           <?php endif; ?>
 
           <?php if(in_array('createPharmacy', $user_permission) || in_array('updatePharmacy',$user_permission) || in_array('viewPharmacy', $user_permission) || in_array('deletePharmacy', $user_permission)): ?>
-              <li class="treeview" id="mainGroupNav">
+              <li class="treeview" id="mainMedNav">
               <a href="#">
         <i class="fa fa-product-hunt"></i>
                 <span>Pharmacy</span>
@@ -76,7 +76,7 @@
               </a>
               <ul class="treeview-menu">
                 <?php if(in_array('createPharmacy', $user_permission)): ?>
-                  <li id="addGroupNav"><a href="<?php echo base_url('pharmacy/create') ?>"><i class="fa fa-circle-o"></i> Add Product</a></li>
+                  <li id="addGroupNav"><a href="<?php echo base_url('pharmacy/create') ?>"><i class="fa fa-circle-o"></i> New Medicine</a></li>
                 <?php endif; ?>
                 <?php if(in_array('updatePharmacy', $user_permission) || in_array('viewPharmacy', $user_permission) || in_array('deletePharmacy', $user_permission)): ?>
          <li id="managePhaNav"><a href="<?php echo base_url('pharmacy/') ?>"><i class="fa fa-circle-o"></i> Manage Pharmacy</a></li>
@@ -85,7 +85,7 @@
             </li>
           <?php endif; ?>
 
-           <?php if(in_array('createPatient', $user_permission) || in_array('updatePatient',$user_permission) || in_array('viewPatient', $user_permission) || in_array('deletePatient', $user_permission)): ?>
+           <?php if(in_array('viewReports', $user_permission) ): ?>
               <li class="treeview" id="mainGroupNav">
               <a href="#">
         <i class="fa fa-file"></i>
@@ -95,10 +95,10 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <?php if(in_array('createPatient', $user_permission)): ?>
+                <?php if(in_array('viewReports', $user_permission)): ?>
                   <li id="addGroupNav"><a href="<?php echo base_url('reports/totalVisits') ?>"><i class="fa fa-circle-o"></i> Today (Weekly Report)</a></li>
                 <?php endif; ?>
-                <?php if(in_array('updatePatient', $user_permission) || in_array('viewPatient', $user_permission) || in_array('deletePatient', $user_permission)): ?>
+                <?php if(in_array('viewReports', $user_permission) || in_array('viewPatient', $user_permission) || in_array('deletePatient', $user_permission)): ?>
          <li id="managePhaNav"><a href="<?php echo base_url('reports/yearlyVisits') ?>"><i class="fa fa-circle-o"></i>Annual Report</a></li>
                 <?php endif; ?>
               </ul>

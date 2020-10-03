@@ -15,7 +15,7 @@ class Investigations extends Admin_Controller
 
 		$this->data['page_title'] = 'Patients';
 
-		$this->load->model('model_investigations');
+		$this->load->model('model_Investigations');
 		$this->load->model('model_notifications');
 		$this->data['expiryproduct'] = $this->model_notifications->getExpiryProduct();
 		$this->data['ofsproduct'] = $this->model_notifications->getOfsProduct();

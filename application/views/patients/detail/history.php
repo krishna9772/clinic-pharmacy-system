@@ -16,6 +16,8 @@
             $.post('<?php echo site_url("historys/delete")."/";?>'+hid,'csrf_test_name='+csrfVal+'&history_id='+hid+'&patient_id='+pi,function(data){
             if(data=='ok'){
               $('#history'+hid).fadeOut();
+              var qty = Number($("#history_count").text())-1;
+              $("#history_count").text(qty);
             }else if(data=='mismatch'){
               alert('Delete data mismatch');
             }else if(data=='invalid'){

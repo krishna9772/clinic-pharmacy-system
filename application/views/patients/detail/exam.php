@@ -46,6 +46,8 @@
             $.post('<?php echo site_url("examinations/delete")."/";?>'+eid,'csrf_test_name='+csrfVal+'&examination_id='+eid+'&patient_id='+pi,function(data){
             if(data=='ok'){
               $('#exam'+eid).fadeOut();
+              var qty = Number($("#examination_count").text())-1;
+              $("#examination_count").text(qty);
             }else if(data=='mismatch'){
               alert('Delete data mismatch');
             }else if(data=='invalid'){

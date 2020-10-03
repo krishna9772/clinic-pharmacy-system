@@ -19,7 +19,7 @@
 </section> -->
 
 <!-- Main content -->
-<section class="content">
+<section class="content" style="padding-top: 1px;">
   <!-- Small boxes (Stat box) -->
   <div class="row">
    <div class="panel-group" id="pInfo">
@@ -71,7 +71,7 @@
 
             foreach($pres_patient as $prespat){
                 
-              $status = ($prespat->highlighted == 1) ? '<span class="label label-info" id="ppipanel'.$prespat->pres_patient_id.'">'.$prespat->pres_name.'</span> ' : '';
+              $status = ($prespat->highlighted == 1) ? '<span class="label label-info" data-toggle="tooltip" title="Highlighted Medicine" id="ppipanel'.$prespat->pres_patient_id.'">'.$prespat->pres_name.'</span> ' : '';
 
               echo $status;
 
@@ -85,7 +85,7 @@
 
              $this->model_pharmacy->load($medpat->med_id);
                 
-              $status = ($medpat->highlighted == 1) ? '<span class="label label-info" id="dpipanel'.$medpat->med_patient_id.'">'.$this->model_pharmacy->medicine_name.'</span> ' : '';
+              $status = ($medpat->highlighted == 1) ? '<span class="label label-info" data-toggle="tooltip" title="Highlighted Medicine" id="dpipanel'.$medpat->med_patient_id.'">'.$this->model_pharmacy->medicine_name.'</span> ' : '';
 
               echo $status;
 
@@ -101,13 +101,12 @@
   </div>  
 </div>
 <ul class="nav nav-tabs" id="panelTab">
-  <li><a href="#complaint" data-toggle="tab">Complaint</a></li>
-  <li><a href="#exam" data-toggle="tab">Examination</a></li>
-  <li><a href="#history" data-toggle="tab">History</a></li>
-  <li><a href="#diagnosis" data-toggle="tab">Diagnosis</a></li>
-  <li><a href="#investigation" data-toggle="tab">Investigation</a></li>
+  <li><a href="#complaint" data-toggle="tab">Complaint <?php echo ($complaint_count != 0) ? '<span class="badge badge-light" id="complaint_count">'.$complaint_count.'</span>' : ''; ?></a></li>
+  <li><a href="#exam" data-toggle="tab">Examination <?php echo ($examination_count != 0) ? '<span class="badge badge-light" id="examination_count">'.$examination_count.'</span>' : ''; ?></a></li>
+  <li><a href="#history" data-toggle="tab">History <?php echo ($history_count != 0) ? '<span class="badge badge-light" id="history_count">'.$history_count.'</span>' : ''; ?></a></li>
+  <li><a href="#diagnosis" data-toggle="tab">Diagnosis <?php echo ($diagnosis_count != 0) ? '<span class="badge badge-light" id="diagnosis_count">'.$diagnosis_count.'</span>' : ''; ?></a></li>
+  <li><a href="#investigation" data-toggle="tab">Investigation <?php echo ($investigation_count != 0) ? '<span class="badge badge-light" id="investigation_count">'.$investigation_count.'</span>' : ''; ?></a></li>
   <li><a href="#rx" data-toggle="tab"><img src="<?php echo base_url();?>/assets/images/rx_logo.png" width="20px" height="20px"></a></li> 
-  <li><a href="#invoice" data-toggle="tab">Invoice</a></li>
 </ul>
 
 <section class='content'>
@@ -117,7 +116,6 @@
 
 
   <?php
-  include_once __DIR__ . '/detail/invoice.php';
   include_once __DIR__ . '/detail/investigation.php';
   include_once __DIR__ . '/detail/diagnosis.php';
   include_once __DIR__ . '/detail/history.php';

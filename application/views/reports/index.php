@@ -82,7 +82,7 @@
                       <td><?php echo $k; ?></td>
                       <td><?php 
                       
-                        echo $company_currency .' ' . $v;
+                        echo  $v;
                         //echo $v;
                       
                       ?></td>
@@ -92,9 +92,9 @@
                 </tbody>
                 <tbody>
                   <tr>
-                    <th>Total Amount</th>
+                    <th>Total</th>
                     <th>
-                      <?php //echo $company_currency . ' ' . array_sum($parking_data); ?>
+                      
                       <?php echo array_sum($results); ?>
                     </th>
                   </tr>

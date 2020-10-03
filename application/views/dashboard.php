@@ -18,6 +18,8 @@
       <?php if($is_admin == false):  ?>
 
         <div class="row">
+
+        <?php if(in_array('createPharmacy', $user_permission) || in_array('updatePharmacy',$user_permission) || in_array('viewPharmacy', $user_permission) || in_array('deletePharmacy', $user_permission)): ?>
           <div class="col-lg-3 col-xs-6">
             <!-- small box -->
             <div class="small-box bg-aqua">
@@ -32,6 +34,7 @@
               <a href="<?php echo base_url('pharmacy/') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
+        <?php endif ;?>
           <!-- ./col -->
           <div class="col-lg-3 col-xs-6">
             <!-- small box -->
@@ -46,7 +49,7 @@
               </div>
               <a href="#" data-toggle = "modal" data-target="#showModal" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
-            <?php if(in_array('viewPatient', $user_permission)): ?>
+            <?php if(in_array('viewReports', $user_permission)): ?>
 <!-- remove brand modal -->
         <div class="modal fade" tabindex="-1" role="dialog" id="showModal">
           <div class="modal-dialog" role="document">
@@ -68,6 +71,14 @@
              }
 
                ?>
+
+               <?php if($patient == null) {
+
+                  echo "No data!!";
+
+                }
+
+                ?>
               
             </p>
             </div>
@@ -89,10 +100,56 @@
         </div>
         <!-- /.row -->
       <?php endif; ?>
+      <?php if(in_array('viewReports', $user_permission) ): ?>
+ <div class="row">
+     <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 title="panel-title"><i class="fa fa-pie-chart"></i> Pie Chart <small>(Diagnosis Data)</small></h4>
+        </div>
+        <div class="panel-body">
+              <div id="pie-chart">
+              <?php if($pie_chart_data == null) {
+                    
+                     echo "No Data yet..";
+                  
+                    }?>
+           </div>
 
-      <div class = "well">
-          <canvas id="chartContainer" style="width: 100%; height: 400px"></canvas> 
+            <!--  <?php
+                // $url = $_SERVER['REQUEST_URI'];
+                // echo $url;
+                // // $parts = explode('?=', $url);
+                 // $parts = "http://localhost/ritaclinic/reports/yearlyVisits";
+                 // $page = $parts;
+                 // echo '<iframe align="center" width="100%" height="100%" src="'.$page.'" frameborder="yes" scrolling="yes" name="myIframe" id="myIframe"> </iframe>';
+
+             ?>
+               <a href="<?php echo base_url();?>reports/yearlyVisits"><img src="<?php echo base_url();?>assets/images/Capture3.PNG" alt="AnuualReport" style="width:350px;height:400px;"></a>
+ -->
+        </div>
       </div>
+     </div>
+   <div class="col-md-6">
+     <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 title="panel-title"><i class="fa fa-bar-chart"></i> Visits In Past Seven Days </h4>
+        </div>
+        <div class="panel-body">
+            
+          <div id="line-chart">
+              <?php
+          if(empty($chart_data)) {
+                    
+           echo "No Data yet..";
+                  
+           }?>
+          </div>
+        </div>
+      </div>
+   </div>
+ </div>
+<?php endif;?>
       
     </section>
     <!-- /.content -->
@@ -101,66 +158,38 @@
 
   <script>
   $(function(){
-      //get the pie chart canvas
-      var cData = JSON.parse(`<?php echo $chart_data; ?>`);
-      var ctx = $("#chartContainer");
- 
-      //pie chart data
-      var data = {
-        labels: cData.label,
-        datasets: [
-          {
-            label: "Users Count",
-            data: cData.data,
-            backgroundColor: [
-              "#DEB887",
-              "#A9A9A9",
-              "#DC143C",
-              "#F4A460",
-              "#2E8B57",
-              "#1D7A46",
-              "#CDA776",
-            ],
-            borderColor: [
-              "#CDA776",
-              "#989898",
-              "#CB252B",
-              "#E39371",
-              "#1D7A46",
-              "#F4A460",
-              "#CDA776",
-            ],
-            borderWidth: [1, 1, 1, 1, 1,1,1]
-          }
-        ]
-      };
- 
-      //options
-      var options = {
-        responsive: true,
-        title: {
-          display: true,
-          position: "top",
-          text: "Diagnosis Paitent Quantity",
-          fontSize: 18,
-          fontColor: "#111"
-        },
-        legend: {
-          display: true,
-          position: "bottom",
-          labels: {
-            fontColor: "#333",
-            fontSize: 16
-          }
-        }
-      };
- 
-      //create Pie Chart class object
-      var chart1 = new Chart(ctx, {
-        type: "pie",
-        data: data,
-        options: options
-      });
- 
+    
+  console.log(<?php echo json_encode($pie_chart_data); ?>);
+
+  Morris.Donut({
+  element: 'pie-chart',
+  data: <?php echo json_encode($pie_chart_data); ?>,
+  xkey: 'label',
+  ykeys: ['value'],
+  labels: 'label',
+ });
+
+    //<!-- Line Chart -->
+      var serries = JSON.parse(`<?php echo $chart_data; ?>`);
+          console.log(serries);
+          var data = serries,
+            config = {
+              data: data,
+              xkey: 'y',
+              ykeys: ['a'],
+              labels: ['Visitors'],
+              fillOpacity: 0.6,
+              hideHover: 'auto',
+              behaveLikeLine: true,
+              resize: true,
+              pointFillColors:['#ffffff'],
+              pointStrokeColors: ['black'],
+              lineColors:['gray','red']
+          };
+         
+         config.element = 'line-chart';
+        var morrisBar = Morris.Bar(config);
+
+
   });
 </script>

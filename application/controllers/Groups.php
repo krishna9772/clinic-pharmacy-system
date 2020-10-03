@@ -12,6 +12,14 @@ class Groups extends Admin_Controller
 		
 
 		$this->load->model('model_groups');
+		$this->load->model('model_reports');
+  		$this->load->model('model_patients');
+  		$this->load->model('model_notifications');
+  		$this->data['patient_count'] = $this->model_patients->count();
+		$this->data['expiryproduct'] = $this->model_notifications->getExpiryProduct();
+		$this->data['ofsproduct'] = $this->model_notifications->getOfsProduct();
+		$this->data['totalexpnoti'] = $this->model_notifications->getTotalExpNoti();
+		$this->data['totalofspnoti'] = $this->model_notifications->getTotalOfsNoti();
 	}
 
 	/* 

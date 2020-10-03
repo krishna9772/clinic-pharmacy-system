@@ -9,8 +9,9 @@
         <small>Groups</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">groups</li>
+        <li><a href="<?php echo base_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?php echo base_url('groups/');?>">Groups</a></li>
+        <li class="active">Create</li>
       </ol>
     </section>
 
@@ -88,45 +89,10 @@
                         <td><input type="checkbox" name="permission[]" id="permission" value="deletePharmacy" class="minimal"></td>
                       </tr>
                       <tr>
-                        <td>Laboratory Investigation</td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="createLab" class="minimal"></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="updateLab" class="minimal"></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="viewLab" class="minimal"></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteLab" class="minimal"></td>
-                      </tr>
-                      <tr>
-                        <td>Radiological Investigation</td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="createRadio" class="minimal"></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="updateRadio" class="minimal"></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="viewRadio" class="minimal"></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteRadio" class="minimal"></td>
-                      </tr>
-                      <tr>
-                        <td>Products</td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="createProduct" class="minimal"></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="updateProduct" class="minimal"></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="viewProduct" class="minimal"></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteProduct" class="minimal"></td>
-                      </tr>
-                      <tr>
-                        <td>Orders</td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="createOrder" class="minimal"></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="updateOrder" class="minimal"></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="viewOrder" class="minimal"></td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteOrder" class="minimal"></td>
-                      </tr>
-                      <tr>
                         <td>Reports</td>
                         <td> - </td>
                         <td> - </td>
                         <td><input type="checkbox" name="permission[]" id="permission" value="viewReports" class="minimal"></td>
-                        <td> - </td>
-                      </tr>
-                      <tr>
-                        <td>Company</td>
-                        <td> - </td>
-                        <td><input type="checkbox" name="permission[]" id="permission" value="updateCompany" class="minimal"></td>
-                        <td> - </td>
                         <td> - </td>
                       </tr>
                       <tr>

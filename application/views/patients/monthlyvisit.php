@@ -1,6 +1,4 @@
-
-
-  <!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
    
@@ -63,7 +61,7 @@
                 <thead>
                 <tr>
                   <th>Month - Year</th>
-                  <th>Amount</th>
+                  <th>Patients</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -85,9 +83,8 @@
                 </tbody>
                 <tbody>
                   <tr>
-                    <th>Total Amount</th>
+                    <th>Total</th>
                     <th>
-                      <?php //echo $company_currency . ' ' . array_sum($parking_data); ?>
                       <?php echo array_sum($results); ?>
                     </th>
                   </tr>

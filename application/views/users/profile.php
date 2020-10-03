@@ -9,7 +9,7 @@
         <small>Profile</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?php echo base_url()?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Profile</li>
       </ol>
     </section>
@@ -48,8 +48,8 @@
                   <td><?php echo ($user_data['gender'] == 1) ? 'Male' : 'Gender'; ?></td>
                 </tr>
                 <tr>
-                  <th>Consultant Fees</th>
-                  <td><?php echo $user_data['c_fees']; ?></td>
+                  <th>Ph.Number</th>
+                  <td><?php echo $user_data['phone']; ?></td>
                 </tr>
                 <tr>
                   <th>Group</th>

@@ -62,5 +62,14 @@ class Model_diagpatients extends MY_Model
   
    }
 
+   public function getDiagnosisCount($id)
+    {
+        if($id) {
+           $sql = "SELECT * FROM ra_diag_patient where patient_id = ? and is_deleted = ?";
+           $query = $this->db->query($sql,array($id,'0'));
+           return $query->num_rows();
+        }  
+    }
+
 
 }

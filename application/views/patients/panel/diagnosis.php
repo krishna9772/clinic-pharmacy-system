@@ -104,10 +104,12 @@ ul.checkbox li label {
       echo "<div class='row'>";
       echo "<div class='col-sm-6'>";
         echo form_open('diagnosis/create/',array('id'=>'diagboxlist'));
-        echo '<input type="text" id="diag" name="name" onkeyup="myFunction()" placeholder="Search (or) add new type" required><button id="newdiag"><i class="fa fa-plus"></i></button><br>';
+        echo '<input type="text" id="diag" name="name" onkeyup="myFunction()" placeholder="Search (or) add new type" required><button id="newdiag"><i class="fa fa-plus"></i></button> <span class="fa fa-question-circle fa-lg" data-toggle="tooltip" title="Check the available options or add new and check again!!"></span><br>';
         echo form_close();
        echo form_open('diagnosis/assign/'.$patient_data['id'],array('id'=>'diagbox'));
-	     echo form_hidden('patient_id',$patient_data['id']);
+	     echo form_hidden('patient_id',$patient_data['id']); 
+
+       echo '';
 
     	echo "<ul class='checkbox' id='myUL'>";
        
