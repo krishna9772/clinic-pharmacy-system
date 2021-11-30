@@ -155,15 +155,23 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
   <script>
   $(function(){
-    
-  console.log(<?php echo json_encode($pie_chart_data); ?>);
+  
+  console.log(<?php echo $pie_chart_data; ?>);
+  console.log(
+              [
+                  { label: 'Nick', value: 2 },
+                  { label: 'Justin', value: 5 },
+                  { label: 'Amber', value: 3 },
+                  { label: 'Dan', value: 3 },
+                  { label: 'Rich', value: 4 },
+                ]
+              )
 
   Morris.Donut({
   element: 'pie-chart',
-  data: <?php echo json_encode($pie_chart_data); ?>,
+  data: <?php echo $pie_chart_data; ?>,
   xkey: 'label',
   ykeys: ['value'],
   labels: 'label',

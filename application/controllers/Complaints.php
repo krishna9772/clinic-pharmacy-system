@@ -61,7 +61,7 @@ class Complaints extends Admin_Controller
         array( 'field' => 'complaint_id', 'label' => 'ID', 'rules' => 'required|trim|is_numeric|has_no_schar', ),
         array( 'field' => 'patient_id', 'label' => 'Patient ID', 'rules' => 'required|trim|is_numeric|has_no_schar', ),
         
-      ));
+      	));
 
 
 		if($this->input->post('complaint_id') == $id){

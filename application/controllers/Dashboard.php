@@ -46,46 +46,22 @@ class Dashboard extends Admin_Controller
 	}
 
 
-	 public function pie_chart_js()
+	public function pie_chart_js()
     {
 
-       
-      // $query = $this->db->query("SELECT ra_diagnosis.name,COUNT(ra_diag_patient.diagnosis) as count FROM ra_diag_patient INNER JOIN ra_diagnosis ON ra_diagnosis.name = ra_diag_patient.diagnosis GROUP BY ra_diagnosis.name");
-      // $row = $query->result_array();
-      // $json_data = array();
+      $query = $this->db->query("SELECT diagnosis,COUNT(id) as count FROM ra_diag_patient GROUP BY diagnosis");
+      $record = $query->result();
+      $json_data = array();
 
-     $this->db->select('diagnosis, COUNT(*) as count');
-     $this->db->group_by('diagnosis');
-     $result = $this->db->get('ra_diag_patient');
-     $row=$result->result_array();
-     $json_data = array();
+      foreach ($record as $row) {
+           $json_array['label'] = $row->diagnosis;
+           $json_array['value'] = (int) $row->count;
 
-      foreach ($row as $rec) {
-           $json_array['label'] = explode(",",$rec['diagnosis']);
-           $json_array['value'] =  $rec['count'];
-           array_push($json_data,$json_array);
+		   array_push($json_data,$json_array);
       }
 
-     return $json_data;
+     return json_encode($json_data);
   
-   }
-
-public function countOccurences($str, $word) 
-{ 
-
-	$a = explode(" ", $str); 
-
-	// search for pattern in string 
-	$count = 0; 
-	for ($i = 0; $i < sizeof($a); $i++) 
-	{ 
-		
-	// if match found increase count 
-	if ($word == $a[$i]) 
-		$count++; 
-	} 
-
-	return $count; 
+   	}
 } 
-
-}
+   

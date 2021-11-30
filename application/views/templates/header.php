@@ -103,7 +103,6 @@ $.widget.bridge('uibutton', $.ui.button);
 <script src="<?php echo base_url('assets/bower_components/datatables.net/js/jquery.dataTables.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/bselector/dobpicker.js')?>"></script>
-<script src="<?php echo base_url('assets/textautocomplete/dist/jquery.textcomplete.min.js')?>">
 </script>
 <script src="<?php echo base_url('assets/dist/summernote.js')?>"></script>
 <script src="<?php echo base_url('assets/dist/bootstrap3-typeahead.min.js')?>"></script> 

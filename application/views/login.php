@@ -7,8 +7,6 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
-  
-  
   <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/bootstrap/dist/css/bootstrap.min.css') ?>">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/font-awesome1/css/font-awesome.min.css') ?>">
@@ -45,7 +43,7 @@
       echo $errors;
     } ?>
 
-    <form action="<?php echo base_url('auth/login') ?>" method="post">
+    <form action="<?php echo base_url('index.php/auth/login') ?>" method="post">
       <div class="form-group has-feedback">
         <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="r@gmail.com" autocomplete="off">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -55,14 +53,15 @@
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
-        <div class="col-xs-8">
+        <!-- <div class="col-xs-8">
             <label>
                Email  : r@gmail.com
             </label>
             <label>
                 Pass  : 12345678
             </label>
-        </div>
+            <label><?php echo base_url(); ?></label>
+        </div> -->
         <!-- /.col -->
         <div class="col-xs-4">
           <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>

@@ -94,18 +94,6 @@ class Model_pharmacy extends MY_Model{
 	public $is_deleted;
 	
 	/**
-     * Created Date
-     * @var datetime
-     */
-	public $created_date;
-	
-	/**
-     * Modified Date 
-     * @var datetime
-     */
-	public $modified_date;
-	
-	/**
      * Deleted Date
      * @var datetime
      */

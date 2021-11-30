@@ -191,21 +191,7 @@
 
 
     });
-
-    // $("#unload").click(function(){
-
-    //   var quantity = parseInt($("#quantity").val());
-    //   var addedqty = parseInt($("#addedqty").val());
-    //   var usedqty  = parseInt($("#used_quantity").val());
-    //    var loadedqty = quantity-addedqty;
-    //    $("#quantity").val(loadedqty);
-    //    $("#remain_quantity").val(loadedqty-usedqty);
-
-
-
-
-    // })
-    
+ 
     $("#mainMedNav").addClass('active');
     $("#addMedNav").addClass('active');
 
@@ -213,7 +199,7 @@
     $(document).on('keyup','#actual_price,#selling_price',function(){
         var act_price = $("#actual_price").val();
         var sell_price = $("#selling_price").val();
-    var tab_per_qty =  $("#tab_quantity").val()
+        var tab_per_qty =  $("#tab_quantity").val()
         var pro_price = parseInt(sell_price-act_price);
         var percentage = Math.round((parseInt(pro_price)/parseInt(act_price))*100);
         var output = pro_price.toString().concat("(")+percentage.toString().concat("%)");

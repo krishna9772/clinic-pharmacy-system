@@ -57,12 +57,12 @@
                         </td>
                          <td>    
                           <input type="hidden" name="price[]" id='price1' style="width: 50px;">
-							 <input type="hidden" name="remianqty[]" id='remianqty1' style="width:50px;">
-							 <input type="hidden" name="tabqty[]" id='tabqty1' style="width:50px;">
-							 <input type="hidden" name="remaintabqty[]" id='remaintabqty1' style="width:50px;">
-							 <input type="hidden" name="sellingprice[]" id='sellingprice1' style="width:50px;">
-							 <input type="hidden" name="tabprice[]" id='tabprice1' style="width:50px;">
-                          <input type="hidden" name="totalamt[]" id='totamt1' style="width:50px;">
+                          <input type="hidden" name="remianqty[]" id='remianqty1' style="width:50px;">
+                          <input type="hidden" name="tabqty[]" id='tabqty1' style="width:50px;">
+                          <input type="hidden" name="r emaintabqty[]" id='remaintabqty1' style="width:50px;">
+                          <input type="hidden" name="sellingprice[]" id='sellingprice1' style="width:50px;">
+                          <input type="hidden" name="tabprice[]" id='tabprice1' style="width:50px;">
+                            <input type="hidden" name="totalamt[]" id='totamt1' style="width:50px;">
       
                           <input type="hidden" name="highlight[]" id="high1" value="0" style="width: 50px;">
                           <input type="checkbox" id="check1" onclick="highlight(1)">
