@@ -30,22 +30,17 @@ class Investigations extends Admin_Controller
 		 if($this->input->post())
 		 {
 
-	     $this->form_validation->set_rules('patient_id', 'Patient Id', 'trim|required');
-		$this->form_validation->set_rules('investigation', 'Complaint', 'trim|required');
+			$this->form_validation->set_rules('patient_id', 'Patient Id', 'trim|required');
+			$this->form_validation->set_rules('investigation', 'Complaint', 'trim|required');
 
-		 if($this->form_validation->run() == TRUE ){	
-
-		 $this->model_investigations->patient_id = $this->input->post('patient_id');
-		 $this->model_investigations->investigation  = $this->input->post('investigation');
-		 $this->model_investigations->save();
-		 $this->model_investigations->load($this->model_investigations->id);
-		 $this->data['investigation'] = $this->model_investigations;
-		 $this->load->view('patients/investigation',$this->data);
-		 }else{
-
-		 	echo "Field cannot be empty";
-		 }
-
+			if($this->form_validation->run() == TRUE ){	
+				$this->model_investigations->patient_id = $this->input->post('patient_id');
+				$this->model_investigations->investigation  = $this->input->post('investigation');
+				$this->model_investigations->save();
+				$this->model_investigations->load($this->model_investigations->id);
+				$this->data['investigation'] = $this->model_investigations;
+				$this->load->view('patients/investigation',$this->data);
+			}
 	}
 }
 
