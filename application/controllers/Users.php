@@ -258,7 +258,7 @@ class Users extends Admin_Controller
 		        		'email' => $this->input->post('email'),
 		        		'firstname' => $this->input->post('fname'),
 		        		'lastname' => $this->input->post('lname'),
-		        		'c_fees' => $this->input->post('c_fees'),
+		        		'phone' => $this->input->post('phone'),
 		        		'gender' => $this->input->post('gender'),
 		        	);
 
@@ -286,7 +286,7 @@ class Users extends Admin_Controller
 			        		'email' => $this->input->post('email'),
 			        		'firstname' => $this->input->post('fname'),
 			        		'lastname' => $this->input->post('lname'),
-			        		'c_fees' => $this->input->post('c_fees'),
+			        		'phone' => $this->input->post('phone'),
 			        		'gender' => $this->input->post('gender'),
 			        	);
 

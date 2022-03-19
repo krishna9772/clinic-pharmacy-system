@@ -205,7 +205,6 @@
 
 	    $this->render_template('patients/pdetail',$this->data);
 
-
 	}
 
 	public function update($patient_id)
