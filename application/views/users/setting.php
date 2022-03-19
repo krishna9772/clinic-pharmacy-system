@@ -76,7 +76,7 @@
 
                 <div class="form-group">
                   <label for="phone">Phone Number</label>
-                  <input type="text" class="form-control" id="phone" name="c_fees" placeholder="Phone" value="<?php echo $user_data['phone'] ?>" autocomplete="off">
+                  <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" value="<?php echo $user_data['phone'] ?>" autocomplete="off">
                 </div>
 
                 <div class="form-group">
