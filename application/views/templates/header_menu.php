@@ -403,6 +403,8 @@
           var resp = $.map(data,function(obj){
 
             return obj.name+'  -  '+obj.year;
+            // return "<a href=" + data.id + ">"+ obj.name+'  -  '+obj.year +"</a>"
+
           })
 
           result(resp);
@@ -423,6 +425,8 @@
        var val = $('#search').val();
 
        var q   = val.toLowerCase();
+
+       alert(q);
 
        window.location.href = "<?php echo base_url()?>patients/searchResult/"+q;
 
