@@ -12,6 +12,7 @@
     display: inline;
     z-index: 1;
     width: 60px;
+    height: 45px;
   }
 
   #historyeditor,#investigationeditor,#editor {
@@ -161,7 +162,6 @@
   include_once __DIR__ . '/panel/exam.php';
   include_once __DIR__ . '/panel/diagnosis.php';
   include_once __DIR__ . '/panel/rx.php';   
-  // include_once __DIR__ . '/panel/invoice.php';
   
   ?>
 </div>
@@ -172,114 +172,53 @@
 
     $('#collapseCom,#collapseHis,#collapseInv,#collapseEx,#collapseDia').trigger('click');
 
-        // $("#addDrug").attr("href", "javascript:void(0);");
-        // $("#addPres").attr("href", "javascript:void(0);");
-
-        $("#addDrug").click(function() {
-
-           if(!countVisit.called){
-
-             alert("Save the data first or you will lose it");
-
-           }
-
-        })
-
-        $("#addPres").click(function() {
-
-           if(!countVisit.called){
-
-             alert("Save the data first or you will lose it");
-
-           }
-
-           
-        })
-
-
+  
     });
 
-   $(function () {
-  var $textareas = $('textarea');
+        $(function () {
 
-  $textareas.on('input', autosize);
+        var $textareas = $('textarea');
 
-  function autosize() {
-    var $this = $(this);
+          $textareas.on('input', autosize);
 
-    $this
-      .css({height: 'auto'})
-      .css({height: $this.prop('scrollHeight')});
-  }
-});
+          function autosize() {
+            var $this = $(this);
+
+            $this
+              .css({height: 'auto'})
+              .css({height: $this.prop('scrollHeight')});
+          }
+        });
+
+        $('#addDrug').addClass('disabled');
+        $('#addPres').addClass('disabled');
+
    
-
         $("#save").on('click',function(){
 
            var checked =  $("input[name='diagnosis[]']").is(":checked");
             
-            if(($("#editor").val()).length == 22 || ($("#editor").val()).length == 0) {
-             
-             //coming soon
-               
-            }else{
-                saveComplaint();
-                $("#editor").val('');
-                
-
-            }
-          
-            if(($("#historyeditor").val()).length == 0){
-
-              //coming soon
-
-            }else{
+              saveComplaint();
+              $("#editor").val('');
+        
               saveHistory();
               $("#historyeditor").val('');
-
-              
-            }
-
-            if(($("#investigationeditor").val()).length == 0){
-
-              //coming soon
-               
-
-            }else{
 
               saveInvestigation();
               $("#investigationeditor").val('');
 
-
-            }
-              
-             if(($("#s_bp").val()).length == 0 || ($("#d_bp").val()).length == 0){
-                  
-              //coming soon
-
-             }else{
-
-               saveExamination();
-               $("input[type=text]").val('');
-             }
-             
-             if(checked != false){
-
-              //coming soon
-              
+              saveExamination();
+              $("input[type=text]").val('');
+            
               saveDiagnosis();
               $("input[type=checkbox]").prop('checked',false);
 
-             }else{
+              countVisit();
 
-             }
+              alert("Data has been saved. Continue to medicine assigning");
 
-             countVisit();
-
-             alert("Data has been saved. Continue to medicine assigning");
-
-             // $("#addDrug").attr("href","<?php echo base_url('pharmacy/search/'.$patient_data['id']);?>");
-             // $("#addPres").attr("href","<?php echo base_url('pharmacy/prescription/'.$patient_data['id']);?>");
+              $('#addDrug').removeClass('disabled');
+              $('#addPres').removeClass('disabled');
 
         })
 
@@ -347,14 +286,9 @@
 
             $.post($('#visitbox').attr('action'),$('#visitbox').serialize(),
               function(data){
-
-                
-
               });
 
             countVisit.called = true;
-
-            
         }
 	  </script>	
 </div>
