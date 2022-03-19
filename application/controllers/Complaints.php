@@ -41,9 +41,6 @@ class Complaints extends Admin_Controller
 			$this->model_complaints->load($this->model_complaints->id);
 			$this->data['complaint'] = $this->model_complaints;
 			$this->load->view('patients/complaint',$this->data);
-		 }else{
-
-		 	// echo "Complaint cannot be empty";
 		 }
 
 	}
