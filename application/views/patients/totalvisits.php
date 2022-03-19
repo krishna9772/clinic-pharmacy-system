@@ -102,7 +102,6 @@
 
 
           var serries = JSON.parse(`<?php echo $chart_data; ?>`);
-          console.log(serries);
           var data = serries,
             config = {
               data: data,
