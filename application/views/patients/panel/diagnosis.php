@@ -54,18 +54,6 @@ ul.checkbox li label {
         
       });
 
-      // $("#savediag").click(function(){
-
-      // 	 $.post($('#diagbox').attr('action'),$('#diagbox').serialize(),
-      // 	 	function(data){
-
-      //       $('#diagnosisGroup').prepend(data);
-      //       $('#diagnosis').val('');
-      // 	 	});
-      //    return false;
-
-      // });
-
       $("#diagnosisGroup span > i >  a").on('click',diagnosisAction);
          
       function diagnosisAction(e)
