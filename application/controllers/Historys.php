@@ -43,7 +43,7 @@ class Historys extends Admin_Controller
 		 $this->load->view('patients/history',$this->data);
 		 }else{
 
-		 	echo "Field cannot be empty";
+		 	// echo "Field cannot be empty";
 		 }
 
 	}

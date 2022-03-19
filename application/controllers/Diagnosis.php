@@ -43,13 +43,10 @@ class Diagnosis extends Admin_Controller
                 echo '<label for="'.$this->model_diagnosis->name.'">'.$this->model_diagnosis->name.'</label></li> ';
 
                 return;
-        	}else{
-
-        		echo '<script type="text/javascript">alert("Field cannot be empty")</script>';
         	}
         }else{
 
-        	echo 'Sorry';
+        	echo 'Something went wrong sorry';
         }
 
     }
@@ -59,10 +56,10 @@ class Diagnosis extends Admin_Controller
 
         if($this->input->post()){
         
-         $this->form_validation->set_rules(array(
-        array( 'field' => 'patient_id', 'label' => 'Patient ID', 'rules' => 'required|is_numeric', ),
-        array( 'TOS' => 'diagnosis', 'label' => 'Diagnosis', 'rules' => 'required|is_required', ),
-    ));
+            $this->form_validation->set_rules(array(
+                array( 'field' => 'patient_id', 'label' => 'Patient ID', 'rules' => 'required|is_numeric', ),
+                array( 'TOS' => 'diagnosis', 'label' => 'Diagnosis', 'rules' => 'required|is_required', ),
+            ));
 
         if($this->form_validation->run() == TRUE){
 
@@ -75,7 +72,7 @@ class Diagnosis extends Admin_Controller
 
         }
 
-    }
+    } 
 
 }
 
