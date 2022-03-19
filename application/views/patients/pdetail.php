@@ -64,7 +64,7 @@
           <span class="badge badge-success">Registered On:  <?php echo $patient_data['created_date'];?></span>
           
         </div>
-       <div class="col col-xs-2">
+        <div class="col col-xs-2">
             <?php
 
             $status = '';
@@ -106,14 +106,12 @@
   <li><a href="#history" data-toggle="tab">History <?php echo ($history_count != 0) ? '<span class="badge badge-light" id="history_count">'.$history_count.'</span>' : ''; ?></a></li>
   <li><a href="#diagnosis" data-toggle="tab">Diagnosis <?php echo ($diagnosis_count != 0) ? '<span class="badge badge-light" id="diagnosis_count">'.$diagnosis_count.'</span>' : ''; ?></a></li>
   <li><a href="#investigation" data-toggle="tab">Investigation <?php echo ($investigation_count != 0) ? '<span class="badge badge-light" id="investigation_count">'.$investigation_count.'</span>' : ''; ?></a></li>
-  <li><a href="#rx" data-toggle="tab"><img src="<?php echo base_url();?>/assets/images/rx_logo.png" width="20px" height="20px"></a></li> 
+  <li><a href="#rx" data-toggle="tab"><img src="<?php echo base_url();?>assets/images/RX_logo.png" width="20px" height="20px"></a></li> 
 </ul>
 
 <section class='content'>
 
  <div class="tab-content">
-
-
 
   <?php
   include_once __DIR__ . '/detail/investigation.php';
